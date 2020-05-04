@@ -1,3 +1,8 @@
+#	.PHONY == defines that the command is not creating any files
+#	$@ == the name of the command and the file that I create. (The stuff before : )
+#	$< == the .cpp file
+#	$^ == use all files above
+
 CXX			= g++
 CXXFLAGS	= -std=c++17 -Wall -pedantic -g -O3
 LDLIBS		= -lSDL2 -lSDL2_image
