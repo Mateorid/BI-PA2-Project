@@ -265,6 +265,7 @@ modules.xml
 
 ### CMake ###
 CMakeLists.txt.user
+CMakeLists.txt
 CMakeCache.txt
 CMakeFiles
 CMakeScripts
@@ -275,7 +276,7 @@ compile_commands.json
 CTestTestfile.cmake
 _deps
 
-tank
+arkanoid
 obj/
 ### CMake Patch ###
 # External projects
