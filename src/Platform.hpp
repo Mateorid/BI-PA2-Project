@@ -2,11 +2,12 @@
 
 
 #include "GameObject.hpp"
+#include "Lives.hpp"
 #include "Settings.hpp"
 
 class Platform : public GameObject {
 public:
-    Platform(const char * ID, const char *textureDest, SDL_Renderer *renderer);
+    Platform(const char *ID, const char *textureDest, SDL_Renderer *renderer, Lives *lives);
 
     void Init() override;
 
@@ -21,8 +22,5 @@ public:
     int getPlatY() { return destR.y; };
 
 private:
+    Lives *lives;
 };
-
-
-
-

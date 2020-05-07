@@ -1,8 +1,9 @@
 #include "Ball.hpp"
 #include "TextureLoader.hpp"
 
-Ball::Ball(const char *ID, const char *textureDest, SDL_Renderer *renderer) {
+Ball::Ball(const char *ID, const char *textureDest, SDL_Renderer *renderer, Lives *lives) {
     this->ID = ID;
+    this->lives = lives;
     objTexture = CTextureLoader::LoadTexture(textureDest, renderer);
     verSpeed = 5;
     horSpeed = 5;
@@ -21,24 +22,57 @@ void Ball::Init(SDL_Renderer *renderer, int platformX) {
         /**Random direction*/
         srand(time(nullptr));
         dirX = (std::rand() % 2) ? -1 : 1;
-        collider = new CollisionModel(destR.x, destR.y, destR.h, destR.w);
+
         active = true;
     }
 }
 
 void Ball::Update() {
+    /**Border control*/
     if (active) {
-        destR.x += (dirX * (int) verSpeed);
-        destR.y += (dirY * (int) horSpeed);
+        destR.x += (dirX * verSpeed);
+        destR.y += (dirY * horSpeed);
         if (destR.x <= 0)
             dirX *= -1;
         if (destR.x >= GAME_WIDTH - BALL_SIZE)
             dirX *= -1;
         if (destR.y <= 0)
             dirY *= -1;
+        if (destR.y >= GAME_HEIGHT - BALL_SIZE) {
+            std::cout << "Lost life" << std::endl;    //todo
+            lives->LoseLife();
+            active = false;
+        }
     }
 }
 
-void Ball::CollisionDetector() {
-
+void Ball::Collided(Direction dir) {
+    if (dir == NONE)
+        return;
+    if (dir == TOP || dir == BOT) {
+        dirY *= -1;
+        return;
+    } else {
+        dirX *= -1;
+        return;
+    }
+    //TODO delete
+//    switch (dir) {
+//        case NONE:
+//            return;
+//        case TOP:
+//            dirY *= -1;
+//            return;
+//        case BOT:
+//            dirY *= -1;
+//            return;
+//        case LEFT:
+//            dirX *= -1;
+//            return;
+//        case RIGHT:
+//            dirX *= -1;
+//            return;
+//        default:
+//            return;
+//    }
 }

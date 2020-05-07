@@ -11,7 +11,7 @@ const int MAX_FPS = 100;
 /**Start game in fullscreen*/
 const bool START_FULLSCREEN = false;
 /**How many lives you start with*/
-const int MAX_LIVES = 100;
+const int MAX_LIVES = 3;
 /**Destination of ball source image*/
 const char *const BALL_SRC = "src/textures/ball.png";
 /**Ball texture size*/
@@ -30,3 +30,7 @@ const char *const LVL1_SRC = "src/textures/green.png";
 const char *const LVL2_SRC = "src/textures/blue.png";
 /**Destination of lvl3 block image*/
 const char *const LVL3_SRC = "src/textures/pink.png";
+/**Different game object types*/
+enum GOType {
+    PLATFORM, BALL, BLOCK, BONUS
+};

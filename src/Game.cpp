@@ -31,9 +31,10 @@ int Game::initialize(const char *title, int xPos, int yPos, int width, int heigh
         return 3;
     }
     /**Creating and inserting the platform and ball objects*/
-    platform = new Platform("Platform", PLATFORM_SRC, MainRenderer);
+    lives = new Lives(1); //todo
+    platform = new Platform("Platform", PLATFORM_SRC, MainRenderer, lives);
     gameObjects.push_back(platform);
-    ball = new Ball("Ball1", BALL_SRC, MainRenderer);
+    ball = new Ball("Ball1", BALL_SRC, MainRenderer, lives);
     gameObjects.push_back(ball);
 
 
@@ -44,9 +45,13 @@ int Game::initialize(const char *title, int xPos, int yPos, int width, int heigh
 int Game::play() {
     while (isRunning) {
         frameTicks = SDL_GetTicks();
-
+        if (lives->GetLives() == 0) {
+            std::cout << "GAME OVER" << std::endl;
+            isRunning = false;
+        }
         handleEvents();
         updateAll();
+        Collisions();
         renderAll();
 
         frameDelta = SDL_GetTicks() - frameTicks;
@@ -84,7 +89,20 @@ void Game::handleEvents() {
     }
 }
 
+void Game::Collisions() {
+    for (auto it:gameObjects) {
+        if (it->GetType() == BONUS) //TODO if we want to implement speed over time
+            platform->Collided(platform->CollisionDetection(it));
+        else if (it->GetType() != BALL)
+            ball->Collided(ball->CollisionDetection(it));
+        if (it->GetType() == BLOCK) {
+            it->Collided(it->CollisionDetection(ball));
+        }
+    }
+}
+
 void Game::updateAll() {
+
     for (auto it:gameObjects) {
         it->Update();
     }
@@ -99,6 +117,9 @@ void Game::renderAll() {
 }
 
 void Game::cleanAll() {
+    for (auto it:gameObjects) {
+        it->Destroy();
+    }
     SDL_DestroyRenderer(MainRenderer);
     SDL_DestroyWindow(MainWindow);
     IMG_Quit();

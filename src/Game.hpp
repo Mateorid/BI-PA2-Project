@@ -10,6 +10,7 @@
 #include "GameObject.hpp"
 #include "Platform.hpp"
 #include "Ball.hpp"
+#include "Lives.hpp"
 
 class Game {
 public:
@@ -17,11 +18,14 @@ public:
 
     ~Game() = default;
 
+
     int initialize(const char *title, int xPos, int yPos, int width, int height, bool fullscreen);
 
     int play();
 
     void handleEvents();
+
+    void Collisions();
 
     void updateAll();
 
@@ -29,13 +33,11 @@ public:
 
     void cleanAll();
 
-    bool running() const { return isRunning; }
-
 private:
     std::vector<GameObject *> gameObjects;//TODO: remove by using swap and pop_back(https://gamedev.stackexchange.com/questions/33888/what-is-the-most-efficient-container-to-store-dynamic-game-objects-in)
     Platform *platform{};
     Ball *ball{};
-    int lives = MAX_LIVES;
+    Lives *lives{};
     const Uint32 frameDelay = 1000 / MAX_FPS;
     Uint32 frameTicks{};
     Uint32 frameDelta{};
