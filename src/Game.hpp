@@ -35,6 +35,7 @@ private:
     std::vector<GameObject *> gameObjects;//TODO: remove by using swap and pop_back(https://gamedev.stackexchange.com/questions/33888/what-is-the-most-efficient-container-to-store-dynamic-game-objects-in)
     Platform *platform{};
     Ball *ball{};
+    int lives = MAX_LIVES;
     const Uint32 frameDelay = 1000 / MAX_FPS;
     Uint32 frameTicks{};
     Uint32 frameDelta{};

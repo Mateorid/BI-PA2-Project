@@ -31,9 +31,9 @@ int Game::initialize(const char *title, int xPos, int yPos, int width, int heigh
         return 3;
     }
     /**Creating and inserting the platform and ball objects*/
-    platform = new Platform(PLATFORM_SRC, MainRenderer);
+    platform = new Platform("Platform", PLATFORM_SRC, MainRenderer);
     gameObjects.push_back(platform);
-    ball = new Ball(BALL_SRC, MainRenderer);
+    ball = new Ball("Ball1", BALL_SRC, MainRenderer);
     gameObjects.push_back(ball);
 
 
@@ -54,6 +54,7 @@ int Game::play() {
             SDL_Delay(frameDelay - frameDelta);
         }
     }
+
     cleanAll();
     return 0;
 }
@@ -65,6 +66,9 @@ void Game::handleEvents() {
         isRunning = false;
     if (events.type == SDL_KEYDOWN) {       //Keypress handling
         switch (events.key.keysym.sym) {
+            case SDLK_SPACE:
+                ball->Init(MainRenderer, platform->getPlatX());
+                break;
             case SDLK_LEFT:
                 platform->MoveLeft();
                 break;
@@ -81,11 +85,9 @@ void Game::handleEvents() {
 }
 
 void Game::updateAll() {
-    std::cout << "GAME::updateALL" << std::endl;      //TODO: delete
     for (auto it:gameObjects) {
         it->Update();
     }
-
 }
 
 void Game::renderAll() {

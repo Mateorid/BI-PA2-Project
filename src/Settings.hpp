@@ -10,6 +10,8 @@ const int GAME_HEIGHT = 800;
 const int MAX_FPS = 100;
 /**Start game in fullscreen*/
 const bool START_FULLSCREEN = false;
+/**How many lives you start with*/
+const int MAX_LIVES = 100;
 /**Destination of ball source image*/
 const char *const BALL_SRC = "src/textures/ball.png";
 /**Ball texture size*/

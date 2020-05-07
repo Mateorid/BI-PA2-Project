@@ -1,21 +1,19 @@
 #include "GameObject.hpp"
+
 #include "TextureLoader.hpp"
 
 
-GameObject::GameObject(const char *textureDest, SDL_Renderer *renderer, int xPosition, int yPosition) {
-    xPos = xPosition;
-    yPos = yPosition;
+GameObject::GameObject(const char *ID, const char *textureDest, SDL_Renderer *renderer, int xPosition, int yPosition) {
+    this->ID = ID;
+    destR.x = xPosition;
+    destR.y = yPosition;
     objRenderer = renderer;
     objTexture = CTextureLoader::LoadTexture(textureDest, renderer);
+    collider = new CollisionModel(xPosition, yPosition, 0, 0);
 }
 
 GameObject::~GameObject() {
-    //TODO?
-}
-
-void GameObject::Update() {
-    destR.x = xPos;
-    destR.y = yPos;
+    delete collider;
 }
 
 void GameObject::Render() {

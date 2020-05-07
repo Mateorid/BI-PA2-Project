@@ -6,16 +6,21 @@
 
 class Platform : public GameObject {
 public:
-    Platform(const char *textureDest, SDL_Renderer *renderer);
+    Platform(const char * ID, const char *textureDest, SDL_Renderer *renderer);
+
+    void Init() override;
 
 //    void Update() override;
 
-    void MoveLeft();    //todo: make moving slower/faster when bonus is active (depending on int)
+    void MoveLeft() override;    //todo: make moving slower/faster when bonus is active (depending on int)
 
-    void MoveRight();
+    void MoveRight() override;
+
+    int getPlatX() { return destR.x; };
+
+    int getPlatY() { return destR.y; };
 
 private:
-
 };
 
 
