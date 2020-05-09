@@ -32,10 +32,17 @@ int Game::initialize(const char *title, int xPos, int yPos, int width, int heigh
     }
     /**Creating and inserting the platform and ball objects*/
     lives = new Lives(1); //todo
-    platform = new Platform("Platform", PLATFORM_SRC, MainRenderer, lives);
+    platform = new Platform("Platform", MainRenderer, lives);
     gameObjects.push_back(platform);
-    ball = new Ball("Ball1", BALL_SRC, MainRenderer, lives);
+    ball = new Ball("Ball1", MainRenderer, lives);
     gameObjects.push_back(ball);
+
+    block = new Block("tmpBlock1", MainRenderer, 1, 300, 10);
+    gameObjects.push_back(block);
+    block2 = new Block("tmpBlock2", MainRenderer, 2, 300, 100);
+    gameObjects.push_back(block2);
+    block3 = new Block("tmpBlock3", MainRenderer, 3, 300, 160);
+    gameObjects.push_back(block3);
 
 
     isRunning = true;
@@ -102,10 +109,10 @@ void Game::Collisions() {
 }
 
 void Game::updateAll() {
-
     for (auto it:gameObjects) {
         it->Update();
     }
+    //todo update returning bool if its still active => delete if not (using the method .h)
 }
 
 void Game::renderAll() {

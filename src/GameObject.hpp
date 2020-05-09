@@ -3,7 +3,6 @@
 #include <SDL2/SDL.h>
 #include <string>
 #include <iostream>
-#include "CollisionModel.hpp"
 #include "Settings.hpp"
 
 enum Direction {
@@ -38,14 +37,14 @@ public:
 
     GOType GetType() const { return type; }
 
-    void Render();
+    virtual void Render();
 
     SDL_Rect srcR{}, destR{}; //TODO: delete srdR add only in block class
 protected:
     std::string ID{};
-    bool active{};
-    int verSpeed = 0.0; //TODO to int if not using speed up over time
-    int horSpeed = 0.0;
+    bool active = false;
+    int verSpeed = 0; //TODO to int if not using speed up over time
+    int horSpeed = 0;
     GOType type;
     SDL_Texture *objTexture{};
     SDL_Renderer *objRenderer{};

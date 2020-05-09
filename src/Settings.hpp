@@ -24,12 +24,14 @@ const int PLATFORM_W = 91;
 /**Block texture size*/
 const int BLOCK_H = 22;
 const int BLOCK_W = 50;
-/**Destination of lvl1 block source image*/
-const char *const LVL1_SRC = "src/textures/green.png";
-/**Destination of lvl2 block image*/
-const char *const LVL2_SRC = "src/textures/blue.png";
-/**Destination of lvl3 block image*/
-const char *const LVL3_SRC = "src/textures/pink.png";
+/**Destination of block source image*/
+const char *const BLOCK_SRC = "src/textures/block.png";
+///**Destination of lvl1 block source image*/
+//const char *const LVL1_SRC = "src/textures/green.png";
+///**Destination of lvl2 block image*/
+//const char *const LVL2_SRC = "src/textures/blue.png";
+///**Destination of lvl3 block image*/
+//const char *const LVL3_SRC = "src/textures/pink.png";
 /**Different game object types*/
 enum GOType {
     PLATFORM, BALL, BLOCK, BONUS

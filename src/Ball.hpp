@@ -9,7 +9,7 @@
 
 class Ball : public GameObject {
 public:
-    Ball(const char *ID, const char *textureDest, SDL_Renderer *renderer, Lives *lives);
+    Ball(const char *ID, SDL_Renderer *renderer, Lives *lives);
 
     void Init(SDL_Renderer *renderer, int platformX);
 

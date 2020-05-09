@@ -1,11 +1,12 @@
 #include "Platform.hpp"
 #include "TextureLoader.hpp"
 
-Platform::Platform(const char *ID, const char *textureDest, SDL_Renderer *renderer, Lives *lives) {
+Platform::Platform(const char *ID, SDL_Renderer *renderer, Lives *lives) {
     this->ID = ID;
     this->lives = lives;
+    type = PLATFORM;
     objRenderer = renderer;
-    objTexture = CTextureLoader::LoadTexture(textureDest, renderer);
+    objTexture = CTextureLoader::LoadTexture(PLATFORM_SRC, renderer);
     verSpeed = 8;
     Init();
     active = true;

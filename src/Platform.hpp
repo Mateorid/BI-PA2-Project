@@ -7,7 +7,7 @@
 
 class Platform : public GameObject {
 public:
-    Platform(const char *ID, const char *textureDest, SDL_Renderer *renderer, Lives *lives);
+    Platform(const char *ID, SDL_Renderer *renderer, Lives *lives);
 
     void Init() override;
 

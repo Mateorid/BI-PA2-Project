@@ -11,6 +11,8 @@
 #include "Platform.hpp"
 #include "Ball.hpp"
 #include "Lives.hpp"
+#include "Block.hpp"
+
 
 class Game {
 public:
@@ -38,6 +40,9 @@ private:
     Platform *platform{};
     Ball *ball{};
     Lives *lives{};
+    Block *block{};
+    Block *block2{};
+    Block *block3{};
     const Uint32 frameDelay = 1000 / MAX_FPS;
     Uint32 frameTicks{};
     Uint32 frameDelta{};
