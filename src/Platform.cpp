@@ -1,12 +1,11 @@
 #include "Platform.hpp"
-#include "TextureLoader.hpp"
 
 Platform::Platform(const char *ID, SDL_Renderer *renderer, Lives *lives) {
     this->ID = ID;
     this->lives = lives;
     type = PLATFORM;
     objRenderer = renderer;
-    objTexture = CTextureLoader::LoadTexture(PLATFORM_SRC, renderer);
+    objTexture = IMG_LoadTexture(renderer, PLATFORM_SRC);
     verSpeed = 8;
     Init();
     active = true;
@@ -29,4 +28,10 @@ void Platform::MoveLeft() {
 void Platform::MoveRight() {
     if ((destR.x + PLATFORM_W) <= GAME_WIDTH)
         destR.x += (int) verSpeed;
+}
+
+void Platform::Collided(Direction dir) {
+    if (dir == NONE)
+        return;
+    std::cout << "BONUS PICKUP" << std::endl;
 }

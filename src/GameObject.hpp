@@ -3,6 +3,8 @@
 #include <SDL2/SDL.h>
 #include <string>
 #include <iostream>
+#include <SDL2/SDL_image.h>
+
 #include "Settings.hpp"
 
 enum Direction {
@@ -34,6 +36,8 @@ public:
 //    Direction AABB(int x, int y, int otherX, int otherY);
 
     std::string GetID() const { return ID; }
+
+    bool GetActive() const { return active; }
 
     GOType GetType() const { return type; }
 

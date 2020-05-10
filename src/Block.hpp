@@ -1,8 +1,6 @@
 #pragma once
 
-
 #include "GameObject.hpp"
-#include "TextureLoader.hpp"
 #include "Settings.hpp"
 
 
@@ -20,7 +18,6 @@ public:
 
 private:
     int level;
-
 };
 
 

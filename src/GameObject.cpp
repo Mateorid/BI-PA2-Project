@@ -1,14 +1,12 @@
 #include "GameObject.hpp"
 
-#include "TextureLoader.hpp"
-
 
 GameObject::GameObject(const char *ID, const char *textureDest, SDL_Renderer *renderer, int xPosition, int yPosition) {
     this->ID = ID;
     destR.x = xPosition;
     destR.y = yPosition;
     objRenderer = renderer;
-    objTexture = CTextureLoader::LoadTexture(textureDest, renderer);
+    objTexture = IMG_LoadTexture(renderer, textureDest);
 }
 
 GameObject::~GameObject() {}

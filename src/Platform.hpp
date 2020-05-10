@@ -17,6 +17,8 @@ public:
 
     void MoveRight() override;
 
+    void Collided(Direction dir) override;
+
     int getPlatX() { return destR.x; };
 
     int getPlatY() { return destR.y; };

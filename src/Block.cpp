@@ -5,7 +5,7 @@ Block::Block(const char *ID, SDL_Renderer *renderer, int lvl, int x, int y) {
     level = lvl;
     type = BLOCK;
     objRenderer = renderer;
-    objTexture = CTextureLoader::LoadTexture(BLOCK_SRC, renderer);
+    objTexture = IMG_LoadTexture(renderer, BLOCK_SRC);
     destR.x = x;
     destR.y = y;
     destR.h = BLOCK_H;
@@ -26,10 +26,9 @@ void Block::Hit() {
 
 void Block::UpdateTexture(int lvl) {
     srcR.y = 0;
-    srcR.x = lvl == 1 ? 0 : 0 + ((lvl - 1) * BLOCK_W); //Set the starting point of the texture according to the lvl
+    srcR.x = lvl == 1 ? 0 : 0 + ((lvl - 1) * BLOCK_W); //Sets the texture according to the lvl
     srcR.h = BLOCK_H;
     srcR.w = BLOCK_W;
-
 }
 
 void Block::Render() {
@@ -39,7 +38,6 @@ void Block::Render() {
 void Block::Collided(Direction dir) {
     if (dir == NONE)
         return;
-    else
-        Hit();
+    Hit();
     std::cout << "HIT" << std::endl;
 }

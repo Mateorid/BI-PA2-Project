@@ -5,48 +5,49 @@
 #include <iostream>
 #include <vector>
 
-#include "Game.hpp"
 #include "Settings.hpp"
 #include "GameObject.hpp"
 #include "Platform.hpp"
 #include "Ball.hpp"
 #include "Lives.hpp"
 #include "Block.hpp"
+#include "Map.hpp"
+#include "Bonus.hpp"
 
 
 class Game {
 public:
+    /**
+     * @throws std::runtime_error if SDL failed to initialise
+     */
     Game();
 
     ~Game() = default;
 
 
-    int initialize(const char *title, int xPos, int yPos, int width, int height, bool fullscreen);
+    int Initialize(const char *title, int xPos, int yPos, int width, int height, bool fullscreen);
 
-    int play();
+    int Play();
 
-    void handleEvents();
+    void HandleEvents();
 
     void Collisions();
 
-    void updateAll();
+    void UpdateAll();
 
-    void renderAll();
+    void RenderAll();
 
-    void cleanAll();
+    void CleanAll();
 
 private:
     std::vector<GameObject *> gameObjects;//TODO: remove by using swap and pop_back(https://gamedev.stackexchange.com/questions/33888/what-is-the-most-efficient-container-to-store-dynamic-game-objects-in)
     Platform *platform{};
     Ball *ball{};
     Lives *lives{};
-    Block *block{};
-    Block *block2{};
-    Block *block3{};
-    const Uint32 frameDelay = 1000 / MAX_FPS;
+    Map *gameMap{};
+    bool isRunning = false;
     Uint32 frameTicks{};
     Uint32 frameDelta{};
-    bool isRunning{};
-    SDL_Window *MainWindow{};
-    SDL_Renderer *MainRenderer{};
+    SDL_Window *mainWindow{};
+    SDL_Renderer *mainRenderer{};
 };

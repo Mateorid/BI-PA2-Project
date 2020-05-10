@@ -2,5 +2,5 @@
 
 int main(int argc, char *argv[]) {
     Game *game = new Game();
-    return game->play();
+    return game->Play();
 }

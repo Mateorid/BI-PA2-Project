@@ -1,10 +1,9 @@
 #include "Ball.hpp"
-#include "TextureLoader.hpp"
 
 Ball::Ball(const char *ID, SDL_Renderer *renderer, Lives *lives) {
     this->ID = ID;
     this->lives = lives;
-    objTexture = CTextureLoader::LoadTexture(BALL_SRC, renderer);
+    objTexture = IMG_LoadTexture(renderer, BALL_SRC);
     verSpeed = 5;
     horSpeed = 5;
     destR.x = 1;

@@ -1,11 +1,12 @@
 #pragma once
 
 
+#include <iostream>
+#include <ctime>
+
 #include "GameObject.hpp"
 #include "Settings.hpp"
 #include "Lives.hpp"
-#include <iostream>
-#include <ctime>
 
 class Ball : public GameObject {
 public:
