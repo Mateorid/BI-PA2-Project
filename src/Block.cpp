@@ -14,12 +14,24 @@ Block::Block(const char *ID, SDL_Renderer *renderer, int lvl, int x, int y) {
     active = true;
 }
 
+void Block::Destroy() {
+    active = false;
+    SDL_DestroyTexture(objTexture);
+}
+
+void Block::Collided(Direction dir) {
+    if (dir == NONE)
+        return;
+    Hit();
+    std::cout << "HIT" << std::endl;
+}
+
 void Block::Hit() {
     //todo
     level--;
     if (level == 0) {
-//        GameObject::Destroy();
-        active = false;
+        Destroy();
+        return;
     }
     UpdateTexture(level);
 }
@@ -33,11 +45,4 @@ void Block::UpdateTexture(int lvl) {
 
 void Block::Render() {
     SDL_RenderCopy(objRenderer, objTexture, &srcR, &destR);
-}
-
-void Block::Collided(Direction dir) {
-    if (dir == NONE)
-        return;
-    Hit();
-    std::cout << "HIT" << std::endl;
 }

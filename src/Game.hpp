@@ -18,7 +18,7 @@
 class Game {
 public:
     /**
-     * @throws std::runtime_error if SDL failed to initialise
+     * @throws std::runtime_error if SDL fails to initialise
      */
     Game();
 
@@ -40,7 +40,7 @@ public:
     void CleanAll();
 
 private:
-    std::vector<GameObject *> gameObjects;//TODO: remove by using swap and pop_back(https://gamedev.stackexchange.com/questions/33888/what-is-the-most-efficient-container-to-store-dynamic-game-objects-in)
+    std::vector<GameObject *> gameObjects;
     Platform *platform{};
     Ball *ball{};
     Lives *lives{};

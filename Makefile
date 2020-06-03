@@ -6,7 +6,7 @@
 
 CXX			= g++
 CXXFLAGS	= -std=c++14 -Wall -pedantic -g -O3
-LDLIBS		= -lSDL2 -lSDL2_image #-lSDL2_ttf
+LDLIBS		= -lSDL2 -lSDL2_image -lSDL2_ttf
 DEST_DIR	= obj
 TARGET		= arkanoid
 

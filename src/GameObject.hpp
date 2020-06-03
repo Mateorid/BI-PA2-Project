@@ -27,9 +27,9 @@ public:
 
     virtual void MoveRight() {};
 
-    void Destroy() { SDL_DestroyTexture(objTexture); }
+    virtual void Destroy() { SDL_DestroyTexture(objTexture); }
 
-    Direction CollisionDetection(GameObject *object) const;
+    Direction CollisionDetection(GameObject *object);
 
     virtual void Collided(Direction dir) {};
 
@@ -37,7 +37,9 @@ public:
 
     std::string GetID() const { return ID; }
 
-    bool GetActive() const { return active; }
+    bool IsActive() const { return active; }
+
+    virtual bool ToDelete() const { return !active; }
 
     GOType GetType() const { return type; }
 
@@ -46,6 +48,7 @@ public:
     SDL_Rect srcR{}, destR{}; //TODO: delete srdR add only in block class
 protected:
     std::string ID{};
+    bool isColliding = false;
     bool active = false;
     int verSpeed = 0; //TODO to int if not using speed up over time
     int horSpeed = 0;

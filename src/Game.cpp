@@ -31,7 +31,7 @@ int Game::Initialize(const char *title, int xPos, int yPos, int width, int heigh
         return 3;
     }
     /**Creating and inserting the platform and ball objects*/
-    lives = new Lives(1); //todo
+    lives = new Lives(10); //todo
     platform = new Platform("Platform", mainRenderer, lives);
     gameObjects.push_back(platform);
     ball = new Ball("Ball1", mainRenderer, lives);
@@ -111,17 +111,23 @@ void Game::Collisions() {
 }
 
 void Game::UpdateAll() {
+    int tmpIt = 0;
     for (auto it:gameObjects) {
-        if (it->GetActive())
+        if (it->IsActive())
             it->Update();
+        else if (it->ToDelete()) {
+//            TODO: Add blocks left till win counter, (if BLOCK then toWin--)
+            gameObjects.erase(gameObjects.begin() + tmpIt);
+            std::cout << "DELETED SOMETHING" << std::endl;
+        }
+        tmpIt++;
     }
-    //todo update returning bool if its still active => delete if not (using the method in .h)
 }
 
 void Game::RenderAll() {
     SDL_RenderClear(mainRenderer);
     for (auto it:gameObjects) {
-        if (it->GetActive())
+        if (it->IsActive())
             it->Render();
     }
     SDL_RenderPresent(mainRenderer);        //Draws stuff in window
@@ -131,6 +137,7 @@ void Game::CleanAll() {
     for (auto it:gameObjects) {
         it->Destroy();
     }
+    gameObjects.clear();
     SDL_DestroyRenderer(mainRenderer);
     SDL_DestroyWindow(mainWindow);
     IMG_Quit();

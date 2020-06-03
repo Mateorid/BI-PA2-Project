@@ -8,6 +8,8 @@ class Block : public GameObject {
 public:
     Block(const char *ID, SDL_Renderer *renderer, int lvl, int x, int y);
 
+    void Destroy() override ;
+
     void Collided(Direction dir) override;
 
     void Hit();

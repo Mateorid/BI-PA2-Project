@@ -55,23 +55,4 @@ void Ball::Collided(Direction dir) {
         dirX *= -1;
         return;
     }
-    //TODO delete
-//    switch (dir) {
-//        case NONE:
-//            return;
-//        case TOP:
-//            dirY *= -1;
-//            return;
-//        case BOT:
-//            dirY *= -1;
-//            return;
-//        case LEFT:
-//            dirX *= -1;
-//            return;
-//        case RIGHT:
-//            dirX *= -1;
-//            return;
-//        default:
-//            return;
-//    }
 }

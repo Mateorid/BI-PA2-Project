@@ -18,7 +18,10 @@ public:
 
     void Collided(Direction dir) override;
 
+    bool ToDelete() const override { return toDelete; }; //TODO Override destroy bcs of this
+
 private:
+    bool toDelete = false;
     Lives *lives;
     int dirX = 0;
     int dirY = -1;
