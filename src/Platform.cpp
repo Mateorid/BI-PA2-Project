@@ -30,8 +30,6 @@ void Platform::MoveRight() {
         destR.x += (int) verSpeed;
 }
 
-void Platform::Collided(Direction dir) {
-    if (dir == NONE)
-        return;
-    std::cout << "BONUS PICKUP" << std::endl;
+bool Platform::Collided(Direction dir) {
+    return !(dir == NONE);
 }

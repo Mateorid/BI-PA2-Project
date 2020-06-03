@@ -16,7 +16,7 @@ void Ball::Init(SDL_Renderer *renderer, int platformX) {
         objRenderer = renderer;
         /**Sets destination*/
         destR.x = (platformX + (PLATFORM_W / 2) - (BALL_SIZE / 2));
-        destR.y = GAME_HEIGHT - PLATFORM_H - 50;
+        destR.y = GAME_HEIGHT - PLATFORM_H - 50 - 1;
         destR.h = destR.w = BALL_SIZE;
         /**Random direction*/
         srand(time(nullptr));
@@ -45,14 +45,14 @@ void Ball::Update() {
     }
 }
 
-void Ball::Collided(Direction dir) {
+bool Ball::Collided(Direction dir) {
     if (dir == NONE)
-        return;
+        return false;
     if (dir == TOP || dir == BOT) {
         dirY *= -1;
-        return;
+        return true;
     } else {
         dirX *= -1;
-        return;
+        return true;
     }
 }

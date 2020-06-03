@@ -31,9 +31,9 @@ public:
 
     Direction CollisionDetection(GameObject *object);
 
-    virtual void Collided(Direction dir) {};
+    virtual bool Collided(Direction dir) { active = false; return false; };
 
-//    Direction AABB(int x, int y, int otherX, int otherY);
+    virtual BonusType GetBonusType() const {};
 
     std::string GetID() const { return ID; }
 

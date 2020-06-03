@@ -19,11 +19,12 @@ void Block::Destroy() {
     SDL_DestroyTexture(objTexture);
 }
 
-void Block::Collided(Direction dir) {
+bool Block::Collided(Direction dir) {
     if (dir == NONE)
-        return;
+        return false;
     Hit();
     std::cout << "HIT" << std::endl;
+    return true;
 }
 
 void Block::Hit() {

@@ -16,9 +16,13 @@ public:
 
     void Update() override;
 
-    void Collided(Direction dir) override;
+    void SlowDown() { horSpeed = verSpeed = 3; }//TODO?
 
-    bool ToDelete() const override { return toDelete; }; //TODO Override destroy bcs of this
+    void SpeedUp() { horSpeed = verSpeed = 7; }
+
+    bool Collided(Direction dir) override;
+
+    bool ToDelete() const override { return toDelete; }; //TODO Override destroy bcs of this?
 
 private:
     bool toDelete = false;

@@ -10,7 +10,7 @@ public:
 
     void Destroy() override ;
 
-    void Collided(Direction dir) override;
+    bool Collided(Direction dir) override;
 
     void Hit();
 

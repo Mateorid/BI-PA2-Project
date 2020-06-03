@@ -28,6 +28,8 @@ const int BLOCK_H = 22;
 const int BLOCK_W = 50;
 /**Destination of block source image*/
 const char *const BLOCK_SRC = "examples/textures/block.png";
+/**Destination of bonus source image*/
+const char *const BONUS_SRC = "examples/textures/bonus.png";
 /**Different game object types*/
 enum GOType {
     PLATFORM, BALL, BLOCK, BONUS

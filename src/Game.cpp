@@ -37,9 +37,9 @@ int Game::Initialize(const char *title, int xPos, int yPos, int width, int heigh
     ball = new Ball("Ball1", mainRenderer, lives);
     gameObjects.push_back(ball);
     /**Tmp solution before I implement MapLoader*/
-    auto *block = new Block("tmpBlock1", mainRenderer, 1, 300, 10);
+    auto *block = new Block("tmpBlock1", mainRenderer, 3, 300, 10);
     gameObjects.push_back(block);
-    auto *block2 = new Block("tmpBlock2", mainRenderer, 2, 300, 100);
+    auto *block2 = new Block("tmpBlock2", mainRenderer, 3, 300, 100);
     gameObjects.push_back(block2);
     auto *block3 = new Block("tmpBlock3", mainRenderer, 3, 300, 160);
     gameObjects.push_back(block3);
@@ -99,10 +99,39 @@ void Game::HandleEvents() {
 }
 
 void Game::Collisions() {
+    Direction tmpDir;
+    BonusType tmpType;
     for (auto it:gameObjects) {
-        if (it->GetType() == BONUS) //TODO if we want to implement speed over time
-            platform->Collided(platform->CollisionDetection(it));
-        else if (it->GetType() != BALL)
+        if (it->GetType() == BONUS) { //TODO if we want to implement speed over time
+            tmpDir = platform->CollisionDetection(it);
+            if (platform->Collided(tmpDir)) {
+                tmpType = it->GetBonusType();
+                it->Destroy();
+
+                switch (tmpType) {
+                    case PLUS_LIFE:
+                        ++lives;
+                        break;
+                    case SLOW_BALL:
+                        ball->SlowDown();
+                        break;
+                    case SLOW_PLAT:
+                        //TODO
+                        break;
+                    case FAST_BALL:
+                        ball->SpeedUp();
+                        break;
+                    case FAST_PLAT:
+                        //TODO
+                        break;
+                    case SECOND_BALL:
+                        //TODO
+                        break;
+                    default:
+                        break;
+                }
+            }
+        } else if (it->GetType() != BALL)
             ball->Collided(ball->CollisionDetection(it));
         if (it->GetType() == BLOCK) {
             it->Collided(it->CollisionDetection(ball));

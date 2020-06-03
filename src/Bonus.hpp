@@ -12,7 +12,9 @@ public:
 
     void Init(int x, int y);
 
-    BonusType GetBonusType() const { return bonusType; }
+    BonusType GetBonusType() const override { return bonusType; }
+
+    void Render() override;
 
 private:
     BonusType bonusType;
