@@ -2,8 +2,10 @@ TODO Split game into application and game
 
 TODO fix collisions
 
-TODO Map loader
+TODO Map loader - use stringstream, create class, and separate game vs app
 
 TODO Bonus sprite
 
 TODO Implement winning/defeat screen
+
+TODO Move settings into separate classes

@@ -1,8 +1,7 @@
 #include "GameObject.hpp"
 
 
-GameObject::GameObject(const char *ID, const char *textureDest, SDL_Renderer *renderer, int xPosition, int yPosition) {
-    this->ID = ID;
+GameObject::GameObject(const char *textureDest, SDL_Renderer *renderer, int xPosition, int yPosition) {
     destR.x = xPosition;
     destR.y = yPosition;
     objRenderer = renderer;

@@ -31,21 +31,25 @@ int Game::Initialize(const char *title, int xPos, int yPos, int width, int heigh
         return 3;
     }
     /**Creating and inserting the platform and ball objects*/
-    lives = new Lives(10); //todo
-    platform = new Platform("Platform", mainRenderer, lives);
+    lives = new Lives(3); //TODO start_lives doesn't work? xd
+
+
+    gameMap = new Map("examples/map", mainRenderer);
+    gameObjects = gameMap->getBlocks();
+
+    platform = new Platform(mainRenderer, lives);
     gameObjects.push_back(platform);
-    ball = new Ball("Ball1", mainRenderer, lives);
+    ball = new Ball(mainRenderer, lives);
     gameObjects.push_back(ball);
     /**Tmp solution before I implement MapLoader*/
-    auto *block = new Block("tmpBlock1", mainRenderer, 3, 300, 10);
-    gameObjects.push_back(block);
-    auto *block2 = new Block("tmpBlock2", mainRenderer, 3, 300, 100);
-    gameObjects.push_back(block2);
-    auto *block3 = new Block("tmpBlock3", mainRenderer, 3, 300, 160);
-    gameObjects.push_back(block3);
-    auto *bonus = new Bonus(mainRenderer, 200, 20);
-    gameObjects.push_back(bonus);
-
+//    auto *block = new Block(mainRenderer, 3, 300, 10);
+//    gameObjects.push_back(block);
+//    auto *block2 = new Block(mainRenderer, 3, 300, 100);
+//    gameObjects.push_back(block2);
+//    auto *block3 = new Block(mainRenderer, 3, 300, 160);
+//    gameObjects.push_back(block3);
+//    auto *bonus = new Bonus(mainRenderer, 200, 20);
+//    gameObjects.push_back(bonus);
 
     isRunning = true;
     return 0;
@@ -104,11 +108,11 @@ void Game::Collisions() {
     for (auto it:gameObjects) {
         if (it->GetType() == BONUS) { //TODO if we want to implement speed over time
             tmpDir = platform->CollisionDetection(it);
-            if (platform->Collided(tmpDir)) {
+            if (platform->Collided(tmpDir)) {   //TODO remove the bool and figure out a better way to do this
                 tmpType = it->GetBonusType();
                 it->Destroy();
 
-                switch (tmpType) {
+                switch (tmpType) {  //TODO move this
                     case PLUS_LIFE:
                         ++lives;
                         break;

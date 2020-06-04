@@ -1,7 +1,6 @@
 #include "Block.hpp"
 
-Block::Block(const char *ID, SDL_Renderer *renderer, int lvl, int x, int y) {
-    this->ID = ID;
+Block::Block(SDL_Renderer *renderer, int lvl, int x, int y) {
     level = lvl;
     type = BLOCK;
     objRenderer = renderer;

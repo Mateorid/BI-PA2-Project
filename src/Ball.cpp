@@ -1,7 +1,6 @@
 #include "Ball.hpp"
 
-Ball::Ball(const char *ID, SDL_Renderer *renderer, Lives *lives) {
-    this->ID = ID;
+Ball::Ball(SDL_Renderer *renderer, Lives *lives) {
     this->lives = lives;
     objTexture = IMG_LoadTexture(renderer, BALL_SRC);
     verSpeed = 5;

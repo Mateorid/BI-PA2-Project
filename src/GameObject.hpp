@@ -15,7 +15,7 @@ class GameObject {
 public:
     GameObject() = default;
 
-    GameObject(const char *ID, const char *textureDest, SDL_Renderer *renderer, int xPosition, int yPosition);
+    GameObject(const char *textureDest, SDL_Renderer *renderer, int xPosition, int yPosition);
 
     ~GameObject();
 
@@ -35,8 +35,6 @@ public:
 
     virtual BonusType GetBonusType() const {};
 
-    std::string GetID() const { return ID; }
-
     bool IsActive() const { return active; }
 
     virtual bool ToDelete() const { return !active; }
@@ -47,7 +45,6 @@ public:
 
     SDL_Rect srcR{}, destR{}; //TODO: delete srdR add only in block class
 protected:
-    std::string ID{};
     bool isColliding = false;
     bool active = false;
     int verSpeed = 0; //TODO to int if not using speed up over time

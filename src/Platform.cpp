@@ -1,7 +1,6 @@
 #include "Platform.hpp"
 
-Platform::Platform(const char *ID, SDL_Renderer *renderer, Lives *lives) {
-    this->ID = ID;
+Platform::Platform(SDL_Renderer *renderer, Lives *lives) {
     this->lives = lives;
     type = PLATFORM;
     objRenderer = renderer;
