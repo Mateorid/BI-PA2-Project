@@ -37,21 +37,18 @@ void Ball::Update() {
         if (destR.y <= 0)
             dirY *= -1;
         if (destR.y >= GAME_HEIGHT - BALL_SIZE) {
-            std::cout << "Lost life" << std::endl;    //todo
+            std::cout << "Lost life" << std::endl;    //todo Add second ball check
             lives->LoseLife();
             active = false;
         }
     }
 }
 
-bool Ball::Collided(Direction dir) {
+void Ball::Collided(Direction dir) {
     if (dir == NONE)
-        return false;
-    if (dir == TOP || dir == BOT) {
+        return;
+    else if (dir == TOP || dir == BOT)
         dirY *= -1;
-        return true;
-    } else {
+    else
         dirX *= -1;
-        return true;
-    }
 }

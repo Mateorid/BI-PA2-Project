@@ -26,7 +26,7 @@ Map::Map(const std::string &filename, SDL_Renderer *renderer) {
 }
 
 void Map::InsertBlock(int lvl, SDL_Renderer *renderer) {
-    auto *tmpBlock = new Block(renderer, lvl, posX * BLOCK_W, posY * BLOCK_H); //todo fix
+    auto *tmpBlock = new Block(renderer, lvl, posX * BLOCK_WIDTH, posY * BLOCK_HEIGHT); //todo fix
     blocks.push_back(tmpBlock);
     posX++;
 }

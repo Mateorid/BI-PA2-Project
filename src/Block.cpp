@@ -7,8 +7,8 @@ Block::Block(SDL_Renderer *renderer, int lvl, int x, int y) {
     objTexture = IMG_LoadTexture(renderer, BLOCK_SRC);
     destR.x = x;
     destR.y = y;
-    destR.h = BLOCK_H;
-    destR.w = BLOCK_W;
+    destR.h = BLOCK_HEIGHT;
+    destR.w = BLOCK_WIDTH;
     UpdateTexture(level);
     active = true;
 }
@@ -18,12 +18,11 @@ void Block::Destroy() {
     SDL_DestroyTexture(objTexture);
 }
 
-bool Block::Collided(Direction dir) {
+void Block::Collided(Direction dir) {
     if (dir == NONE)
-        return false;
+        return;
     Hit();
-    std::cout << "HIT" << std::endl;
-    return true;
+    std::cout << "HIT" << std::endl; //todo delete
 }
 
 void Block::Hit() {
@@ -38,9 +37,9 @@ void Block::Hit() {
 
 void Block::UpdateTexture(int lvl) {
     srcR.y = 0;
-    srcR.x = lvl == 1 ? 0 : 0 + ((lvl - 1) * BLOCK_W); //Sets the texture according to the lvl
-    srcR.h = BLOCK_H;
-    srcR.w = BLOCK_W;
+    srcR.x = lvl == 1 ? 0 : 0 + ((lvl - 1) * BLOCK_WIDTH); //Sets the texture according to the lvl
+    srcR.h = BLOCK_HEIGHT;
+    srcR.w = BLOCK_WIDTH;
 }
 
 void Block::Render() {

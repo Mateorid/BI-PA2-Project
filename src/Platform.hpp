@@ -5,6 +5,11 @@
 #include "Lives.hpp"
 #include "Settings.hpp"
 
+
+/**Destination of platform source image*/
+static const char *const PLATFORM_SRC = "examples/textures/paddle.png";
+
+
 class Platform : public GameObject {
 public:
     Platform(SDL_Renderer *renderer, Lives *lives);
@@ -20,8 +25,6 @@ public:
     void SlowDown() override { verSpeed = 5; }//TODO const?
 
     void SpeedUP() override { verSpeed = 11; }
-
-    bool Collided(Direction dir) override;
 
     int getPlatX() { return destR.x; };
 

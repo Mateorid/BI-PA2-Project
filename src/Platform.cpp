@@ -28,7 +28,3 @@ void Platform::MoveRight() {
     if ((destR.x + PLATFORM_W) <= GAME_WIDTH)
         destR.x += verSpeed;
 }
-
-bool Platform::Collided(Direction dir) {
-    return !(dir == NONE);
-}

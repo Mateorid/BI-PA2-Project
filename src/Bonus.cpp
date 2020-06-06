@@ -3,8 +3,8 @@
 Bonus::Bonus(SDL_Renderer *renderer, int x, int y) {
     type = BONUS;
     objRenderer = renderer;
-    objTexture = IMG_LoadTexture(renderer, BONUS_SRC); //todo create textures for bonus
-    verSpeed = 2;
+    objTexture = IMG_LoadTexture(renderer, BONUS_SRC);
+    verSpeed = BONUS_SPEED;
     Init(x, y);
     active = true;
 }
@@ -13,7 +13,16 @@ void Bonus::Init(int x, int y) {
     /**Random bonus type*/
     srand(time(nullptr));
     int tmp = std::rand() % 6;
-    switch (tmp) {
+    SetBonusType(tmp);
+    destR.x = x;
+    destR.y = y;
+    destR.h = destR.w = BONUS_SIZE;
+    srcR.w = srcR.h = 100;
+    srcR.y = 0;
+}
+
+void Bonus::SetBonusType(int x) {
+    switch (x) {
         case 0:
             bonusType = PLUS_LIFE;
             srcR.x = 100;
@@ -41,21 +50,21 @@ void Bonus::Init(int x, int y) {
         default:
             break;
     }
-    destR.x = x;
-    destR.y = y;
-    destR.h = 25; //TODO: tmp solution
-    destR.w = 25;
-    srcR.w = srcR.h = 100;
-    srcR.y = 0;
-    //TODO set srcR according to bonusType
 }
 
 void Bonus::Update() {
-    if (destR.y < GAME_HEIGHT - 5) {
+    if (destR.y < GAME_HEIGHT) {
         destR.y += verSpeed;
         return;
     }
     active = false;
+}
+
+void Bonus::Collided(Direction dir) {
+    if (dir == NONE)
+        return;
+    std::cout << "BONUS PICKUP!" << std::endl;
+    //todo here
 }
 
 void Bonus::Render() {

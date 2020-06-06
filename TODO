@@ -1,17 +1,17 @@
-TODO fix bug with bonuses, probs the bool return value is causing it?
+TODO global bonus with pointers to stuff, init it base on "toWin--" trigger
+
+TODO create a random number making class
 
 TODO fix collisions - use the one open in chrome
 
-TODO Map loader - use stringstream, create class, and separate game vs app
+TODO Map loader - use stringstream, create class
 
 TODO Implement winning/defeat screen
-
-TODO Move settings into separate classes
 
 TODO Gamestate enum class?
 
 TODO use SDL_IntersectRect() for stuff except ball?
 
-TODO implement resizing based on screen res
-
 TODO catch length_error for the map string?
+
+TODO? implement resizing based on screen res

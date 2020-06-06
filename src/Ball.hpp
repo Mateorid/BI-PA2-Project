@@ -8,6 +8,11 @@
 #include "Settings.hpp"
 #include "Lives.hpp"
 
+
+/**Destination of ball source image*/
+static const char *const BALL_SRC = "examples/textures/ball.png";
+
+
 class Ball : public GameObject {
 public:
     Ball(SDL_Renderer *renderer, Lives *lives);
@@ -20,7 +25,7 @@ public:
 
     void SpeedUP() override { horSpeed = verSpeed = 7; }
 
-    bool Collided(Direction dir) override;
+    void Collided(Direction dir) override;
 
     bool ToDelete() const override { return toDelete; }; //TODO Override destroy bcs of this?
 

@@ -35,9 +35,9 @@ public:
 
     Direction CollisionDetection(GameObject *object);
 
-    virtual bool Collided(Direction dir) { active = false; return false; };
+    virtual void Collided(Direction dir) {};
 
-    virtual BonusType GetBonusType() const {};
+//    virtual BonusType GetBonusType() const {}; //todo can delete?
 
     bool IsActive() const { return active; }
 
@@ -47,7 +47,7 @@ public:
 
     virtual void Render();
 
-    SDL_Rect srcR{}, destR{}; //TODO: delete srdR add only in block class
+    SDL_Rect srcR{}, destR{}; //TODO: delete srdR add only in block & bonus class + move to private?
 protected:
     bool isColliding = false;
     bool active = false;
