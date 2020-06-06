@@ -24,7 +24,7 @@ valgrind: $(TARGET)
 doc:
 #	doxygen
 
-$(TARGET): $(DEST_DIR)/main.o $(DEST_DIR)/Game.o $(DEST_DIR)/GameObject.o  $(DEST_DIR)/Platform.o $(DEST_DIR)/Ball.o $(DEST_DIR)/Block.o $(DEST_DIR)/Bonus.o $(DEST_DIR)/Map.o
+$(TARGET): $(DEST_DIR)/main.o $(DEST_DIR)/Application.o $(DEST_DIR)/Game.o $(DEST_DIR)/GameObject.o  $(DEST_DIR)/Platform.o $(DEST_DIR)/Ball.o $(DEST_DIR)/Block.o $(DEST_DIR)/Bonus.o $(DEST_DIR)/Map.o
 	$(CXX) $(CXXFLAGS) $^ -g -o $@ $(LDLIBS)
 	@echo "Starting..."
 
@@ -41,6 +41,9 @@ clean:
 	@echo "Files deleted"
 
 #Dependencies
+$(DEST_DIR)/Application.o: src/Application.cpp src/Application.hpp src/GameObject.hpp \
+ src/Settings.hpp src/Game.hpp src/Platform.hpp src/Lives.hpp \
+ src/Ball.hpp src/Block.hpp src/Map.hpp src/Bonus.hpp
 $(DEST_DIR)/Ball.o: src/Ball.cpp src/Ball.hpp src/GameObject.hpp src/Settings.hpp \
  src/Lives.hpp
 $(DEST_DIR)/Block.o: src/Block.cpp src/Block.hpp src/GameObject.hpp src/Settings.hpp
@@ -49,11 +52,13 @@ $(DEST_DIR)/Game.o: src/Game.cpp src/Game.hpp src/Settings.hpp src/GameObject.hp
  src/Platform.hpp src/Lives.hpp src/Ball.hpp src/Block.hpp src/Map.hpp \
  src/Bonus.hpp
 $(DEST_DIR)/GameObject.o: src/GameObject.cpp src/GameObject.hpp src/Settings.hpp
-$(DEST_DIR)/main.o: src/main.cpp src/Game.hpp src/Settings.hpp src/GameObject.hpp \
- src/Platform.hpp src/Lives.hpp src/Ball.hpp src/Block.hpp src/Map.hpp \
- src/Bonus.hpp src/Application.hpp
+$(DEST_DIR)/main.o: src/main.cpp src/Application.hpp src/GameObject.hpp \
+ src/Settings.hpp src/Game.hpp src/Platform.hpp src/Lives.hpp \
+ src/Ball.hpp src/Block.hpp src/Map.hpp src/Bonus.hpp
 $(DEST_DIR)/Map.o: src/Map.cpp src/Map.hpp src/Block.hpp src/GameObject.hpp \
  src/Settings.hpp
+$(DEST_DIR)/MapLoader.o: src/MapLoader.cpp src/MapLoader.hpp
 $(DEST_DIR)/Platform.o: src/Platform.cpp src/Platform.hpp src/GameObject.hpp \
  src/Settings.hpp src/Lives.hpp
+
 

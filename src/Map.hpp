@@ -21,9 +21,11 @@ public:
 
     Map() = default;
 
+    ~Map() = default;
+
     explicit Map(const std::string &filename, SDL_Renderer *renderer);
 
-    const vector<GameObject *> &getBlocks() const { return blocks; };
+    vector<GameObject *> &getBlocks() { return blocks; };
 
 private:
 
@@ -33,7 +35,7 @@ private:
 
     int posX = 0;
     int posY = 0;
-//    int test[posX][posY] ;
+//    int test[posX][posY] ; //todo remove
     vector<GameObject *> blocks;
     size_t x = string::npos;
 };

@@ -17,6 +17,10 @@ public:
 
     void MoveRight() override;
 
+    void SlowDown() override { verSpeed = 5; }//TODO const?
+
+    void SpeedUP() override { verSpeed = 11; }
+
     bool Collided(Direction dir) override;
 
     int getPlatX() { return destR.x; };

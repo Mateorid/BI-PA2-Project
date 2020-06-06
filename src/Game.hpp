@@ -20,12 +20,14 @@ public:
     /**
      * @throws std::runtime_error if SDL fails to initialise
      */
-    Game();
+    Game() = default;
+
+    explicit Game(std::vector<GameObject *> obj, SDL_Renderer *renderer);
 
     ~Game() = default;
 
 
-    int Initialize(const char *title, int xPos, int yPos, int width, int height, bool fullscreen);
+    void Initialize();
 
     int Play();
 
@@ -44,10 +46,8 @@ private:
     Platform *platform{};
     Ball *ball{};
     Lives *lives{};
-    Map *gameMap{};
     bool isRunning = false;
     Uint32 frameTicks{};
     Uint32 frameDelta{};
-    SDL_Window *mainWindow{};
     SDL_Renderer *mainRenderer{};
 };

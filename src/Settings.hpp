@@ -1,7 +1,7 @@
 #pragma once
 
-/**Title of the game*/
-static const char *const GAME_NAME = "Arkanoid 2.0";
+///**Title of the game*/
+//static const char *const GAME_NAME = "Arkanoid 2.0";
 /**Game window width*/
 static const int GAME_WIDTH = 600;
 /**Game window height*/
@@ -11,7 +11,7 @@ static const int MAX_FPS = 100;
 /**Frame delay*/
 static const int FRAME_DELAY = 1000 / MAX_FPS;
 /**Start game in fullscreen*/
-static const bool START_FULLSCREEN = false;
+//static const bool START_FULLSCREEN = false;
 /**How many lives you start with*/
 //static const int START_LIVES = 3; //TODO doesn't work xd
 /**Destination of ball source image*/

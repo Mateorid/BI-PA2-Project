@@ -1,58 +1,32 @@
 #include "Game.hpp"
 
-Game::Game() {
-    if (Initialize(GAME_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-                   GAME_WIDTH, GAME_HEIGHT, START_FULLSCREEN) != 0) {
-        isRunning = false;
-        throw std::runtime_error("SDL library failed to initialized");
-    }
+#include <utility>
+
+Game::Game(std::vector<GameObject *> obj, SDL_Renderer *renderer) {
+    gameObjects = std::move(obj); //todo is the old one empty now? Can I still clean it with loop in app?
+    mainRenderer = renderer;
+    Initialize();
 }
 
-int Game::Initialize(const char *title, int xPos, int yPos, int width, int height, bool fullscreen) {
-    int initFullscreen = fullscreen ? SDL_WINDOW_FULLSCREEN : 0;
-
-    if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-        std::cerr << "SDL_INIT_EVERYTHING failed" << std::endl;
-        return 1;
-    }
-
-    IMG_Init(IMG_INIT_PNG);
-
-    mainWindow = SDL_CreateWindow(title, xPos, yPos, width, height, initFullscreen);
-    if (mainWindow == nullptr) {
-        std::cerr << "SDL_CreateWindow failed" << std::endl;
-        return 2;
-    }
-
-    mainRenderer = SDL_CreateRenderer(mainWindow, -1, SDL_RENDERER_ACCELERATED);
-    SDL_SetRenderDrawColor(mainRenderer, 100, 100, 100, 255);
-    if (mainRenderer == nullptr) {
-        std::cerr << "SDL_CreateRenderer failed" << std::endl;
-        return 3;
-    }
+void Game::Initialize() {
     /**Creating and inserting the platform and ball objects*/
     lives = new Lives(3); //TODO start_lives doesn't work? xd
-
-
-    gameMap = new Map("examples/map", mainRenderer);
-    gameObjects = gameMap->getBlocks();
-
     platform = new Platform(mainRenderer, lives);
     gameObjects.push_back(platform);
     ball = new Ball(mainRenderer, lives);
     gameObjects.push_back(ball);
+
     /**Tmp solution before I implement MapLoader*/
-//    auto *block = new Block(mainRenderer, 3, 300, 10);
-//    gameObjects.push_back(block);
-//    auto *block2 = new Block(mainRenderer, 3, 300, 100);
-//    gameObjects.push_back(block2);
-//    auto *block3 = new Block(mainRenderer, 3, 300, 160);
-//    gameObjects.push_back(block3);
 //    auto *bonus = new Bonus(mainRenderer, 200, 20);
 //    gameObjects.push_back(bonus);
+    auto *block = new Block(mainRenderer, 3, 300, 10);
+    gameObjects.push_back(block);
+    auto *block2 = new Block(mainRenderer, 3, 300, 100);
+    gameObjects.push_back(block2);
+    auto *block3 = new Block(mainRenderer, 3, 300, 160);
+    gameObjects.push_back(block3);
 
     isRunning = true;
-    return 0;
 }
 
 int Game::Play() {
@@ -72,8 +46,7 @@ int Game::Play() {
             SDL_Delay(FRAME_DELAY - frameDelta);
         }
     }
-
-    CleanAll();
+//    CleanAll();
     return 0;
 }
 
@@ -108,28 +81,28 @@ void Game::Collisions() {
     for (auto it:gameObjects) {
         if (it->GetType() == BONUS) { //TODO if we want to implement speed over time
             tmpDir = platform->CollisionDetection(it);
-            if (platform->Collided(tmpDir)) {   //TODO remove the bool and figure out a better way to do this
+            if (platform->Collided(tmpDir)) {   //TODO check for bonus hit bat instead...
                 tmpType = it->GetBonusType();
                 it->Destroy();
 
                 switch (tmpType) {  //TODO move this
                     case PLUS_LIFE:
-                        ++lives;
+                        lives->AddLife();
                         break;
                     case SLOW_BALL:
                         ball->SlowDown();
                         break;
                     case SLOW_PLAT:
-                        //TODO
+                        platform->SlowDown();
                         break;
                     case FAST_BALL:
-                        ball->SpeedUp();
+                        ball->SpeedUP();
                         break;
                     case FAST_PLAT:
-                        //TODO
+                        platform->SpeedUP();
                         break;
                     case SECOND_BALL:
-                        //TODO
+                        //TODO create second ball a init it here
                         break;
                     default:
                         break;
@@ -167,13 +140,13 @@ void Game::RenderAll() {
 }
 
 void Game::CleanAll() {
-    for (auto it:gameObjects) {
-        it->Destroy();
-    }
-    gameObjects.clear();
-    SDL_DestroyRenderer(mainRenderer);
-    SDL_DestroyWindow(mainWindow);
-    IMG_Quit();
-    SDL_Quit();
-    std::cout << "Everything cleaned" << std::endl;
+//    for (auto it:gameObjects) {
+//        it->Destroy();
+//    }
+//    gameObjects.clear();
+//    SDL_DestroyRenderer(mainRenderer);
+//    SDL_DestroyWindow(mainWindow);
+//    IMG_Quit();
+//    SDL_Quit();
+//    std::cout << "Everything cleaned" << std::endl;
 }

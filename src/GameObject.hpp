@@ -27,6 +27,10 @@ public:
 
     virtual void MoveRight() {};
 
+    virtual void SpeedUP() {};
+
+    virtual void SlowDown() {};
+
     virtual void Destroy() { SDL_DestroyTexture(objTexture); }
 
     Direction CollisionDetection(GameObject *object);

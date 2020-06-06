@@ -1,11 +1,17 @@
-TODO Split game into application and game
+TODO fix bug with bonuses, probs the bool return value is causing it?
 
-TODO fix collisions
+TODO fix collisions - use the one open in chrome
 
 TODO Map loader - use stringstream, create class, and separate game vs app
-
-TODO Bonus sprite
 
 TODO Implement winning/defeat screen
 
 TODO Move settings into separate classes
+
+TODO Gamestate enum class?
+
+TODO use SDL_IntersectRect() for stuff except ball?
+
+TODO implement resizing based on screen res
+
+TODO catch length_error for the map string?

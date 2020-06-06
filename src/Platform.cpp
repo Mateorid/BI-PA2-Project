@@ -5,7 +5,7 @@ Platform::Platform(SDL_Renderer *renderer, Lives *lives) {
     type = PLATFORM;
     objRenderer = renderer;
     objTexture = IMG_LoadTexture(renderer, PLATFORM_SRC);
-    verSpeed = 8;
+    verSpeed = 8; //todo const?
     Init();
     active = true;
 }
@@ -21,12 +21,12 @@ void Platform::Init() {
 
 void Platform::MoveLeft() {
     if (destR.x > 0)
-        destR.x -= (int) verSpeed;
+        destR.x -= verSpeed;
 }
 
 void Platform::MoveRight() {
     if ((destR.x + PLATFORM_W) <= GAME_WIDTH)
-        destR.x += (int) verSpeed;
+        destR.x += verSpeed;
 }
 
 bool Platform::Collided(Direction dir) {

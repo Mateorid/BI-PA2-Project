@@ -16,9 +16,9 @@ public:
 
     void Update() override;
 
-    void SlowDown() { horSpeed = verSpeed = 3; }//TODO?
+    void SlowDown() override { horSpeed = verSpeed = 3; }//TODO?
 
-    void SpeedUp() { horSpeed = verSpeed = 7; }
+    void SpeedUP() override { horSpeed = verSpeed = 7; }
 
     bool Collided(Direction dir) override;
 
