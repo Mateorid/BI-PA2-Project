@@ -12,11 +12,9 @@ static const char *const PLATFORM_SRC = "examples/textures/paddle.png";
 
 class Platform : public GameObject {
 public:
-    Platform(SDL_Renderer *renderer, Lives *lives);
+    Platform(SDL_Renderer *renderer);
 
     void Init() override;
-
-//    void Update() override;
 
     void MoveLeft() override;    //todo: make moving slower/faster when bonus is active (depending on int)
 
@@ -26,10 +24,5 @@ public:
 
     void SpeedUP() override { verSpeed = 11; }
 
-    int getPlatX() { return destR.x; };
-
-    int getPlatY() { return destR.y; };
-
 private:
-    Lives *lives;
 };

@@ -1,7 +1,6 @@
 #include "Platform.hpp"
 
-Platform::Platform(SDL_Renderer *renderer, Lives *lives) {
-    this->lives = lives;
+Platform::Platform(SDL_Renderer *renderer) {
     type = PLATFORM;
     objRenderer = renderer;
     objTexture = IMG_LoadTexture(renderer, PLATFORM_SRC);
@@ -16,8 +15,6 @@ void Platform::Init() {
     destR.h = PLATFORM_H;
     destR.w = PLATFORM_W;
 }
-
-//void Platform::Update() {}
 
 void Platform::MoveLeft() {
     if (destR.x > 0)

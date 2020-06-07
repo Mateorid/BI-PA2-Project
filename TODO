@@ -1,17 +1,19 @@
-TODO global bonus with pointers to stuff, init it base on "toWin--" trigger
+TODO bonus falling flag, so we don't reset bonus mid flight
 
-TODO create a random number making class
-
-TODO fix collisions - use the one open in chrome
+TODO fix collisions - use the one open in chrome <======================================
 
 TODO Map loader - use stringstream, create class
 
 TODO Implement winning/defeat screen
 
-TODO Gamestate enum class?
-
 TODO use SDL_IntersectRect() for stuff except ball?
+
+TODO create a random number making class (but how? XD)
+
+TODO Gamestate enum class? implement pause state ==> we cancel bonus falling
 
 TODO catch length_error for the map string?
 
 TODO? implement resizing based on screen res
+
+TODO destructors in classes => Destroy() method

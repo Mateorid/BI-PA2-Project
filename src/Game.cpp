@@ -3,6 +3,7 @@
 #include <utility>
 
 Game::Game(std::vector<GameObject *> obj, SDL_Renderer *renderer) {
+    toWin = obj.size();         //Assign number of blocks
     gameObjects = std::move(obj); //todo is the old one empty now? Can I still clean it with loop in app?
     mainRenderer = renderer;
     Initialize();
@@ -11,7 +12,7 @@ Game::Game(std::vector<GameObject *> obj, SDL_Renderer *renderer) {
 void Game::Initialize() {
     /**Creating and inserting the platform and ball objects*/
     lives = new Lives(START_LIVES);
-    platform = new Platform(mainRenderer, lives);
+    platform = new Platform(mainRenderer);
     gameObjects.push_back(platform);
     ball = new Ball(mainRenderer, lives);
     gameObjects.push_back(ball);
@@ -19,11 +20,11 @@ void Game::Initialize() {
     /**Tmp solution before I implement MapLoader*/
     bonus = new Bonus(mainRenderer, 200, 20, *ball, *platform, *lives);
     gameObjects.push_back(bonus);
-    auto *block = new Block(mainRenderer, 3, 300, 10);
+    auto *block = new Block(mainRenderer, 1, 300, 10);
     gameObjects.push_back(block);
-    auto *block2 = new Block(mainRenderer, 3, 300, 100);
+    auto *block2 = new Block(mainRenderer, 1, 300, 100);
     gameObjects.push_back(block2);
-    auto *block3 = new Block(mainRenderer, 3, 300, 160);
+    auto *block3 = new Block(mainRenderer, 1, 300, 160);
     gameObjects.push_back(block3);
 
     isRunning = true;
@@ -58,7 +59,7 @@ void Game::HandleEvents() {
     if (events.type == SDL_KEYDOWN) {       //Keypress handling
         switch (events.key.keysym.sym) {
             case SDLK_SPACE:
-                ball->Init(mainRenderer, platform->getPlatX());
+                ball->Init(mainRenderer, platform->GetX());
                 break;
             case SDLK_LEFT:
                 platform->MoveLeft();
@@ -76,13 +77,12 @@ void Game::HandleEvents() {
 }
 
 void Game::Collisions() {
-//    Direction tmpDir;
-//    BonusType tmpType;
     for (auto it:gameObjects) {
         if (!it->IsActive())
             continue;
         if (it->GetType() == BONUS) {
             it->Collided(it->CollisionDetection(platform));
+            continue;
         } else if (it->GetType() != BALL)
             ball->Collided(ball->CollisionDetection(it));
         if (it->GetType() == BLOCK) {
@@ -98,8 +98,13 @@ void Game::UpdateAll() {
             it->Update();
         else if (it->ToDelete()) {
 //            TODO: Add blocks left till win counter, (if BLOCK then toWin--)
+            if (it->GetType() == BLOCK) {
+                SpawnBonus(it->GetX(), it->GetY());
+                toWin--;
+            }
             gameObjects.erase(gameObjects.begin() + tmpIt);
             std::cout << "DELETED SOMETHING" << std::endl;
+            //todo Add toWin win check here
         }
         tmpIt++;
     }
@@ -112,6 +117,16 @@ void Game::RenderAll() {
             it->Render();
     }
     SDL_RenderPresent(mainRenderer);        //Draws stuff in window
+}
+
+void Game::SpawnBonus(int x, int y) {
+//    srand(time(nullptr));
+    bool tmp1 = (rand() & 1);   //25% chance of spawning a bonus
+    bool tmp2 = (rand() & 1);
+    if (tmp1) std::cout<< "1 true"<<std::endl;
+    if (tmp2) std::cout<< "2 true"<<std::endl;
+    if (tmp1 & tmp2)
+        bonus->Init(x, y);
 }
 
 void Game::CleanAll() {

@@ -1,6 +1,6 @@
 #include "Bonus.hpp"
 
-Bonus::Bonus(SDL_Renderer *renderer, int x, int y, Ball &b1, Platform &plat, Lives &hp) {
+Bonus::Bonus(SDL_Renderer *renderer, int x, int y, Ball &b1, Platform &plat, Lives &hp) { //todo remove  x & y from here
     type = BONUS;
     objRenderer = renderer;
     ball1 = &b1;
@@ -8,8 +8,8 @@ Bonus::Bonus(SDL_Renderer *renderer, int x, int y, Ball &b1, Platform &plat, Liv
     lives = &hp;
     objTexture = IMG_LoadTexture(renderer, BONUS_SRC);
     verSpeed = BONUS_SPEED;
-    Init(x, y);
-    active = true;
+//    Init(x, y);
+//    active = true;
 }
 
 void Bonus::Init(int x, int y) {
@@ -22,6 +22,7 @@ void Bonus::Init(int x, int y) {
     destR.h = destR.w = BONUS_SIZE;
     srcR.w = srcR.h = 100;
     srcR.y = 0;
+    active = true;
 }
 
 void Bonus::SetBonusType(int x) {

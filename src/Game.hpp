@@ -45,6 +45,8 @@ public:
 
     void UpdateAll();
 
+    void SpawnBonus(int x, int y);
+
     void RenderAll();
 
     void CleanAll();
@@ -56,6 +58,7 @@ private:
     Lives *lives{};
     Bonus *bonus{};
     bool isRunning = false;
+    int toWin = 0;
     Uint32 frameTicks{};
     Uint32 frameDelta{};
     SDL_Renderer *mainRenderer{};

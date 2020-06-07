@@ -37,13 +37,15 @@ public:
 
     virtual void Collided(Direction dir) {};
 
-//    virtual BonusType GetBonusType() const {}; //todo can delete?
-
     bool IsActive() const { return active; }
 
     virtual bool ToDelete() const { return !active; }
 
     GOType GetType() const { return type; }
+
+    int GetX() const { return destR.x; }
+
+    int GetY() const { return destR.y; }
 
     virtual void Render();
 
