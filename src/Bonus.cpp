@@ -1,8 +1,11 @@
 #include "Bonus.hpp"
 
-Bonus::Bonus(SDL_Renderer *renderer, int x, int y) {
+Bonus::Bonus(SDL_Renderer *renderer, int x, int y, Ball &b1, Platform &plat, Lives &hp) {
     type = BONUS;
     objRenderer = renderer;
+    ball1 = &b1;
+    platform = &plat;
+    lives = &hp;
     objTexture = IMG_LoadTexture(renderer, BONUS_SRC);
     verSpeed = BONUS_SPEED;
     Init(x, y);
@@ -63,8 +66,33 @@ void Bonus::Update() {
 void Bonus::Collided(Direction dir) {
     if (dir == NONE)
         return;
+    ApplyBonus();
+    active = false; //todo?
+}
+
+void Bonus::ApplyBonus() {
     std::cout << "BONUS PICKUP!" << std::endl;
-    //todo here
+    switch (bonusType) {
+
+        case PLUS_LIFE:
+            lives->AddLife();
+            break;
+        case SECOND_BALL:
+            //todo
+            break;
+        case SLOW_PLAT:
+            platform->SlowDown();
+            break;
+        case SLOW_BALL:
+            ball1->SlowDown();
+            break;
+        case FAST_PLAT:
+            platform->SpeedUP();
+            break;
+        case FAST_BALL:
+            ball1->SpeedUP();
+            break;
+    }
 }
 
 void Bonus::Render() {

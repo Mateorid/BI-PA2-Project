@@ -54,6 +54,7 @@ private:
     Platform *platform{};
     Ball *ball{};
     Lives *lives{};
+    Bonus *bonus{};
     bool isRunning = false;
     Uint32 frameTicks{};
     Uint32 frameDelta{};

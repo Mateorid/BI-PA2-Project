@@ -17,7 +17,7 @@ void Game::Initialize() {
     gameObjects.push_back(ball);
 
     /**Tmp solution before I implement MapLoader*/
-    auto *bonus = new Bonus(mainRenderer, 200, 20);
+    bonus = new Bonus(mainRenderer, 200, 20, *ball, *platform, *lives);
     gameObjects.push_back(bonus);
     auto *block = new Block(mainRenderer, 3, 300, 10);
     gameObjects.push_back(block);
@@ -79,38 +79,10 @@ void Game::Collisions() {
 //    Direction tmpDir;
 //    BonusType tmpType;
     for (auto it:gameObjects) {
-        if (it->GetType() == BONUS) { //TODO make 1 bonus and create new method that reassign its type
+        if (!it->IsActive())
+            continue;
+        if (it->GetType() == BONUS) {
             it->Collided(it->CollisionDetection(platform));
-
-//            tmpDir = platform->CollisionDetection(it);
-//            if (platform->Collided(tmpDir)) {   //TODO check for bonus hit bat instead...
-//                tmpType = it->GetBonusType();
-//                it->Destroy();
-//
-//                switch (tmpType) {  //TODO move this
-//                    case PLUS_LIFE:
-//                        lives->AddLife();
-//                        break;
-//                    case SLOW_BALL:
-//                        ball->SlowDown();
-//                        break;
-//                    case SLOW_PLAT:
-//                        platform->SlowDown();
-//                        break;
-//                    case FAST_BALL:
-//                        ball->SpeedUP();
-//                        break;
-//                    case FAST_PLAT:
-//                        platform->SpeedUP();
-//                        break;
-////                    case SECOND_BALL:
-//                        //TODO create second ball & init it here
-//                        break;
-//                    default:
-//                        break;
-//                }
-//            }
-
         } else if (it->GetType() != BALL)
             ball->Collided(ball->CollisionDetection(it));
         if (it->GetType() == BLOCK) {

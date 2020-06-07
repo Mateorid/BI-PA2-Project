@@ -15,7 +15,7 @@ static const int BONUS_SPEED = 3;
 
 class Bonus : public GameObject {
 public:
-    Bonus(SDL_Renderer *renderer, int x, int y);
+    Bonus(SDL_Renderer *renderer, int x, int y, Ball &b1, Platform &plat, Lives &hp);
 
     void Update() override;
 
@@ -25,12 +25,17 @@ public:
 
     void Render() override;
 
+    bool ToDelete() const override { return toDelete; };
+
     BonusType GetBonusType() const { return bonusType; } //todo un-override?
 
 private:
     void SetBonusType(int x);
 
-    BonusType bonusType;
+    void ApplyBonus();
+
+    bool toDelete = false;
+    BonusType bonusType{};
     Ball *ball1{};
 //    Ball *ball2{};//TODO 2nd ball check
     Platform *platform{};
