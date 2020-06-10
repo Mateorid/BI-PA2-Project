@@ -1,28 +1,28 @@
 #include "Bonus.hpp"
 
-Bonus::Bonus(SDL_Renderer *renderer, int x, int y, Ball &b1, Platform &plat, Lives &hp) { //todo remove  x & y from here
+Bonus::Bonus(SDL_Renderer *renderer, Ball &b1, Platform &plat, Lives &hp) { //todo remove  x & y from here
     type = BONUS;
     objRenderer = renderer;
     ball1 = &b1;
     platform = &plat;
     lives = &hp;
     objTexture = IMG_LoadTexture(renderer, BONUS_SRC);
-    verSpeed = BONUS_SPEED;
-//    Init(x, y);
-//    active = true;
+    speed = BONUS_SPEED;
 }
 
 void Bonus::Init(int x, int y) {
-    /**Random bonus type*/
-    srand(time(nullptr));
-    int tmp = std::rand() % 6;
-    SetBonusType(tmp);
-    destR.x = x;
-    destR.y = y;
-    destR.h = destR.w = BONUS_SIZE;
-    srcR.w = srcR.h = 100;
-    srcR.y = 0;
-    active = true;
+    if (!active) {
+        /**Random bonus type*/
+        srand(time(nullptr));
+        int tmp = std::rand() % 6;
+        SetBonusType(tmp);
+        destR.x = x;
+        destR.y = y;
+        destR.h = destR.w = BONUS_SIZE;
+        srcR.w = srcR.h = 100;
+        srcR.y = 0;
+        active = true;
+    }
 }
 
 void Bonus::SetBonusType(int x) {
@@ -58,23 +58,21 @@ void Bonus::SetBonusType(int x) {
 
 void Bonus::Update() {
     if (destR.y < GAME_HEIGHT) {
-        destR.y += verSpeed;
+        destR.y += speed;
         return;
     }
     active = false;
 }
 
-void Bonus::Collided(Direction dir) {
-    if (dir == NONE)
-        return;
-    ApplyBonus();
-    active = false; //todo?
+void Bonus::Collided(bool activate) {
+    if (activate) {
+        ApplyBonus();
+        active = false;
+    }
 }
 
 void Bonus::ApplyBonus() {
-    std::cout << "BONUS PICKUP!" << std::endl;
     switch (bonusType) {
-
         case PLUS_LIFE:
             lives->AddLife();
             break;

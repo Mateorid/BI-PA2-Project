@@ -17,8 +17,8 @@ void Game::Initialize() {
     ball = new Ball(mainRenderer, lives);
     gameObjects.push_back(ball);
 
-    /**Tmp solution before I implement MapLoader*/
-    bonus = new Bonus(mainRenderer, 200, 20, *ball, *platform, *lives);
+    /**Tmp solution before I implement MapLoader*/          //todo delete this after map loader is implemented
+    bonus = new Bonus(mainRenderer, *ball, *platform, *lives);
     gameObjects.push_back(bonus);
     auto *block = new Block(mainRenderer, 1, 300, 10);
     gameObjects.push_back(block);
@@ -42,7 +42,7 @@ int Game::Play() {
         Collisions();
         RenderAll();
 
-        frameDelta = SDL_GetTicks() - frameTicks;
+        frameDelta = SDL_GetTicks() - frameTicks;                           //FPS handling
         if (FRAME_DELAY > frameDelta) {
             SDL_Delay(FRAME_DELAY - frameDelta);
         }
@@ -54,12 +54,12 @@ int Game::Play() {
 void Game::HandleEvents() {
     SDL_Event events;
     SDL_PollEvent(&events);
-    if (events.type == SDL_QUIT)            //Exit signal
+    if (events.type == SDL_QUIT)                                            //Exit signal
         isRunning = false;
-    if (events.type == SDL_KEYDOWN) {       //Keypress handling
+    if (events.type == SDL_KEYDOWN) {                                       //Keypress handling
         switch (events.key.keysym.sym) {
             case SDLK_SPACE:
-                ball->Init(mainRenderer, platform->GetX());
+                ball->Init(platform->GetX());
                 break;
             case SDLK_LEFT:
                 platform->MoveLeft();
@@ -80,13 +80,10 @@ void Game::Collisions() {
     for (auto it:gameObjects) {
         if (!it->IsActive())
             continue;
-        if (it->GetType() == BONUS) {
+        if (it->GetType() == BLOCK || it->GetType() == PLATFORM) {          //Ball collision
+            it->Collided(ball->CollisionDetection(it));
+        } else if (it->GetType() == BONUS) {                                //Bonus collision
             it->Collided(it->CollisionDetection(platform));
-            continue;
-        } else if (it->GetType() != BALL)
-            ball->Collided(ball->CollisionDetection(it));
-        if (it->GetType() == BLOCK) {
-            it->Collided(it->CollisionDetection(ball));
         }
     }
 }
@@ -120,11 +117,8 @@ void Game::RenderAll() {
 }
 
 void Game::SpawnBonus(int x, int y) {
-//    srand(time(nullptr));
     bool tmp1 = (rand() & 1);   //25% chance of spawning a bonus
     bool tmp2 = (rand() & 1);
-    if (tmp1) std::cout<< "1 true"<<std::endl;
-    if (tmp2) std::cout<< "2 true"<<std::endl;
     if (tmp1 & tmp2)
         bonus->Init(x, y);
 }

@@ -7,25 +7,15 @@
 
 #include "Settings.hpp"
 
-enum Direction {
-    NONE, TOP, BOT, LEFT, RIGHT
-}; //TODO corners?
-
 class GameObject {
 public:
     GameObject() = default;
 
-    GameObject(const char *textureDest, SDL_Renderer *renderer, int xPosition, int yPosition);
-
-    ~GameObject();
+    ~GameObject() = default; //todo?
 
     virtual void Init() {};
 
     virtual void Update() {};
-
-    virtual void MoveLeft() {};
-
-    virtual void MoveRight() {};
 
     virtual void SpeedUP() {};
 
@@ -33,9 +23,9 @@ public:
 
     virtual void Destroy() { SDL_DestroyTexture(objTexture); }
 
-    Direction CollisionDetection(GameObject *object);
+    virtual bool CollisionDetection(GameObject *object);
 
-    virtual void Collided(Direction dir) {};
+    virtual void Collided(bool activate) {};
 
     bool IsActive() const { return active; }
 
@@ -47,15 +37,18 @@ public:
 
     int GetY() const { return destR.y; }
 
+    int GetH() const { return destR.h; }
+
+    int GetW() const { return destR.w; }
+
     virtual void Render();
 
-    SDL_Rect srcR{}, destR{}; //TODO: delete srdR add only in block & bonus class + move to private?
 protected:
-    bool isColliding = false;
+    SDL_Rect srcR{}, destR{}; //TODO: delete srdR add only in block & bonus class + move to private?
+    bool isColliding = false; //todo delete?
     bool active = false;
-    int verSpeed = 0; //TODO to int if not using speed up over time
-    int horSpeed = 0;
-    GOType type;
+    int speed = 0;
+    GOType type{};
     SDL_Texture *objTexture{};
     SDL_Renderer *objRenderer{};
 };

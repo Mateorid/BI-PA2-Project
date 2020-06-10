@@ -4,7 +4,7 @@ Platform::Platform(SDL_Renderer *renderer) {
     type = PLATFORM;
     objRenderer = renderer;
     objTexture = IMG_LoadTexture(renderer, PLATFORM_SRC);
-    verSpeed = 8; //todo const?
+    speed = 8; //todo const?
     Init();
     active = true;
 }
@@ -18,10 +18,10 @@ void Platform::Init() {
 
 void Platform::MoveLeft() {
     if (destR.x > 0)
-        destR.x -= verSpeed;
+        destR.x -= speed;
 }
 
 void Platform::MoveRight() {
     if ((destR.x + PLATFORM_W) <= GAME_WIDTH)
-        destR.x += verSpeed;
+        destR.x += speed;
 }

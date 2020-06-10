@@ -14,9 +14,7 @@ public:
 
     void Destroy() override ;
 
-    void Collided(Direction dir) override;
-
-    void Hit();
+    void Collided(bool activate) override;
 
     void UpdateTexture(int lvl);
 

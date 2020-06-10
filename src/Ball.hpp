@@ -17,21 +17,21 @@ class Ball : public GameObject {
 public:
     Ball(SDL_Renderer *renderer, Lives *lives);
 
-    void Init(SDL_Renderer *renderer, int platformX);
+    void Init(int platformX);
 
     void Update() override;
 
-    void SlowDown() override { horSpeed = verSpeed = 3; }//TODO?
+    void SlowDown() override { speed = 3; }//TODO?
 
-    void SpeedUP() override { horSpeed = verSpeed = 7; }
+    void SpeedUP() override { speed = 7; }
 
-    void Collided(Direction dir) override;
+    bool CollisionDetection(GameObject *object) override;
 
     bool ToDelete() const override { return toDelete; }; //TODO Override destroy bcs of this?
 
 private:
     bool toDelete = false;
     Lives *lives;
-    int dirX = 0;
+    int dirX = 1;
     int dirY = -1;
 };

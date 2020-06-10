@@ -18,15 +18,9 @@ void Block::Destroy() {
     SDL_DestroyTexture(objTexture);
 }
 
-void Block::Collided(Direction dir) {
-    if (dir == NONE)
+void Block::Collided(bool activate) {
+    if (!activate)
         return;
-    Hit();
-    std::cout << "HIT" << std::endl; //todo delete
-}
-
-void Block::Hit() {
-    //todo
     level--;
     if (level == 0) {
         Destroy();
