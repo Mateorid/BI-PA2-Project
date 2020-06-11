@@ -44,7 +44,32 @@ void Ball::Update() {
     }
 }
 
+/**
 bool Ball::CollisionDetection(GameObject *object) {
+    if (bouncingRectX + bouncingRectWidth + bouncingRectSpeedX > centerRectX &&
+        bouncingRectX + bouncingRectSpeedX < centerRectX + centerRectWidth &&
+        bouncingRectY + bouncingRectHeight > centerRectY &&
+        bouncingRectY < centerRectY + centerRectHeight) {
+        bouncingRectSpeedX *= -1;
+    }
+        //bounce off left and right edges of screen
+    else if(bouncingRectX < 0 || bouncingRectX + bouncingRectWidth > width){
+        bouncingRectSpeedX *= -1;
+    }
+
+    //if I keep moving in my current Y direction, will I collide with the center rectangle?
+    if (bouncingRectX + bouncingRectWidth > centerRectX &&
+        bouncingRectX < centerRectX + centerRectWidth &&
+        bouncingRectY + bouncingRectHeight + bouncingRectSpeedY > centerRectY &&
+        bouncingRectY + bouncingRectSpeedY < centerRectY + centerRectHeight) {
+        bouncingRectSpeedY *= -1;
+    }
+}*/
+
+
+
+bool Ball::CollisionDetection(GameObject *object) {
+    collision = false;
     int x = object->GetX();
     int y = object->GetY();
     int otherX = object->GetX() + object->GetW();
@@ -54,23 +79,25 @@ bool Ball::CollisionDetection(GameObject *object) {
         if (destR.y + destR.h >= y && destR.y < y) {
             destR.y = y - destR.h - 1;
             dirY *= -1;
-            return true;
+            collision = true;
         } else if (destR.y <= otherY && destR.y + destR.h > otherY) {
             destR.y = otherY + 1;
             dirY *= -1;
-            return true;
+            collision = true;
         }
         /**Horizontal collision*/
-    } else if (destR.y <= otherY && destR.y + destR.h >= y) {
+    }
+    if (destR.y <= otherY && destR.y + destR.h >= y) {
         if (destR.x + destR.w >= x && destR.x <= x) {
             destR.x = x - destR.w - 1;
             dirX *= -1;
-            return true;
+            collision = true;
         } else if (destR.x + destR.w >= otherX && destR.x <= otherX) {
             destR.x = otherX + 1;
             dirX *= -1;
-            return true;
+            collision = true;
         }
     }
-    return false;
+    return collision;
 }
+

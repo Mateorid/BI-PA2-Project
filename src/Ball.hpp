@@ -34,6 +34,7 @@ public:
 
 private:
     bool toDelete = false;
+    bool collision = false;
     Lives *lives;
     int dirX = 1;
     int dirY = -1;
