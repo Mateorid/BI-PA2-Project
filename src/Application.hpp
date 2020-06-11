@@ -5,8 +5,9 @@
 #include <iostream>
 #include <vector>
 
-#include "GameObject.hpp"
 #include "Game.hpp"
+#include "MapLoader.hpp"
+#include "GameObject.hpp"
 
 
 /**Title of the game*/
@@ -41,7 +42,7 @@ private:
     SDL_Renderer *mainRenderer{};
     std::vector<GameObject *> gameObjects;
     Game *game{};
-    Map *gameMap{};
+    MapLoader *mapLoader{};
 
 };
 

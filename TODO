@@ -1,8 +1,4 @@
-TODO Map loader - use stringstream, create class
-
 TODO Implement winning/defeat screen
-
-TODO use SDL_IntersectRect() for stuff except ball?
 
 TODO create a random number making class (but how? XD)
 
@@ -15,3 +11,11 @@ TODO? implement resizing based on screen res
 TODO destructors in classes => Destroy() method
 
 TODO Clean everything up, look online how others did it (Matousek maybe?)
+
+todo try the collision model again bcs Im retarded
+
+TODO throw exceptions everywhere? check for texture sizes being >0
+
+TODO test different resolutions & block sizes
+
+TODO implement second ball bonus

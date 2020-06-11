@@ -21,6 +21,8 @@ public:
 
     virtual void SlowDown() {};
 
+    virtual void ResetSpeed() {};
+
     virtual void Destroy() { SDL_DestroyTexture(objTexture); }
 
     virtual bool CollisionDetection(GameObject *object);

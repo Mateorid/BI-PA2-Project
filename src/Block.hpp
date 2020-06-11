@@ -12,7 +12,7 @@ class Block : public GameObject {
 public:
     Block(SDL_Renderer *renderer, int lvl, int x, int y); //todo add pointer to toWin counter and use that
 
-    void Destroy() override ;
+    void Destroy() override;
 
     void Collided(bool activate) override;
 
@@ -21,7 +21,9 @@ public:
     void Render() override;
 
 private:
-    int level;
+    void SetLevel(int lvl);
+
+    int level = 0;
 };
 
 

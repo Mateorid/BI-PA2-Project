@@ -1,7 +1,7 @@
 #include "Block.hpp"
 
 Block::Block(SDL_Renderer *renderer, int lvl, int x, int y) {
-    level = lvl;
+    SetLevel(lvl);
     type = BLOCK;
     objRenderer = renderer;
     objTexture = IMG_LoadTexture(renderer, BLOCK_SRC);
@@ -38,4 +38,10 @@ void Block::UpdateTexture(int lvl) {
 
 void Block::Render() {
     SDL_RenderCopy(objRenderer, objTexture, &srcR, &destR);
+}
+
+void Block::SetLevel(int lvl) {
+    if (lvl <= 1) level = 1;
+    else if (lvl >= 3) level = 3;
+    else level = 2;
 }

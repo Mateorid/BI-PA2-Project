@@ -11,7 +11,6 @@
 #include "Ball.hpp"
 #include "Lives.hpp"
 #include "Block.hpp"
-#include "Map.hpp"
 #include "Bonus.hpp"
 
 

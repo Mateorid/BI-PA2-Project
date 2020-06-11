@@ -8,6 +8,7 @@
 
 /**Destination of platform source image*/
 static const char *const PLATFORM_SRC = "examples/textures/paddle.png";
+static const int PLATFORM_SPEED = 8;
 
 
 class Platform : public GameObject {
@@ -23,6 +24,9 @@ public:
     void SlowDown() override { speed = 5; }//TODO const?
 
     void SpeedUP() override { speed = 11; }
+
+    void ResetSpeed() override { speed = PLATFORM_SPEED; }
+
 
 private:
 };

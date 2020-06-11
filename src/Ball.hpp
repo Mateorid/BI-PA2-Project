@@ -11,6 +11,7 @@
 
 /**Destination of ball source image*/
 static const char *const BALL_SRC = "examples/textures/ball.png";
+static const int BALL_SPEED = 5;
 
 
 class Ball : public GameObject {
@@ -24,6 +25,8 @@ public:
     void SlowDown() override { speed = 3; }//TODO?
 
     void SpeedUP() override { speed = 7; }
+
+    void ResetSpeed() override { speed = BALL_SPEED; }
 
     bool CollisionDetection(GameObject *object) override;
 

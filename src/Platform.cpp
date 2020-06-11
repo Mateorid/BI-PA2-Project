@@ -4,7 +4,7 @@ Platform::Platform(SDL_Renderer *renderer) {
     type = PLATFORM;
     objRenderer = renderer;
     objTexture = IMG_LoadTexture(renderer, PLATFORM_SRC);
-    speed = 8; //todo const?
+    speed = PLATFORM_SPEED;
     Init();
     active = true;
 }

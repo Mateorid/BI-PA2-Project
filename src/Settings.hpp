@@ -1,7 +1,7 @@
 #pragma once
 
 /**Game window size*/
-static const int GAME_WIDTH = 600;
+static const int GAME_WIDTH = 600; //todo move to game object and include in application?
 static const int GAME_HEIGHT = 800;
 /**Game object sizes*/
 static const int BALL_SIZE = 20;

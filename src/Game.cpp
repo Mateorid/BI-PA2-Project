@@ -16,17 +16,9 @@ void Game::Initialize() {
     gameObjects.push_back(platform);
     ball = new Ball(mainRenderer, lives);
     gameObjects.push_back(ball);
-
-    /**Tmp solution before I implement MapLoader*/          //todo delete this after map loader is implemented
     bonus = new Bonus(mainRenderer, *ball, *platform, *lives);
     gameObjects.push_back(bonus);
-    auto *block = new Block(mainRenderer, 1, 300, 10);
-    gameObjects.push_back(block);
-    auto *block2 = new Block(mainRenderer, 1, 300, 100);
-    gameObjects.push_back(block2);
-    auto *block3 = new Block(mainRenderer, 1, 300, 160);
-    gameObjects.push_back(block3);
-
+    lives->Init(*platform, *ball);
     isRunning = true;
 }
 

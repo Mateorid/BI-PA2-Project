@@ -1,17 +1,23 @@
 #pragma once
 
 #include "Settings.hpp"
+#include "GameObject.hpp"
 
 class Lives {
 public:
-    explicit Lives(int x) : lives(x) {};
+    explicit Lives(int x);
 
-    void AddLife() { lives++; }
+    void Init(GameObject &plat, GameObject &b1);
 
-    void LoseLife() { lives--; }
+    void AddLife();
+
+    void LoseLife();
 
     int GetLives() const { return lives; }
 
 private:
     int lives;
+    GameObject * platform{};
+    GameObject* ball{};
+//    GameObject* ball2; //TODO
 };

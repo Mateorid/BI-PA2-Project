@@ -2,8 +2,9 @@
 
 Ball::Ball(SDL_Renderer *renderer, Lives *lives) {
     this->lives = lives;
+    type = BALL;
     objTexture = IMG_LoadTexture(renderer, BALL_SRC);
-    speed = 5;
+    speed = BALL_SPEED;
     destR.x = destR.y = 1;
     active = false;
     objRenderer = renderer;
