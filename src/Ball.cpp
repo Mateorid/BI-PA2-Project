@@ -44,60 +44,61 @@ void Ball::Update() {
     }
 }
 
-/**
-bool Ball::CollisionDetection(GameObject *object) {
-    if (bouncingRectX + bouncingRectWidth + bouncingRectSpeedX > centerRectX &&
-        bouncingRectX + bouncingRectSpeedX < centerRectX + centerRectWidth &&
-        bouncingRectY + bouncingRectHeight > centerRectY &&
-        bouncingRectY < centerRectY + centerRectHeight) {
-        bouncingRectSpeedX *= -1;
-    }
-        //bounce off left and right edges of screen
-    else if(bouncingRectX < 0 || bouncingRectX + bouncingRectWidth > width){
-        bouncingRectSpeedX *= -1;
-    }
-
-    //if I keep moving in my current Y direction, will I collide with the center rectangle?
-    if (bouncingRectX + bouncingRectWidth > centerRectX &&
-        bouncingRectX < centerRectX + centerRectWidth &&
-        bouncingRectY + bouncingRectHeight + bouncingRectSpeedY > centerRectY &&
-        bouncingRectY + bouncingRectSpeedY < centerRectY + centerRectHeight) {
-        bouncingRectSpeedY *= -1;
-    }
-}*/
-
-
-
 bool Ball::CollisionDetection(GameObject *object) {
     collision = false;
     int x = object->GetX();
     int y = object->GetY();
     int otherX = object->GetX() + object->GetW();
     int otherY = object->GetY() + object->GetH();
-    /**Vertical collision*/
-    if (destR.x >= x && destR.x + destR.w <= otherX) {
-        if (destR.y + destR.h >= y && destR.y < y) {
-            destR.y = y - destR.h - 1;
-            dirY *= -1;
-            collision = true;
-        } else if (destR.y <= otherY && destR.y + destR.h > otherY) {
-            destR.y = otherY + 1;
-            dirY *= -1;
-            collision = true;
-        }
-        /**Horizontal collision*/
+    /**Horizontal collision*/
+    if (destR.x + destR.w + (dirX * speed) > x &&
+        destR.x + (dirX * speed) < otherX &&
+        destR.y + srcR.h > y &&
+        destR.y < otherY) {
+        dirX *= -1;
+        collision = true;
     }
-    if (destR.y <= otherY && destR.y + destR.h >= y) {
-        if (destR.x + destR.w >= x && destR.x <= x) {
-            destR.x = x - destR.w - 1;
-            dirX *= -1;
-            collision = true;
-        } else if (destR.x + destR.w >= otherX && destR.x <= otherX) {
-            destR.x = otherX + 1;
-            dirX *= -1;
-            collision = true;
-        }
+    /**Vertical collision*/
+    if (destR.x + destR.w > x &&
+        destR.x < otherX &&
+        destR.y + srcR.h + (dirY * speed) > y &&
+        destR.y + (dirY * speed) < otherY) {
+        dirY *= -1;
+        collision = true;
     }
     return collision;
 }
+//
+//bool Ball::CollisionDetection(GameObject *object) {
+//    collision = false;
+//    int x = object->GetX();
+//    int y = object->GetY();
+//    int otherX = object->GetX() + object->GetW();
+//    int otherY = object->GetY() + object->GetH();
+//    /**Vertical collision*/
+//    if (destR.x >= x && destR.x + destR.w <= otherX) {
+//        if (destR.y + destR.h >= y && destR.y < y) {
+//            destR.y = y - destR.h - 1;
+//            dirY *= -1;
+//            collision = true;
+//        } else if (destR.y <= otherY && destR.y + destR.h > otherY) {
+//            destR.y = otherY + 1;
+//            dirY *= -1;
+//            collision = true;
+//        }
+//    }
+//    /**Horizontal collision*/
+//    if (destR.y <= otherY && destR.y + destR.h >= y) {
+//        if (destR.x + destR.w >= x && destR.x <= x) {
+//            destR.x = x - destR.w - 1;
+//            dirX *= -1;
+//            collision = true;
+//        } else if (destR.x + destR.w >= otherX && destR.x <= otherX) {
+//            destR.x = otherX + 1;
+//            dirX *= -1;
+//            collision = true;
+//        }
+//    }
+//    return collision;
+//}
 
