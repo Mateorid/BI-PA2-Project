@@ -29,7 +29,7 @@ private:
     /**
      * @throws runtime_error when there's been a problem with loading the map file
      * @throws invalid_argument when there are non-numeric characters in the map file (excluding whitespaces & newlines)
-     * @throws invalid_argument when the line of blocks isn't filled all the way
+     * @throws invalid_argument when the line of blocks isn't filled all the way or there are more rows than MAP_MAX_ROWS
      * @param filename destination of the map file
      */
     void LoadBlocks(const string &filename);

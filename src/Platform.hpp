@@ -2,7 +2,6 @@
 
 
 #include "GameObject.hpp"
-#include "Lives.hpp"
 #include "Settings.hpp"
 
 

@@ -20,7 +20,7 @@ void MapLoader::LoadBlocks(const string &filename) {
 
         inputFile >> blockLvl;
         if (inputFile.eof()) {                              //EOF check
-            if (blocksInLine != maxBlocksLine) {            //Line not fully filled
+            if (blocksInLine != maxBlocksLine || rows == MAP_MAX_ROWS) {       //Line not fully filled or too many rows
                 inputFile.close();
                 throw invalid_argument("ERROR! Invalid map content.");
             }

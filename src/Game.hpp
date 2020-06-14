@@ -2,6 +2,7 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 #include <iostream>
 #include <vector>
 
@@ -9,16 +10,16 @@
 #include "GameObject.hpp"
 #include "Platform.hpp"
 #include "Ball.hpp"
-#include "Lives.hpp"
 #include "Block.hpp"
 #include "Bonus.hpp"
+#include "ScoreManager.hpp"
 
 
 /**Game FPS limit*/
 static const int MAX_FPS = 100;
 /**Frame delay*/
 static const int FRAME_DELAY = 1000 / MAX_FPS;
-/**How many lives you start with*/
+/**How many score you start with*/
 static const int START_LIVES = 3;
 
 
@@ -54,10 +55,10 @@ private:
     std::vector<GameObject *> gameObjects;
     Platform *platform{};
     Ball *ball{};
-    Lives *lives{};
     Bonus *bonus{};
+    ScoreManager *score{};
     bool isRunning = false;
-    int toWin = 0;
+    int toWin = 0; //todo
     Uint32 frameTicks{};
     Uint32 frameDelta{};
     SDL_Renderer *mainRenderer{};

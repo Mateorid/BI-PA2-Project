@@ -1,11 +1,11 @@
 #include "Bonus.hpp"
 
-Bonus::Bonus(SDL_Renderer *renderer, Ball &b1, Platform &plat, Lives &hp) { //todo remove  x & y from here
+Bonus::Bonus(SDL_Renderer *renderer, GameObject &b1, GameObject &plat, ScoreManager &score) {
     type = BONUS;
     objRenderer = renderer;
     ball1 = &b1;
     platform = &plat;
-    lives = &hp;
+    this->score = &score;
     objTexture = IMG_LoadTexture(renderer, BONUS_SRC);
     speed = BONUS_SPEED;
 }
@@ -74,7 +74,7 @@ void Bonus::Collided(bool activate) {
 void Bonus::ApplyBonus() {
     switch (bonusType) {
         case PLUS_LIFE:
-            lives->AddLife();
+            score->AddLife();
             break;
         case SECOND_BALL:
             //todo

@@ -1,21 +1,21 @@
 TODO Implement winning/defeat screen
 
+TODO add score & score text
+
 TODO create a random number making class (but how? XD)
 
 TODO Gamestate enum class? implement pause state ==> we cancel bonus falling
 
-TODO catch length_error for the map string?
-
-TODO? implement resizing based on screen res
-
 TODO destructors in classes => Destroy() method
 
-TODO Clean everything up, look online how others did it (Matousek maybe?)
-
-todo try the collision model again bcs Im retarded
+TODO Clean everything up, look online how others did it (Matousek maybe?)  + valgrind
 
 TODO throw exceptions everywhere? check for texture sizes being >0
 
 TODO test different resolutions & block sizes
 
 TODO implement second ball bonus
+
+TODO test for img source files not missing!!!
+
+TODO add pause?

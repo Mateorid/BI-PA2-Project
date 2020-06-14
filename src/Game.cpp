@@ -11,21 +11,21 @@ Game::Game(std::vector<GameObject *> obj, SDL_Renderer *renderer) {
 
 void Game::Initialize() {
     /**Creating and inserting the platform and ball objects*/
-    lives = new Lives(START_LIVES);
+    score = new ScoreManager(mainRenderer, START_LIVES);
     platform = new Platform(mainRenderer);
     gameObjects.push_back(platform);
-    ball = new Ball(mainRenderer, lives);
+    ball = new Ball(mainRenderer, score);
     gameObjects.push_back(ball);
-    bonus = new Bonus(mainRenderer, *ball, *platform, *lives);
+    bonus = new Bonus(mainRenderer, *ball, *platform, *score);
     gameObjects.push_back(bonus);
-    lives->Init(*platform, *ball);
+    score->Init(*platform, *ball);
     isRunning = true;
 }
 
 int Game::Play() {
     while (isRunning) {
         frameTicks = SDL_GetTicks();
-        if (lives->GetLives() == 0) {
+        if (score->GetLives() == 0) {
             std::cout << "GAME OVER" << std::endl;
             isRunning = false;
         }
@@ -72,12 +72,19 @@ void Game::Collisions() {
     for (auto it:gameObjects) {
         if (!it->IsActive())
             continue;
-        if (it->GetType() == BLOCK || it->GetType() == PLATFORM) {          //Ball collision
+
+        if (it->GetType() == BLOCK) {//Ball collision
+            if (ball->CollisionDetection(it)) {
+                it->Collided(true);
+                score->PlusScore();
+            }
+        } else if (it->GetType() == PLATFORM) {
             it->Collided(ball->CollisionDetection(it));
         } else if (it->GetType() == BONUS) {                                //Bonus collision
             it->Collided(it->CollisionDetection(platform));
         }
     }
+
 }
 
 void Game::UpdateAll() {
@@ -105,6 +112,7 @@ void Game::RenderAll() {
         if (it->IsActive())
             it->Render();
     }
+    score->Render();
     SDL_RenderPresent(mainRenderer);        //Draws stuff in window
 }
 

@@ -3,8 +3,7 @@
 
 #include "GameObject.hpp"
 #include "Settings.hpp"
-#include "Ball.hpp"
-#include "Platform.hpp"
+#include "ScoreManager.hpp"
 
 
 /**Destination of bonus source image*/
@@ -15,7 +14,7 @@ static const int BONUS_SPEED = 3;
 
 class Bonus : public GameObject {
 public:
-    Bonus(SDL_Renderer *renderer, Ball &b1, Platform &plat, Lives &hp);
+    Bonus(SDL_Renderer *renderer, GameObject &b1, GameObject &plat, ScoreManager &score);
 
     void Update() override;
 
@@ -34,10 +33,10 @@ private:
 
     bool toDelete = false;
     BonusType bonusType{};
-    Ball *ball1{};
-//    Ball *ball2{};//TODO 2nd ball check
-    Platform *platform{};
-    Lives *lives{};
+    GameObject *ball1{};
+//    GameObject *ball2{};//TODO 2nd ball check
+    GameObject *platform{};
+    ScoreManager *score{};
 };
 
 

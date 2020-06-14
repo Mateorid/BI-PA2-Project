@@ -1,11 +1,11 @@
 #include "Ball.hpp"
 
-Ball::Ball(SDL_Renderer *renderer, Lives *lives) {
-    this->lives = lives;
+Ball::Ball(SDL_Renderer *renderer, ScoreManager *score) {
+    this->score = score;
     type = BALL;
     objTexture = IMG_LoadTexture(renderer, BALL_SRC);
     speed = BALL_SPEED;
-    destR.x = destR.y = 1;
+    destR.x = destR.y = 1000;
     active = false;
     objRenderer = renderer;
 }
@@ -38,13 +38,14 @@ void Ball::Update() {
             dirY *= -1;
         if (destR.y >= GAME_HEIGHT - BALL_SIZE) {
             std::cout << "Lost life" << std::endl;    //todo Add second ball check
-            lives->LoseLife();
+            score->LoseLife();
             active = false;
         }
     }
 }
 
 bool Ball::CollisionDetection(GameObject *object) {
+    //Inspired by this article: https://happycoding.io/tutorials/processing/collision-detection
     collision = false;
     int x = object->GetX();
     int y = object->GetY();

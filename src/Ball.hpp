@@ -6,7 +6,7 @@
 
 #include "GameObject.hpp"
 #include "Settings.hpp"
-#include "Lives.hpp"
+#include "ScoreManager.hpp"
 
 
 /**Destination of ball source image*/
@@ -16,7 +16,7 @@ static const int BALL_SPEED = 5;
 
 class Ball : public GameObject {
 public:
-    Ball(SDL_Renderer *renderer, Lives *lives);
+    Ball(SDL_Renderer *renderer, ScoreManager *score);
 
     void Init(int platformX);
 
@@ -35,7 +35,7 @@ public:
 private:
     bool toDelete = false;
     bool collision = false;
-    Lives *lives;
+    ScoreManager *score;
     int dirX = 1;
     int dirY = -1;
 };

@@ -14,6 +14,9 @@ void Application::Initialize(const char *title, int xPos, int yPos, int width, i
     if (IMG_Init(IMG_INIT_PNG) == 0)
         throw std::runtime_error("ERROR! IMG_Init failed to initialize!");
 
+    if (TTF_Init() == -1)
+        throw std::runtime_error("ERROR! TTF_Init failed to initialize!");
+
     mainWindow = SDL_CreateWindow(title, xPos, yPos, width, height, initFullscreen);
     if (mainWindow == nullptr)
         throw std::runtime_error("ERROR! SDL_CreateWindow failed to initialize!");
@@ -50,7 +53,8 @@ void Application::CleanAll() {
     gameObjects.clear();
     SDL_DestroyRenderer(mainRenderer);
     SDL_DestroyWindow(mainWindow);
-    IMG_Quit();
     SDL_Quit();
+    IMG_Quit();
+    TTF_Quit();
     std::cout << "Everything cleaned" << std::endl;
 }
