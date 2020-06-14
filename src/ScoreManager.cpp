@@ -38,7 +38,7 @@ void ScoreManager::LoseLife() {
 
 void ScoreManager::UpdateScore() {
     std::ostringstream oss;
-    oss << "Score: " << std::setw(6) << std::setfill('0') << score << "  Lives: " << lives;
+    oss << "Score: " << std::setw(3) << std::setfill('0') << score << "  Lives: " << lives;
     scoreSurface = TTF_RenderUTF8_Blended(gameFont, oss.str().c_str(), {255, 255, 255, 0});
     srcR = {0, 0, scoreSurface->w, scoreSurface->h};
     scoreTexture = SDL_CreateTextureFromSurface(renderer, scoreSurface);

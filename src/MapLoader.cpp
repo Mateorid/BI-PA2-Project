@@ -3,7 +3,7 @@
 MapLoader::MapLoader(const string &filename, SDL_Renderer *renderer) {
     this->renderer = renderer;
     if (BLOCK_HEIGHT == 0 || BLOCK_WIDTH == 0)
-        throw overflow_error("ERROR! Divide by zero exception");
+        throw invalid_argument("ERROR! Block cannot have 0 size.");
     maxBlocksLine = GAME_WIDTH / BLOCK_WIDTH;
     cout << "Max blocks on line is: " << maxBlocksLine << endl; //todo delete
     LoadBlocks(filename);

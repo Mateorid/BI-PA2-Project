@@ -3,8 +3,8 @@
 Platform::Platform(SDL_Renderer *renderer) {
     type = PLATFORM;
     objRenderer = renderer;
-    objTexture = IMG_LoadTexture(renderer, PLATFORM_SRC);
     speed = PLATFORM_SPEED;
+    LoadTexture(PLATFORM_SRC);
     Init();
     active = true;
 }

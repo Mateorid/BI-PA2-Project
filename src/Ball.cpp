@@ -3,11 +3,11 @@
 Ball::Ball(SDL_Renderer *renderer, ScoreManager *score) {
     this->score = score;
     type = BALL;
-    objTexture = IMG_LoadTexture(renderer, BALL_SRC);
+    objRenderer = renderer;
     speed = BALL_SPEED;
     destR.x = destR.y = 1000;
+    LoadTexture(BALL_SRC);
     active = false;
-    objRenderer = renderer;
 }
 
 void Ball::Init(int platformX) {
@@ -54,7 +54,7 @@ bool Ball::CollisionDetection(GameObject *object) {
     /**Horizontal collision*/
     if (destR.x + destR.w + (dirX * speed) > x &&
         destR.x + (dirX * speed) < otherX &&
-        destR.y + srcR.h > y &&
+        destR.y + destR.h > y &&
         destR.y < otherY) {
         dirX *= -1;
         collision = true;
@@ -62,44 +62,10 @@ bool Ball::CollisionDetection(GameObject *object) {
     /**Vertical collision*/
     if (destR.x + destR.w > x &&
         destR.x < otherX &&
-        destR.y + srcR.h + (dirY * speed) > y &&
+        destR.y + destR.h + (dirY * speed) > y &&
         destR.y + (dirY * speed) < otherY) {
         dirY *= -1;
         collision = true;
     }
     return collision;
 }
-//
-//bool Ball::CollisionDetection(GameObject *object) {
-//    collision = false;
-//    int x = object->GetX();
-//    int y = object->GetY();
-//    int otherX = object->GetX() + object->GetW();
-//    int otherY = object->GetY() + object->GetH();
-//    /**Vertical collision*/
-//    if (destR.x >= x && destR.x + destR.w <= otherX) {
-//        if (destR.y + destR.h >= y && destR.y < y) {
-//            destR.y = y - destR.h - 1;
-//            dirY *= -1;
-//            collision = true;
-//        } else if (destR.y <= otherY && destR.y + destR.h > otherY) {
-//            destR.y = otherY + 1;
-//            dirY *= -1;
-//            collision = true;
-//        }
-//    }
-//    /**Horizontal collision*/
-//    if (destR.y <= otherY && destR.y + destR.h >= y) {
-//        if (destR.x + destR.w >= x && destR.x <= x) {
-//            destR.x = x - destR.w - 1;
-//            dirX *= -1;
-//            collision = true;
-//        } else if (destR.x + destR.w >= otherX && destR.x <= otherX) {
-//            destR.x = otherX + 1;
-//            dirX *= -1;
-//            collision = true;
-//        }
-//    }
-//    return collision;
-//}
-

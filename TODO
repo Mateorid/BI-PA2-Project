@@ -1,6 +1,8 @@
-TODO Implement winning/defeat screen
+TODO implement second ball bonus
 
-TODO add score & score text
+TODO test for img source files not missing!!!
+
+TODO Implement winning/defeat screen
 
 TODO create a random number making class (but how? XD)
 
@@ -13,9 +15,5 @@ TODO Clean everything up, look online how others did it (Matousek maybe?)  + val
 TODO throw exceptions everywhere? check for texture sizes being >0
 
 TODO test different resolutions & block sizes
-
-TODO implement second ball bonus
-
-TODO test for img source files not missing!!!
 
 TODO add pause?

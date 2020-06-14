@@ -23,15 +23,19 @@ public:
 
     virtual void ResetSpeed() {};
 
-    virtual void Destroy() { SDL_DestroyTexture(objTexture); }
+    virtual void Destroy() { SDL_DestroyTexture(objTexture); } //todo
 
     virtual bool CollisionDetection(GameObject *object);
 
     virtual void Collided(bool activate) {};
 
-    bool IsActive() const { return active; }
-
     virtual bool ToDelete() const { return !active; }
+
+    void LoadTexture(const char * destination);
+
+    virtual void Render();
+
+    bool IsActive() const { return active; }
 
     GOType GetType() const { return type; }
 
@@ -43,11 +47,8 @@ public:
 
     int GetW() const { return destR.w; }
 
-    virtual void Render();
-
 protected:
     SDL_Rect srcR{}, destR{}; //TODO: delete srdR add only in block & bonus class + move to private?
-    bool isColliding = false; //todo delete?
     bool active = false;
     int speed = 0;
     GOType type{};

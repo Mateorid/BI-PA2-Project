@@ -31,14 +31,14 @@ void Application::Initialize(const char *title, int xPos, int yPos, int width, i
 int Application::Start() {
     try {
         LoadMap();
+        game = new Game(gameObjects, mainRenderer);
+        game->Play();
+        CleanAll();
+        return 0;
     } catch (exception &exception) {
         std::cout << exception.what() << std::endl;
         return 69;
     }
-    game = new Game(gameObjects, mainRenderer);
-    game->Play();
-    CleanAll();
-    return 0;
 }
 
 void Application::LoadMap() {

@@ -6,7 +6,7 @@ Bonus::Bonus(SDL_Renderer *renderer, GameObject &b1, GameObject &plat, ScoreMana
     ball1 = &b1;
     platform = &plat;
     this->score = &score;
-    objTexture = IMG_LoadTexture(renderer, BONUS_SRC);
+    LoadTexture(BONUS_SRC);
     speed = BONUS_SPEED;
 }
 

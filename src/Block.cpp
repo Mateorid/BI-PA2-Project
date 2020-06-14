@@ -4,11 +4,11 @@ Block::Block(SDL_Renderer *renderer, int lvl, int x, int y) {
     SetLevel(lvl);
     type = BLOCK;
     objRenderer = renderer;
-    objTexture = IMG_LoadTexture(renderer, BLOCK_SRC);
     destR.x = x;
     destR.y = y;
     destR.h = BLOCK_HEIGHT;
     destR.w = BLOCK_WIDTH;
+    LoadTexture(BLOCK_SRC);
     UpdateTexture(level);
     active = true;
 }
