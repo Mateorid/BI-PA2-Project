@@ -32,7 +32,7 @@ public:
 
     explicit Game(std::vector<GameObject *> obj, SDL_Renderer *renderer);
 
-    ~Game() = default;
+    ~Game();
 
 
     int Play();

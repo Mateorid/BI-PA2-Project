@@ -9,6 +9,14 @@ Game::Game(std::vector<GameObject *> obj, SDL_Renderer *renderer) {
     Initialize();
 }
 
+Game::~Game() {
+    delete score;
+    delete platform;
+    delete ball1;
+    delete ball2;
+    delete bonus;
+}
+
 void Game::Initialize() {
     /**Creating and inserting the platform and ball1 objects*/
     score = new ScoreManager(mainRenderer, START_LIVES);

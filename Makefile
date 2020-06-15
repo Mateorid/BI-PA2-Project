@@ -11,7 +11,7 @@ DEST_DIR	= obj
 TARGET		= arkanoid
 
 .PHONY: all
-all: $(TARGET) #doc
+all: $(TARGET) doc
 
 .PHONY: run
 run: $(TARGET)
@@ -22,6 +22,7 @@ valgrind: $(TARGET)
 	@valgrind --gen-suppressions=all --suppressions=./ValgrindSuppression.sup --leak-check=full --show-leak-kinds=all  ./$(TARGET) -g
 
 doc:
+	@mkdir -p doc
 #	doxygen
 
 $(TARGET): $(DEST_DIR)/main.o $(DEST_DIR)/Application.o $(DEST_DIR)/Game.o $(DEST_DIR)/GameObject.o  $(DEST_DIR)/Platform.o \
@@ -38,7 +39,9 @@ $(DEST_DIR):
 
 .PHONY: clean
 clean:
-	@rm -rf $(TARGET) $(DEST_DIR)/ 2>/dev/null
+	@rm -rf $(TARGET)
+	@rm -rf $(DEST_DIR)/ 2>/dev/null
+	@rm -rf doc 2>/dev/null
 	@echo "Files deleted"
 
 #Dependencies
