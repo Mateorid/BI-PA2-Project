@@ -58,6 +58,10 @@ void Bonus::SetBonusType(int x) {
             bonusType = FAST_BALL;
             srcR.x = 500;
             break;
+        case 6:
+            bonusType = EXTRA_SCORE;
+            srcR.x = 600;
+            break;
         default:
             break;
     }
@@ -99,6 +103,9 @@ void Bonus::ApplyBonus() {
         case FAST_BALL:
             ball1->SpeedUP();
             ball2->SpeedUP();
+            break;
+        case EXTRA_SCORE:
+            score->PlusScore(SCORE_BONUS);
             break;
     }
 }

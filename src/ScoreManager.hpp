@@ -26,6 +26,8 @@ public:
 
     void PlusScore();
 
+    void PlusScore(int x);
+
     void MinusScore();
 
     void AddLife();

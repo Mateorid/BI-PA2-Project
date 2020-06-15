@@ -18,6 +18,11 @@ void ScoreManager::PlusScore() {
     UpdateScore();
 }
 
+void ScoreManager::PlusScore(int x) {
+    score += x;
+    UpdateScore();
+}
+
 void ScoreManager::MinusScore() {
     score -= SCORE_DEDUCT;
     UpdateScore();
