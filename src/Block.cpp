@@ -13,6 +13,11 @@ Block::Block(SDL_Renderer *renderer, int lvl, int x, int y) {
     active = true;
 }
 
+Block::~Block() {
+    active = false;
+    SDL_DestroyTexture(objTexture);
+}
+
 void Block::Destroy() {
     active = false;
     SDL_DestroyTexture(objTexture);

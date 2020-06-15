@@ -11,7 +11,7 @@ class GameObject {
 public:
     GameObject() = default;
 
-    ~GameObject() = default; //todo?
+    virtual ~GameObject() = default; //todo?
 
     virtual void Init() {};
 

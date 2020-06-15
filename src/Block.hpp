@@ -10,7 +10,9 @@ static const char *const BLOCK_SRC = "examples/textures/block.png";
 
 class Block : public GameObject {
 public:
-    Block(SDL_Renderer *renderer, int lvl, int x, int y); //todo add pointer to toWin counter and use that
+    Block(SDL_Renderer *renderer, int lvl, int x, int y);
+
+    ~Block();
 
     void Destroy() override;
 

@@ -10,6 +10,9 @@ Game::Game(std::vector<GameObject *> obj, SDL_Renderer *renderer) {
 }
 
 Game::~Game() {
+    for (auto it:gameObjects) {
+        delete it;
+    }
     delete score;
     delete platform;
     delete ball1;
