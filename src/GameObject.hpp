@@ -31,9 +31,9 @@ public:
 
     virtual bool ToDelete() const { return !active; }
 
-    void LoadTexture(const char * destination);
-
     virtual void Render();
+
+    void LoadTexture(const char * destination);
 
     bool IsActive() const { return active; }
 
@@ -48,7 +48,7 @@ public:
     int GetW() const { return destR.w; }
 
 protected:
-    SDL_Rect srcR{}, destR{}; //TODO: delete srdR add only in block & bonus class + move to private?
+    SDL_Rect srcR{}, destR{};
     bool active = false;
     int speed = 0;
     GOType type{};

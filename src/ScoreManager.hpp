@@ -18,7 +18,7 @@ class ScoreManager {
 public:
     ScoreManager(SDL_Renderer *ren, int x);
 
-    void Init(GameObject &plat, GameObject &b1);
+    void Init(GameObject &plat, GameObject &b1, GameObject &b2);
 
     void UpdateScore();
 
@@ -40,8 +40,8 @@ private:
     int lives = 0;
     int score = 0;
     GameObject *platform{};
-    GameObject *ball{};
-//    GameObject* ball2; //TODO
+    GameObject *ball1{};
+    GameObject *ball2{};
     SDL_Surface *scoreSurface{};
     SDL_Renderer *renderer{};
     SDL_Texture *scoreTexture = nullptr;

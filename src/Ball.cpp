@@ -37,9 +37,8 @@ void Ball::Update() {
         if (destR.y <= 0)
             dirY *= -1;
         if (destR.y >= GAME_HEIGHT - BALL_SIZE) {
-            std::cout << "Lost life" << std::endl;    //todo Add second ball check
-            score->LoseLife();
             active = false;
+            score->LoseLife();
         }
     }
 }

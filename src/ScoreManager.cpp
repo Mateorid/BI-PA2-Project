@@ -6,9 +6,10 @@ ScoreManager::ScoreManager(SDL_Renderer *ren, int x) {
     gameFont = TTF_OpenFont(FONT_SRC, 50);
 }
 
-void ScoreManager::Init(GameObject &plat, GameObject &b1) {
+void ScoreManager::Init(GameObject &plat, GameObject &b1, GameObject &b2) {
     platform = &plat;
-    ball = &b1;
+    ball1 = &b1;
+    ball2 = &b2;
     UpdateScore();
 }
 
@@ -28,12 +29,14 @@ void ScoreManager::AddLife() {
 }
 
 void ScoreManager::LoseLife() {
-    lives--;
-    UpdateScore();
-    MinusScore();
-    platform->ResetSpeed();
-    ball->ResetSpeed();
-    //todo 2nd ball
+    if (!ball1->IsActive() && !ball2->IsActive()) {
+        lives--;
+        UpdateScore();
+        MinusScore();
+        platform->ResetSpeed();
+        ball1->ResetSpeed();
+        ball2->ResetSpeed();
+    }
 }
 
 void ScoreManager::UpdateScore() {

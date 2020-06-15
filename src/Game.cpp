@@ -10,25 +10,24 @@ Game::Game(std::vector<GameObject *> obj, SDL_Renderer *renderer) {
 }
 
 void Game::Initialize() {
-    /**Creating and inserting the platform and ball objects*/
+    /**Creating and inserting the platform and ball1 objects*/
     score = new ScoreManager(mainRenderer, START_LIVES);
     platform = new Platform(mainRenderer);
     gameObjects.push_back(platform);
-    ball = new Ball(mainRenderer, score);
-    gameObjects.push_back(ball);
-    bonus = new Bonus(mainRenderer, *ball, *platform, *score);
+    ball1 = new Ball(mainRenderer, score);
+    gameObjects.push_back(ball1);
+    ball2 = new Ball(mainRenderer, score);
+    gameObjects.push_back(ball2);
+    bonus = new Bonus(mainRenderer, *ball1, *ball2, *platform, *score);
     gameObjects.push_back(bonus);
-    score->Init(*platform, *ball);
+    score->Init(*platform, *ball1, *ball2);
     isRunning = true;
 }
 
 int Game::Play() {
     while (isRunning) {
         frameTicks = SDL_GetTicks();
-        if (score->GetLives() == 0) {
-            std::cout << "GAME OVER" << std::endl;
-            isRunning = false;
-        }
+
         HandleEvents();
         UpdateAll();
         Collisions();
@@ -39,6 +38,11 @@ int Game::Play() {
             SDL_Delay(FRAME_DELAY - frameDelta);
         }
     }
+//todo win/defeat check
+    if (toWin == 0)
+        Victory();
+    else
+        Defeat();
 //    CleanAll();
     return 0;
 }
@@ -51,7 +55,7 @@ void Game::HandleEvents() {
     if (events.type == SDL_KEYDOWN) {                                       //Keypress handling
         switch (events.key.keysym.sym) {
             case SDLK_SPACE:
-                ball->Init(platform->GetX());
+                ball1->Init(platform->GetX());
                 break;
             case SDLK_LEFT:
                 platform->MoveLeft();
@@ -70,21 +74,21 @@ void Game::HandleEvents() {
 
 void Game::Collisions() {
     for (auto it:gameObjects) {
-        if (!it->IsActive())
+        if (!it->IsActive())//Skips all non-active Game objects
             continue;
 
-        if (it->GetType() == BLOCK) {//Ball collision
-            if (ball->CollisionDetection(it)) {
+        if (it->GetType() == BLOCK) {//Ball-Block collision
+            if (ball1->CollisionDetection(it) || ball2->CollisionDetection(it)) {
                 it->Collided(true);
                 score->PlusScore();
             }
-        } else if (it->GetType() == PLATFORM) {
-            it->Collided(ball->CollisionDetection(it));
-        } else if (it->GetType() == BONUS) {                                //Bonus collision
+        } else if (it->GetType() == PLATFORM) {//Ball-Platform collision
+            ball1->CollisionDetection(it);
+            ball2->CollisionDetection(it);
+        } else if (it->GetType() == BONUS) {//Bonus-Platform collision
             it->Collided(it->CollisionDetection(platform));
         }
     }
-
 }
 
 void Game::UpdateAll() {
@@ -93,16 +97,22 @@ void Game::UpdateAll() {
         if (it->IsActive())
             it->Update();
         else if (it->ToDelete()) {
-//            TODO: Add blocks left till win counter, (if BLOCK then toWin--)
             if (it->GetType() == BLOCK) {
-                SpawnBonus(it->GetX(), it->GetY());
+                bonus->SpawnBonus(it->GetX(), it->GetY());
                 toWin--;
             }
             gameObjects.erase(gameObjects.begin() + tmpIt);
             std::cout << "DELETED SOMETHING" << std::endl;
-            //todo Add toWin win check here
+            if (toWin == 0) {
+                isRunning = false;
+                return;
+            }
         }
         tmpIt++;
+    }
+    if (score->GetLives() == 0) {
+        isRunning = false;
+        return;
     }
 }
 
@@ -116,13 +126,6 @@ void Game::RenderAll() {
     SDL_RenderPresent(mainRenderer);        //Draws stuff in window
 }
 
-void Game::SpawnBonus(int x, int y) {
-    bool tmp1 = (rand() & 1);   //25% chance of spawning a bonus
-    bool tmp2 = (rand() & 1);
-    if (tmp1 & tmp2)
-        bonus->Init(x, y);
-}
-
 void Game::CleanAll() {
 //    for (auto it:gameObjects) {
 //        it->Destroy();
@@ -133,4 +136,12 @@ void Game::CleanAll() {
 //    IMG_Quit();
 //    SDL_Quit();
 //    std::cout << "Everything cleaned" << std::endl;
+}
+
+void Game::Victory() {
+    std::cout << "YOU WON" << std::endl;
+}
+
+void Game::Defeat() {
+    std::cout << "YOU LOST" << std::endl;
 }

@@ -35,9 +35,11 @@ public:
     ~Game() = default;
 
 
-    void Initialize();
-
     int Play();
+
+
+private:
+    void Initialize();
 
     void HandleEvents();
 
@@ -45,16 +47,18 @@ public:
 
     void UpdateAll();
 
-    void SpawnBonus(int x, int y);
-
     void RenderAll();
 
     void CleanAll();
 
-private:
+    void Victory();
+
+    void Defeat();
+
     std::vector<GameObject *> gameObjects;
     Platform *platform{};
-    Ball *ball{};
+    Ball *ball1{};
+    Ball *ball2{};
     Bonus *bonus{};
     ScoreManager *score{};
     bool isRunning = false;

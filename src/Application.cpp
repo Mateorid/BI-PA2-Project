@@ -42,7 +42,7 @@ int Application::Start() {
 }
 
 void Application::LoadMap() {
-    mapLoader = new MapLoader(MAP_SRC, mainRenderer); //todo convert to MapLoader
+    mapLoader = new MapLoader(MAP_SRC, mainRenderer);
     gameObjects = std::move(mapLoader->getBlocks()); //todo does move work like this? (removed const const from map.hpp)
 }
 

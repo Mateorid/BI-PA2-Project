@@ -1,12 +1,8 @@
-TODO implement second ball bonus
-
-TODO test for img source files not missing!!!
+TODO Gamestate enum class? implement pause state ==> we cancel bonus falling
 
 TODO Implement winning/defeat screen
 
 TODO create a random number making class (but how? XD)
-
-TODO Gamestate enum class? implement pause state ==> we cancel bonus falling
 
 TODO destructors in classes => Destroy() method
 
@@ -17,3 +13,7 @@ TODO throw exceptions everywhere? check for texture sizes being >0
 TODO test different resolutions & block sizes
 
 TODO add pause?
+
+TODO make Makefile more readable (file with dependencies like Matousek)
+
+TODO add score bonus?

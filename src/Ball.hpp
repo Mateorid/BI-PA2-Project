@@ -9,7 +9,7 @@
 #include "ScoreManager.hpp"
 
 
-/**Destination of ball source image*/
+/**Destination of ball1 source image*/
 static const char *const BALL_SRC = "examples/textures/ball.png";
 static const int BALL_SPEED = 5;
 
@@ -22,7 +22,7 @@ public:
 
     void Update() override;
 
-    void SlowDown() override { speed = 3; }//TODO?
+    void SlowDown() override { speed = 3; }
 
     void SpeedUP() override { speed = 7; }
 
