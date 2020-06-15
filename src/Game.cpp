@@ -10,14 +10,14 @@ Game::Game(std::vector<GameObject *> obj, SDL_Renderer *renderer) {
 }
 
 Game::~Game() {
-    for (auto it:gameObjects) {
-        delete it;
-    }
+    std::cout << "Called ~Game" << std::endl;
     delete score;
-    delete platform;
-    delete ball1;
-    delete ball2;
-    delete bonus;
+
+    for (auto &gameObject : gameObjects) {
+        delete gameObject;
+    }
+    gameObjects.clear();
+    std::cout << "Game objects cleared." << std::endl;
 }
 
 void Game::Initialize() {
@@ -54,7 +54,6 @@ int Game::Play() {
         Victory();
     else
         Defeat();
-//    CleanAll();
     return 0;
 }
 
@@ -107,17 +106,15 @@ void Game::UpdateAll() {
     for (auto it:gameObjects) {
         if (it->IsActive())
             it->Update();
-        else if (it->ToDelete()) {
-            if (it->GetType() == BLOCK) {
-                bonus->SpawnBonus(it->GetX(), it->GetY());
-                toWin--;
-            }
+        else if (it->GetType() == BLOCK) {
+            bonus->SpawnBonus(it->GetX(), it->GetY());
+            toWin--;
+            delete gameObjects[tmpIt];
             gameObjects.erase(gameObjects.begin() + tmpIt);
-            std::cout << "DELETED SOMETHING" << std::endl;
-            if (toWin == 0) {
-                isRunning = false;
-                return;
-            }
+        }
+        if (toWin == 0) {
+            isRunning = false;
+            return;
         }
         tmpIt++;
     }
@@ -137,22 +134,12 @@ void Game::RenderAll() {
     SDL_RenderPresent(mainRenderer);        //Draws stuff in window
 }
 
-void Game::CleanAll() {
-//    for (auto it:gameObjects) {
-//        it->Destroy();
-//    }
-//    gameObjects.clear();
-//    SDL_DestroyRenderer(mainRenderer);
-//    SDL_DestroyWindow(mainWindow);
-//    IMG_Quit();
-//    SDL_Quit();
-//    std::cout << "Everything cleaned" << std::endl;
-}
-
 void Game::Victory() {
     std::cout << "YOU WON" << std::endl;
+    //todo
 }
 
 void Game::Defeat() {
     std::cout << "YOU LOST" << std::endl;
+    //todo
 }

@@ -2,13 +2,15 @@
 
 
 #include "GameObject.hpp"
-#include "Settings.hpp"
+#include "Application.hpp"
 
 
 /**Destination of platform source image*/
 static const char *const PLATFORM_SRC = "examples/textures/paddle.png";
+/**Platform settings*/
+static const int PLATFORM_H = 20;
+static const int PLATFORM_W = 90;
 static const int PLATFORM_SPEED = 8;
-
 
 class Platform : public GameObject {
 public:

@@ -5,14 +5,17 @@
 #include <ctime>
 
 #include "GameObject.hpp"
-#include "Settings.hpp"
 #include "ScoreManager.hpp"
+#include "Platform.hpp"
 
 
-/**Destination of ball1 source image*/
+/**Destination of ball source image*/
 static const char *const BALL_SRC = "examples/textures/ball.png";
+/**Ball settings*/
 static const int BALL_SPEED = 5;
+static const int BALL_SIZE = 20;
 
+class ScoreManager;
 
 class Ball : public GameObject {
 public:
@@ -30,10 +33,7 @@ public:
 
     bool CollisionDetection(GameObject *object) override;
 
-    bool ToDelete() const override { return toDelete; }; //TODO Override destroy bcs of this?
-
 private:
-    bool toDelete = false;
     bool collision = false;
     ScoreManager *score;
     int dirX = 1;

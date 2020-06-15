@@ -68,7 +68,7 @@ void Bonus::SetBonusType(int x) {
 }
 
 void Bonus::Update() {
-    if (destR.y < GAME_HEIGHT) {
+    if (destR.y < APP_HEIGHT) {
         destR.y += speed;
         return;
     }

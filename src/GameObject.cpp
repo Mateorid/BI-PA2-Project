@@ -14,3 +14,8 @@ void GameObject::LoadTexture(const char *destination) {
 void GameObject::Render() {
     SDL_RenderCopy(objRenderer, objTexture, nullptr, &destR);
 }
+
+GameObject::~GameObject() {
+    std::cout << "Game object destructor." << std::endl;
+    SDL_DestroyTexture(objTexture);
+}

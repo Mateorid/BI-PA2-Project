@@ -2,7 +2,11 @@
 
 Application::Application() {
     Initialize(GAME_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-               GAME_WIDTH, GAME_HEIGHT, START_FULLSCREEN);
+               APP_WIDTH, APP_HEIGHT, START_FULLSCREEN);
+}
+
+Application::~Application() {
+    delete mapLoader;
 }
 
 void Application::Initialize(const char *title, int xPos, int yPos, int width, int height, bool fullscreen) {
@@ -48,13 +52,11 @@ void Application::LoadMap() {
 
 void Application::CleanAll() {
 //todo?
-    for (auto it:gameObjects)
-        it->Destroy();
-    gameObjects.clear();
+    delete game;
     SDL_DestroyRenderer(mainRenderer);
     SDL_DestroyWindow(mainWindow);
     SDL_Quit();
     IMG_Quit();
     TTF_Quit();
-    std::cout << "Everything cleaned" << std::endl;
+    std::cout << "SDL stuff cleared" << std::endl;
 }

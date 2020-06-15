@@ -6,9 +6,10 @@
 #include <fstream>
 
 #include "Block.hpp"
+#include "Application.hpp"
 
 
-static const int MAP_MAX_ROWS = 15;
+static const int MAP_MAX_ROWS = 20;
 
 using namespace std;
 

@@ -6,7 +6,6 @@
 #include <iostream>
 #include <vector>
 
-#include "Settings.hpp"
 #include "GameObject.hpp"
 #include "Platform.hpp"
 #include "Ball.hpp"
@@ -22,6 +21,13 @@ static const int FRAME_DELAY = 1000 / MAX_FPS;
 /**How many score you start with*/
 static const int START_LIVES = 3;
 
+class Platform;
+
+class Ball;
+
+class Block;
+
+class Bonus;
 
 class Game {
 public:
@@ -48,8 +54,6 @@ private:
     void UpdateAll();
 
     void RenderAll();
-
-    void CleanAll();
 
     void Victory();
 

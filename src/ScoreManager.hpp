@@ -6,8 +6,8 @@
 #include <sstream>
 #include <iomanip>
 
-#include "Settings.hpp"
 #include "GameObject.hpp"
+#include "Application.hpp"
 
 static const int SCORE_ADD = 100;
 static const int SCORE_DEDUCT = 500;
@@ -17,6 +17,8 @@ static const char *const FONT_SRC = "examples/Gamer.ttf";
 class ScoreManager {
 public:
     ScoreManager(SDL_Renderer *ren, int x);
+
+    ~ScoreManager();
 
     void Init(GameObject &plat, GameObject &b1, GameObject &b2);
 

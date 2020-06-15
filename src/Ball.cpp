@@ -14,7 +14,7 @@ void Ball::Init(int platformX) {
     if (!active) {
         /**Sets destination*/
         destR.x = (platformX + (PLATFORM_W / 2) - (BALL_SIZE / 2));
-        destR.y = GAME_HEIGHT - PLATFORM_H - 50 - 1;
+        destR.y = APP_HEIGHT - PLATFORM_H - 50 - 1;
         destR.h = destR.w = BALL_SIZE;
         /**Random direction*/
         srand(time(nullptr));
@@ -32,11 +32,11 @@ void Ball::Update() {
         destR.y += (dirY * speed);
         if (destR.x <= 0)
             dirX *= -1;
-        if (destR.x >= GAME_WIDTH - BALL_SIZE)
+        if (destR.x >= APP_WIDTH - BALL_SIZE)
             dirX *= -1;
         if (destR.y <= 0)
             dirY *= -1;
-        if (destR.y >= GAME_HEIGHT - BALL_SIZE) {
+        if (destR.y >= APP_HEIGHT - BALL_SIZE) {
             active = false;
             score->LoseLife();
         }

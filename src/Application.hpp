@@ -14,21 +14,24 @@
 /**Title of the game*/
 static const char *const GAME_NAME = "Arkanoid 2.0";
 ///**Game window width*/
-//static const int GAME_WIDTH = 600;
+static const int APP_WIDTH = 600;
 ///**Game window height*/
-//static const int GAME_HEIGHT = 800;
+static const int APP_HEIGHT = 800;
 /**Start game in fullscreen*/
 static const bool START_FULLSCREEN = false;
 /**Destination of map source*/
 static const char *const MAP_SRC = "examples/map";
 
+class Game;
+
+class MapLoader;
 
 class Application {
 public:
 
     Application();
 
-    ~Application() = default;
+    ~Application();
 
     void Initialize(const char *title, int xPos, int yPos, int width, int height, bool fullscreen);
 

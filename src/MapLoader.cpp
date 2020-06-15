@@ -4,7 +4,7 @@ MapLoader::MapLoader(const string &filename, SDL_Renderer *renderer) {
     this->renderer = renderer;
     if (BLOCK_HEIGHT == 0 || BLOCK_WIDTH == 0)
         throw invalid_argument("ERROR! Block cannot have 0 size.");
-    maxBlocksLine = GAME_WIDTH / BLOCK_WIDTH;
+    maxBlocksLine = APP_WIDTH / BLOCK_WIDTH;
     cout << "Max blocks on line is: " << maxBlocksLine << endl; //todo delete
     LoadBlocks(filename);
 }
@@ -20,7 +20,7 @@ void MapLoader::LoadBlocks(const string &filename) {
 
         inputFile >> blockLvl;
         if (inputFile.eof()) {                              //EOF check
-            if (blocksInLine != maxBlocksLine || rows == MAP_MAX_ROWS) {       //Line not fully filled or too many rows
+            if (blocksInLine != maxBlocksLine || rows >= MAP_MAX_ROWS) {       //Line not fully filled or too many rows
                 inputFile.close();
                 throw invalid_argument("ERROR! Invalid map content.");
             }

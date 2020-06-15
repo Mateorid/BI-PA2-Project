@@ -5,13 +5,16 @@
 #include <iostream>
 #include <SDL2/SDL_image.h>
 
-#include "Settings.hpp"
+/**Game object types*/
+enum GOType {
+    PLATFORM, BALL, BLOCK, BONUS
+};
 
 class GameObject {
 public:
     GameObject() = default;
 
-    virtual ~GameObject() = default; //todo?
+    virtual ~GameObject();
 
     virtual void Init() {};
 
@@ -23,17 +26,13 @@ public:
 
     virtual void ResetSpeed() {};
 
-    virtual void Destroy() { SDL_DestroyTexture(objTexture); } //todo
-
     virtual bool CollisionDetection(GameObject *object);
 
     virtual void Collided(bool activate) {};
 
-    virtual bool ToDelete() const { return !active; }
-
     virtual void Render();
 
-    void LoadTexture(const char * destination);
+    void LoadTexture(const char *destination);
 
     bool IsActive() const { return active; }
 

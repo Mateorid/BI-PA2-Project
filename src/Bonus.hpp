@@ -2,19 +2,23 @@
 
 
 #include "GameObject.hpp"
-#include "Settings.hpp"
 #include "ScoreManager.hpp"
 #include "Ball.hpp"
 
 
 /**Destination of bonus source image*/
 static const char *const BONUS_SRC = "examples/textures/bonus.png";
-/**Bonus falling speed*/
+/**Bonus settings*/
 static const int BONUS_SPEED = 3;
+static const int BONUS_SIZE = 25;
 /**Number of bonuses*/
 static const int BONUS_TYPES = 7;
 /**Amount of score for EXTRA_SCORE bonus*/
 static const int SCORE_BONUS = 1000;
+
+class Ball;
+
+class ScoreManager;
 
 class Bonus : public GameObject {
 public:
@@ -28,9 +32,11 @@ public:
 
     void Render() override;
 
-    bool ToDelete() const override { return toDelete; };
-
 private:
+    /**Bonus types*/
+    enum BonusType {
+        PLUS_LIFE, SECOND_BALL, SLOW_PLAT, SLOW_BALL, FAST_PLAT, FAST_BALL, EXTRA_SCORE
+    };
 
     void Init(int x, int y);
 
@@ -40,7 +46,6 @@ private:
 
     void SecondBall();
 
-    bool toDelete = false;
     BonusType bonusType{};
     Ball *ball1{};
     Ball *ball2{};

@@ -10,8 +10,8 @@ Platform::Platform(SDL_Renderer *renderer) {
 }
 
 void Platform::Init() {
-    destR.x = (GAME_WIDTH / 2) - (PLATFORM_W / 2);
-    destR.y = GAME_HEIGHT - 50;
+    destR.x = (APP_WIDTH / 2) - (PLATFORM_W / 2);
+    destR.y = APP_HEIGHT - 50;
     destR.h = PLATFORM_H;
     destR.w = PLATFORM_W;
 }
@@ -22,6 +22,6 @@ void Platform::MoveLeft() {
 }
 
 void Platform::MoveRight() {
-    if ((destR.x + PLATFORM_W) <= GAME_WIDTH)
+    if ((destR.x + PLATFORM_W) <= APP_WIDTH)
         destR.x += speed;
 }

@@ -37,7 +37,6 @@ add_executable(Arkanoid
         src/MapLoader.hpp
         src/Platform.cpp
         src/Platform.hpp
-        src/Settings.hpp
         src/ScoreManager.cpp
         src/ScoreManager.hpp)
 target_link_libraries(Arkanoid ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} ${SDL2_TTF_LIBRARIES})

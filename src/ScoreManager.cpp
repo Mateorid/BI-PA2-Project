@@ -6,6 +6,10 @@ ScoreManager::ScoreManager(SDL_Renderer *ren, int x) {
     gameFont = TTF_OpenFont(FONT_SRC, 50);
 }
 
+ScoreManager::~ScoreManager() {
+    TTF_CloseFont(gameFont);
+}
+
 void ScoreManager::Init(GameObject &plat, GameObject &b1, GameObject &b2) {
     platform = &plat;
     ball1 = &b1;
@@ -50,11 +54,12 @@ void ScoreManager::UpdateScore() {
     scoreSurface = TTF_RenderUTF8_Blended(gameFont, oss.str().c_str(), {255, 255, 255, 0});
     srcR = {0, 0, scoreSurface->w, scoreSurface->h};
     scoreTexture = SDL_CreateTextureFromSurface(renderer, scoreSurface);
+    SDL_FreeSurface(scoreSurface);
 }
 
 void ScoreManager::Render() {
     destR = srcR;
-    destR.x = (GAME_WIDTH - destR.w) / 2;
-    destR.y = GAME_HEIGHT - destR.h;
+    destR.x = (APP_WIDTH - destR.w) / 2;
+    destR.y = APP_HEIGHT - destR.h;
     SDL_RenderCopy(renderer, scoreTexture, &srcR, &destR);
 }
