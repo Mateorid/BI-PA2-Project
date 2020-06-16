@@ -36,7 +36,7 @@ public:
      */
     Game() = default;
 
-    explicit Game(std::vector<GameObject *> obj, SDL_Renderer *renderer);
+    Game(std::vector<GameObject *> obj, SDL_Renderer *renderer);
 
     ~Game();
 

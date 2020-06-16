@@ -60,7 +60,7 @@ int Game::Play() {
 void Game::HandleEvents() {
     SDL_Event events;
     SDL_PollEvent(&events);
-    if (events.type == SDL_QUIT)                                            //Exit signal
+    if (events.type == SDL_QUIT)                                            //Clean signal
         isRunning = false;
     if (events.type == SDL_KEYDOWN) {                                       //Keypress handling
         switch (events.key.keysym.sym) {

@@ -12,6 +12,10 @@ public:
 
     ~TextPrinter();
 
+    void Init();
+
+    void Exit();
+
     SDL_Texture *CreateTextTexture(std::ostringstream &, SDL_Renderer *, SDL_Rect &);
 
 private:

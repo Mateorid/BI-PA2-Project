@@ -15,10 +15,16 @@ static const int BONUS_SIZE = 25;
 static const int BONUS_TYPES = 7;
 /**Amount of score for EXTRA_SCORE bonus*/
 static const int SCORE_BONUS = 1000;
+/**Bonus types*/
+enum BonusType {
+    PLUS_LIFE, SECOND_BALL, SLOW_PLAT, SLOW_BALL, FAST_PLAT, FAST_BALL, EXTRA_SCORE
+};
+
 
 class Ball;
 
 class ScoreManager;
+
 
 class Bonus : public GameObject {
 public:
@@ -33,10 +39,6 @@ public:
     void Render() override;
 
 private:
-    /**Bonus types*/
-    enum BonusType {
-        PLUS_LIFE, SECOND_BALL, SLOW_PLAT, SLOW_BALL, FAST_PLAT, FAST_BALL, EXTRA_SCORE
-    };
 
     void Init(int x, int y);
 

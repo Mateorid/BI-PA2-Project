@@ -39,6 +39,8 @@ add_executable(Arkanoid
         src/Platform.hpp
         src/ScoreManager.cpp
         src/ScoreManager.hpp
-        src/State.cpp
-        src/State.hpp src/StateManager.cpp src/StateManager.hpp src/TextPrinter.cpp src/TextPrinter.hpp)
+        src/TextPrinter.cpp
+        src/TextPrinter.hpp
+        src/State.cpp src/State.hpp src/StateManager.cpp src/StateManager.hpp
+        src/StartupState.cpp src/StartupState.hpp src/MenuState.cpp src/MenuState.hpp src/ExitState.cpp src/ExitState.hpp)
 target_link_libraries(Arkanoid ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} ${SDL2_TTF_LIBRARIES})
