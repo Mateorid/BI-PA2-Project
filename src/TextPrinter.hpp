@@ -12,7 +12,7 @@ public:
 
     ~TextPrinter();
 
-    void Init();
+    bool Init();
 
     void Exit();
 

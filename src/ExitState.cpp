@@ -8,6 +8,6 @@ void ExitState::Initialize(StateManager &manager) {
     IMG_Quit();
     TTF_Quit();
     std::cout << "EXIT finished" << std::endl; //todo
-//    manager.textPrinter.Exit();
+//    manager.textPrinter.Exit(); //todo still segfault
     manager.Exit();
 }
