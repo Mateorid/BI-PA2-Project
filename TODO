@@ -1,5 +1,3 @@
-TODO Gamestate enum class? implement pause state ==> we cancel bonus falling
-
 TODO Implement winning/defeat screen
 
 TODO Clean everything up, look online how others did it (Matousek maybe?)  + valgrind
@@ -11,3 +9,5 @@ TODO test different resolutions & block sizes
 TODO make Makefile more readable (file with dependencies like Matousek)
 
 TODO Doxyfile setup
+
+TODO Add copy constructor = delete to classes? (ma to matousek?)

@@ -3,11 +3,6 @@
 ScoreManager::ScoreManager(SDL_Renderer *ren, int x) {
     renderer = ren;
     lives = x;
-    gameFont = TTF_OpenFont(FONT_SRC, 50);
-}
-
-ScoreManager::~ScoreManager() {
-    TTF_CloseFont(gameFont);
 }
 
 void ScoreManager::Init(GameObject &plat, GameObject &b1, GameObject &b2) {
@@ -51,10 +46,7 @@ void ScoreManager::LoseLife() {
 void ScoreManager::UpdateScore() {
     std::ostringstream oss;
     oss << "Score: " << std::setw(3) << std::setfill('0') << score << "  Lives: " << lives;
-    scoreSurface = TTF_RenderUTF8_Blended(gameFont, oss.str().c_str(), {255, 255, 255, 0});
-    srcR = {0, 0, scoreSurface->w, scoreSurface->h};
-    scoreTexture = SDL_CreateTextureFromSurface(renderer, scoreSurface);
-    SDL_FreeSurface(scoreSurface);
+    scoreTexture = textPrinter.CreateTextTexture(oss, renderer, srcR);
 }
 
 void ScoreManager::Render() {

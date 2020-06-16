@@ -8,17 +8,19 @@
 
 #include "GameObject.hpp"
 #include "Application.hpp"
+#include "TextPrinter.hpp"
 
+/**Score added after hitting a block*/
 static const int SCORE_ADD = 100;
+/**Score deducted after losing a life*/
 static const int SCORE_DEDUCT = 500;
-static const char *const FONT_SRC = "examples/Gamer.ttf";
 
 
 class ScoreManager {
 public:
     ScoreManager(SDL_Renderer *ren, int x);
 
-    ~ScoreManager();
+    ~ScoreManager() = default;
 
     void Init(GameObject &plat, GameObject &b1, GameObject &b2);
 
@@ -46,12 +48,11 @@ private:
     GameObject *platform{};
     GameObject *ball1{};
     GameObject *ball2{};
-    SDL_Surface *scoreSurface{};
+    TextPrinter textPrinter{};
     SDL_Renderer *renderer{};
-    SDL_Texture *scoreTexture = nullptr;
+    SDL_Texture *scoreTexture{};
     SDL_Rect srcR{};
     SDL_Rect destR{};
-    TTF_Font *gameFont{};
 };
 
 
