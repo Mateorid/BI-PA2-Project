@@ -66,7 +66,8 @@ private:
     Bonus *bonus{};
     ScoreManager *score{};
     bool isRunning = false;
-    int toWin = 0; //todo
+    bool isPaused = false;
+    int toWin = 0;
     Uint32 frameTicks{};
     Uint32 frameDelta{};
     SDL_Renderer *mainRenderer{};

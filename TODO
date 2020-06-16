@@ -2,17 +2,11 @@ TODO Gamestate enum class? implement pause state ==> we cancel bonus falling
 
 TODO Implement winning/defeat screen
 
-TODO create a random number making class (but how? XD)
-
-TODO destructors in classes => Destroy() method
-
 TODO Clean everything up, look online how others did it (Matousek maybe?)  + valgrind
 
 TODO throw exceptions everywhere? check for texture sizes being >0
 
 TODO test different resolutions & block sizes
-
-TODO add pause?
 
 TODO make Makefile more readable (file with dependencies like Matousek)
 

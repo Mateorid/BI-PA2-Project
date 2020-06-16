@@ -40,16 +40,16 @@ int Game::Play() {
         frameTicks = SDL_GetTicks();
 
         HandleEvents();
-        UpdateAll();
-        Collisions();
-        RenderAll();
-
+        if (!isPaused) {
+            UpdateAll();
+            Collisions();
+            RenderAll();
+        }
         frameDelta = SDL_GetTicks() - frameTicks;                           //FPS handling
         if (FRAME_DELAY > frameDelta) {
             SDL_Delay(FRAME_DELAY - frameDelta);
         }
     }
-//todo win/defeat check
     if (toWin == 0)
         Victory();
     else
@@ -68,10 +68,15 @@ void Game::HandleEvents() {
                 ball1->Init(platform->GetX());
                 break;
             case SDLK_LEFT:
-                platform->MoveLeft();
+                if (!isPaused)
+                    platform->MoveLeft();
                 break;
             case SDLK_RIGHT:
-                platform->MoveRight();
+                if (!isPaused)
+                    platform->MoveRight();
+                break;
+            case SDLK_p:
+                isPaused = !isPaused;
                 break;
             case SDLK_ESCAPE:
                 isRunning = false;
