@@ -46,7 +46,7 @@ void ScoreManager::LoseLife() {
 void ScoreManager::UpdateScore() {
     std::ostringstream oss;
     oss << "Score: " << std::setw(3) << std::setfill('0') << score << "  Lives: " << lives;
-    scoreTexture = textPrinter.CreateTextTexture(oss, renderer, srcR);
+//    scoreTexture = textPrinter.CreateTextTexture(oss, renderer, srcR);//todo
 }
 
 void ScoreManager::Render() {

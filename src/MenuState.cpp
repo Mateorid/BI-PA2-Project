@@ -1,13 +1,17 @@
 #include "MenuState.hpp"
 
 void MenuState::Initialize(StateManager &manager) {
+    font = TTF_OpenFont(FONT_SRC, 50);
+    if (font == nullptr)
+        throw std::invalid_argument("ERROR! Failed to load font!");
+
     std::ostringstream oss;
     oss << GAME_NAME;
-    titleTexture = manager.textPrinter.CreateTextTexture(oss, manager.mainRenderer, titleR);
+    titleTexture = manager.textPrinter.CreateTextTexture(oss, manager.mainRenderer, titleR, font);
     std::ostringstream().swap(oss);
     LevelText(manager);
     oss << "EXIT";
-    exitTexture = manager.textPrinter.CreateTextTexture(oss, manager.mainRenderer, exitR);
+    exitTexture = manager.textPrinter.CreateTextTexture(oss, manager.mainRenderer, exitR, font);
     SDL_SetRenderDrawColor(manager.mainRenderer, 0, 0, 0, 0);            //Setting black background
 }
 
@@ -61,7 +65,7 @@ void MenuState::Render(StateManager &manager) {
 void MenuState::LevelText(StateManager &manager) {
     std::ostringstream oss;
     oss << "PLAY LVL " << selectedLvl;
-    lvlSelectTexture = manager.textPrinter.CreateTextTexture(oss, manager.mainRenderer, lvlSelectR);
+    lvlSelectTexture = manager.textPrinter.CreateTextTexture(oss, manager.mainRenderer, lvlSelectR, font);
     std::ostringstream().swap(oss);
 }
 
@@ -78,9 +82,9 @@ void MenuState::RenderText(SDL_Renderer *renderer, SDL_Texture *texture, SDL_Rec
 
 void MenuState::RenderSelected(SDL_Renderer *renderer) {
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);            //Setting white colour for underline
-    SDL_Rect tmpR = {0, 0, 200, 20};//todo set these
+    SDL_Rect tmpR = {0, 0, 200, 5};//todo set these
     tmpR.x = (APP_WIDTH - tmpR.w) / 2;
-    tmpR.y = positions[menuPos] + 55; //todo?
+    tmpR.y = positions[menuPos] + 45; //todo?
     SDL_RenderFillRect(renderer, &tmpR);
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);   //Back to black
 }
@@ -89,5 +93,6 @@ void MenuState::Clean(StateManager &) {
     SDL_DestroyTexture(titleTexture);
     SDL_DestroyTexture(lvlSelectTexture);
     SDL_DestroyTexture(exitTexture);
+    TTF_CloseFont(font);
     //todo the fillRect doesn't need to be destroyed?
 }

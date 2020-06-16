@@ -7,7 +7,5 @@ void ExitState::Initialize(StateManager &manager) {
     SDL_Quit();
     IMG_Quit();
     TTF_Quit();
-    std::cout << "EXIT finished" << std::endl; //todo
-//    manager.textPrinter.Exit(); //todo still segfault
     manager.Exit();
 }

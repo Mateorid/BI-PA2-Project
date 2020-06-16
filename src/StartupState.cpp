@@ -20,8 +20,8 @@ void StartupState::Initialize(StateManager &manager) {
     if (manager.mainRenderer == nullptr)
         throw std::runtime_error("ERROR! SDL_CreateRenderer failed!");
 
-    if (manager.textPrinter.Init())
-        throw std::invalid_argument("ERROR! Failed to load font!");
+//    if (manager.textPrinter.Init())
+//        throw std::invalid_argument("ERROR! Failed to load font!");
 //    SDL_SetRenderDrawColor(manager.mainRenderer, 100, 100, 100, 255);   //todo            //Setting gray background colour
 }
 
