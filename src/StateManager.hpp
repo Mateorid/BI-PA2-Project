@@ -51,11 +51,11 @@ public:
     SDL_Renderer *mainRenderer{};
     SDL_Window *mainWindow{};
     TextPrinter textPrinter{};
-    std::vector<GameObject *> gameObjects;
-    Platform *platform{};
-    Ball *ball1{};
-    Ball *ball2{};
-    Bonus *bonus{};
+    std::vector<GameObject *> bricks;
+//    Platform *platform{};
+//    Ball *ball1{};
+//    Ball *ball2{};
+//    Bonus *bonus{};
 private: // todo create font here maybe? & clear it here as well? nope?
     int selectedLevel = 0;
     std::shared_ptr<State> activeState;

@@ -20,16 +20,12 @@ include_directories(src)
 include_directories(examples)
 
 add_executable(Arkanoid
-        src/Application.cpp
-        src/Application.hpp
         src/Ball.cpp
         src/Ball.hpp
         src/Block.cpp
         src/Block.hpp
         src/Bonus.cpp
         src/Bonus.hpp
-        src/Game.cpp
-        src/Game.hpp
         src/GameObject.cpp
         src/GameObject.hpp
         src/main.cpp

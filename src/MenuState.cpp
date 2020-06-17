@@ -25,16 +25,20 @@ void MenuState::HandleEvents(StateManager &manager) {
             case SDLK_LEFT:
                 selectedLvl--;
                 if (selectedLvl <= 0) selectedLvl = LVL_COUNT;
+                changedText = true;
                 break;
             case SDLK_RIGHT:
                 selectedLvl++;
                 if (selectedLvl > LVL_COUNT) selectedLvl = 1;
+                changedText = true;
                 break;
             case SDLK_UP:
                 menuPos = 1;        //todo change these to inf scrolling
+                changedText = true;
                 break;
             case SDLK_DOWN:
                 menuPos = 2;
+                changedText = true;
                 break;
             case SDLK_ESCAPE:
                 manager.ChangeState(StateName::EXIT);
@@ -53,16 +57,19 @@ void MenuState::HandleEvents(StateManager &manager) {
     }
 }
 
-void MenuState::Render(StateManager &manager) {//todo FPS delta
-    SDL_RenderClear(manager.mainRenderer);
+void MenuState::Render(StateManager &manager) {
+    if (changedText) {
+        SDL_RenderClear(manager.mainRenderer);
 
-    LevelText(manager);
-    RenderText(manager.mainRenderer, titleTexture, titleR, positions[0], true);
-    RenderText(manager.mainRenderer, lvlSelectTexture, lvlSelectR, positions[1], false);
-    RenderText(manager.mainRenderer, exitTexture, exitR, positions[2], false);
-    RenderSelected(manager.mainRenderer);
+        LevelText(manager);
+        RenderText(manager.mainRenderer, titleTexture, titleR, positions[0], true);
+        RenderText(manager.mainRenderer, lvlSelectTexture, lvlSelectR, positions[1], false);
+        RenderText(manager.mainRenderer, exitTexture, exitR, positions[2], false);
+        RenderSelected(manager.mainRenderer);
 
-    SDL_RenderPresent(manager.mainRenderer);
+        SDL_RenderPresent(manager.mainRenderer);
+        changedText = false;
+    }
 }
 
 void MenuState::LevelText(StateManager &manager) {

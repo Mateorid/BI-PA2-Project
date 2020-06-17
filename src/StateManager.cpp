@@ -23,6 +23,7 @@ void StateManager::Run() {
     while (activeState) {
         frameTicks = SDL_GetTicks();
         activeState->HandleEvents(*this);
+
         if (activeState) activeState->Update(*this);
         if (activeState) activeState->Render(*this);
         frameDelta = SDL_GetTicks() - frameTicks;                           //FPS handling
@@ -33,11 +34,11 @@ void StateManager::Run() {
 }
 
 void StateManager::Exit() {
-    for (auto &gameObject : gameObjects) {
+    for (auto &gameObject : bricks) {
         delete gameObject;
     }
 
-    gameObjects.clear();
+    bricks.clear();
     if (activeState != nullptr)
         activeState->Clean(*this);
     activeState = nullptr;

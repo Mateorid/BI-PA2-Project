@@ -15,7 +15,7 @@ void LoadState::Initialize(StateManager &manager) {
             mapLoader = new MapLoader(MAP1_SRC, manager.mainRenderer);
             break;
     }
-    manager.gameObjects = std::move(mapLoader->getBlocks());
+    manager.bricks = std::move(mapLoader->getBlocks());
     manager.ChangeState(StateName::GAME);
 }
 

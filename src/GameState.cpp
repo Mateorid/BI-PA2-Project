@@ -4,24 +4,25 @@ void GameState::Initialize(StateManager &manager) {
     font = TTF_OpenFont(FONT_SRC, 50);
     if (font == nullptr)
         throw std::invalid_argument("ERROR! Failed to load font!");
+    toWin = manager.bricks.size();         //Assign number of blocks to win
 
+    gameObjects = std::move(manager.bricks);
 
-    toWin = manager.gameObjects.size();         //Assign number of blocks to win
     score = new ScoreManager(manager.mainRenderer, START_LIVES, font);
 
-    manager.platform = new Platform(manager.mainRenderer);
-    manager.gameObjects.push_back(manager.platform);
+    platform = new Platform(manager.mainRenderer);
+    gameObjects.push_back(platform);
 
-    manager.ball1 = new Ball(manager.mainRenderer, score);
-    manager.gameObjects.push_back(manager.ball1);
+    ball1 = new Ball(manager.mainRenderer, score);
+    gameObjects.push_back(ball1);
 
-    manager.ball2 = new Ball(manager.mainRenderer, score);
-    manager.gameObjects.push_back(manager.ball2);
+    ball2 = new Ball(manager.mainRenderer, score);
+    gameObjects.push_back(ball2);
 
-    manager.bonus = new Bonus(manager.mainRenderer, *manager.ball1, *manager.ball2, *manager.platform, *score);
-    manager.gameObjects.push_back(manager.bonus);
+    bonus = new Bonus(manager.mainRenderer, *ball1, *ball2, *platform, *score);
+    gameObjects.push_back(bonus);
 
-    score->Init(*manager.platform, *manager.ball1, *manager.ball2);
+    score->Init(*platform, *ball1, *ball2);
 
     SDL_SetRenderDrawColor(manager.mainRenderer, 100, 100, 100, 0);//Setting a gray background
     manager.Run();
@@ -29,44 +30,46 @@ void GameState::Initialize(StateManager &manager) {
 
 void GameState::HandleEvents(StateManager &manager) {
     SDL_Event events;
+//    while (SDL_PollEvent(&events)) {
     SDL_PollEvent(&events);
-    if (events.type == SDL_QUIT)                                            //Clean signal
-        manager.ChangeState(StateName::EXIT);
-    if (events.type == SDL_KEYDOWN) {                                       //Keypress handling
-        switch (events.key.keysym.sym) {
-            case SDLK_SPACE:
-                manager.ball1->Init(manager.platform->GetX());
-                break;
-            case SDLK_LEFT:
-                if (!isPaused)
-                    manager.platform->MoveLeft();
-                break;
-            case SDLK_RIGHT:
-                if (!isPaused)
-                    manager.platform->MoveRight();
-                break;
-            case SDLK_p:
-                isPaused = !isPaused;
-                break;
-            case SDLK_ESCAPE:
-                manager.ChangeState(StateName::EXIT);
-                break;
-            default:
-                break;
+        if (events.type == SDL_QUIT)                                            //Clean signal
+            manager.ChangeState(StateName::EXIT);
+        if (events.type == SDL_KEYDOWN) {                                       //Keypress handling
+            switch (events.key.keysym.sym) {
+                case SDLK_SPACE:
+                    ball1->Init(platform->GetX());
+                    break;
+                case SDLK_LEFT:
+                    if (!isPaused)
+                        platform->MoveLeft();
+                    break;
+                case SDLK_RIGHT:
+                    if (!isPaused)
+                        platform->MoveRight();
+                    break;
+                case SDLK_p:
+                    isPaused = !isPaused;
+                    break;
+                case SDLK_ESCAPE:
+                    manager.ChangeState(StateName::EXIT);
+                    break;
+                default:
+                    break;
+            }
         }
     }
-}
+//}
 
 void GameState::Update(StateManager &manager) {
     int tmpIt = 0;
-    for (auto it:manager.gameObjects) {
+    for (auto it:gameObjects) {
         if (it->IsActive())
             it->Update();
         else if (it->GetType() == BLOCK) {
-            manager.bonus->SpawnBonus(it->GetX(), it->GetY());
+            bonus->SpawnBonus(it->GetX(), it->GetY());
             toWin--;
-            delete manager.gameObjects[tmpIt];
-            manager.gameObjects.erase(manager.gameObjects.begin() + tmpIt);
+            delete gameObjects[tmpIt];
+            gameObjects.erase(gameObjects.begin() + tmpIt);
         }
         if (toWin == 0) {
             manager.ChangeState(StateName::EXIT);//todo change to result
@@ -83,7 +86,7 @@ void GameState::Update(StateManager &manager) {
 
 void GameState::Render(StateManager &manager) {
     SDL_RenderClear(manager.mainRenderer);
-    for (auto it:manager.gameObjects) {
+    for (auto it:gameObjects) {
         if (it->IsActive())
             it->Render();
     }
@@ -92,25 +95,29 @@ void GameState::Render(StateManager &manager) {
 }
 
 void GameState::Collisions(StateManager &manager) {
-    for (auto it:manager.gameObjects) {
+    for (auto it:gameObjects) {
         if (!it->IsActive())//Skips all non-active Game objects
             continue;
 
         if (it->GetType() == BLOCK) {//Ball-Block collision
-            if (manager.ball1->CollisionDetection(it) || manager.ball2->CollisionDetection(it)) {
+            if (ball1->CollisionDetection(it) || ball2->CollisionDetection(it)) {
                 it->Collided(true);
                 score->PlusScore();
             }
         } else if (it->GetType() == PLATFORM) {//Ball-Platform collision
-            manager.ball1->CollisionDetection(it);
-            manager.ball2->CollisionDetection(it);
+            ball1->CollisionDetection(it);
+            ball2->CollisionDetection(it);
         } else if (it->GetType() == BONUS) {//Bonus-Platform collision
-            it->Collided(it->CollisionDetection(manager.platform));
+            it->Collided(it->CollisionDetection(platform));
         }
     }
 }
 
 void GameState::Clean(StateManager &manager) {
     delete score;
+    for (auto it:gameObjects) {
+        delete it;
+    }
+
     TTF_CloseFont(font);
 }

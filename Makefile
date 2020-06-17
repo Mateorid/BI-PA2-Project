@@ -93,4 +93,3 @@ $(DEST_DIR)/StateManager.o: src/StateManager.cpp src/StateManager.hpp src/State.
  src/TextPrinter.hpp src/GameObject.hpp src/Platform.hpp src/Ball.hpp \
  src/ScoreManager.hpp src/Bonus.hpp
 $(DEST_DIR)/TextPrinter.o: src/TextPrinter.cpp src/TextPrinter.hpp
-

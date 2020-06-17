@@ -18,6 +18,14 @@ public:
 private:
     void Collisions(StateManager &);
 
+    void UserInput(StateManager &);
+
+    std::vector<GameObject *> gameObjects;
+    Platform *platform{};
+    Ball *ball1{};
+    Ball *ball2{};
+    Bonus *bonus{};
+
     ScoreManager *score{};
     int toWin = 0;
     bool isPaused = false;
