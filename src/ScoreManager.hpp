@@ -7,7 +7,7 @@
 #include <iomanip>
 
 #include "GameObject.hpp"
-#include "Application.hpp"
+#include "State.hpp"
 #include "TextPrinter.hpp"
 
 /**Score added after hitting a block*/
@@ -18,11 +18,11 @@ static const int SCORE_DEDUCT = 500;
 
 class ScoreManager {
 public:
-    ScoreManager(SDL_Renderer *ren, int x);
+    ScoreManager(SDL_Renderer *, int, TTF_Font *);
 
     ~ScoreManager() = default;
 
-    void Init(GameObject &plat, GameObject &b1, GameObject &b2);
+    void Init(GameObject &, GameObject &, GameObject &);
 
     void UpdateScore();
 
@@ -30,7 +30,7 @@ public:
 
     void PlusScore();
 
-    void PlusScore(int x);
+    void PlusScore(int);
 
     void MinusScore();
 
@@ -53,6 +53,7 @@ private:
     SDL_Texture *scoreTexture{};
     SDL_Rect srcR{};
     SDL_Rect destR{};
+    TTF_Font *font{};
 };
 
 

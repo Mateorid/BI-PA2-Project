@@ -1,13 +1,19 @@
+TODO Fix platform shit movement :C
+
 TODO Implement winning/defeat screen
 
 TODO Clean everything up, look online how others did it (Matousek maybe?)  + valgrind
 
-TODO throw exceptions everywhere? check for texture sizes being >0
+TODO throw & catch exceptions everywhere + box exceptions + catch in statemanager to clean the state up
 
-TODO test different resolutions & block sizes
+TODO rename Statemanager to gameLogic?
+
+TODO check for texture sizes being >0
 
 TODO make Makefile more readable (file with dependencies like Matousek)
 
 TODO Doxyfile setup
 
 TODO Add copy constructor = delete to classes? (ma to matousek?)
+
+TODO map loader cleanup?

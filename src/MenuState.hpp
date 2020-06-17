@@ -25,7 +25,7 @@ private:
 
     void LevelText(StateManager &);
 
-    int selectedLvl = 0;
+    int selectedLvl = 1;
     int menuPos = 1;
     int positions[3] = {20, 400, 600};
     SDL_Texture *titleTexture{};

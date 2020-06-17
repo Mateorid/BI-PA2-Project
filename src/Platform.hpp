@@ -2,7 +2,8 @@
 
 
 #include "GameObject.hpp"
-#include "Application.hpp"
+//#include "Application.hpp"
+#include "State.hpp"
 
 
 /**Destination of platform source image*/

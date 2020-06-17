@@ -7,8 +7,7 @@
 #include "State.hpp"
 
 
-/**Destination of map source*/
-static const char *const MAP_SRC = "examples/map.map";
+
 
 class StartupState : public State {
 public:

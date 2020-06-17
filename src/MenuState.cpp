@@ -40,8 +40,11 @@ void MenuState::HandleEvents(StateManager &manager) {
                 manager.ChangeState(StateName::EXIT);
                 break;
             case SDLK_RETURN:
-                if (menuPos == 1) {} //todo
-                else
+                if (menuPos == 1) {
+                    manager.SetLevel(selectedLvl);
+                    std::cout << "SELECTED GAME LVL: " << manager.GetLevel() << std::endl;
+                    manager.ChangeState(StateName::LOAD_MAP);
+                } else
                     manager.ChangeState(StateName::EXIT);
                 break;
             default:
@@ -50,7 +53,7 @@ void MenuState::HandleEvents(StateManager &manager) {
     }
 }
 
-void MenuState::Render(StateManager &manager) {
+void MenuState::Render(StateManager &manager) {//todo FPS delta
     SDL_RenderClear(manager.mainRenderer);
 
     LevelText(manager);

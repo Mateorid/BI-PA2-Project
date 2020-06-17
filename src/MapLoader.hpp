@@ -6,21 +6,21 @@
 #include <fstream>
 
 #include "Block.hpp"
-#include "Application.hpp"
+#include "State.hpp"
+//#include "Application.hpp"
 
 
 static const int MAP_MAX_ROWS = 20;
 
 using namespace std;
 
+class State;
+
 class MapLoader {
 public:
     /**
      * @throws overflow_error when (block size + spacing) == 0 (dividing by zero would occur)
      */
-    MapLoader() = default;
-
-    ~MapLoader() = default;
 
     MapLoader(const string &filename, SDL_Renderer *renderer);
 

@@ -3,16 +3,28 @@
 #include <map>
 #include <memory>
 #include <SDL2/SDL.h>
+#include <vector>
 
 
 #include "State.hpp"
 #include "TextPrinter.hpp"
+#include "GameObject.hpp"
+#include "Platform.hpp"
+#include "Ball.hpp"
+#include "Bonus.hpp"
 
 class State;
+
+class Block;
+
+class Platform;
+
+class Bonus;
 
 enum class StateName {
     START,
     MAIN_MENU,
+    LOAD_MAP,
     GAME,
     RESULTS,
     EXIT,
@@ -32,13 +44,24 @@ public:
 
     void Exit();
 
+    int GetLevel() const { return selectedLevel; }
+
+    void SetLevel(int x) { selectedLevel = x; }
 
     SDL_Renderer *mainRenderer{};
     SDL_Window *mainWindow{};
     TextPrinter textPrinter{};
+    std::vector<GameObject *> gameObjects;
+    Platform *platform{};
+    Ball *ball1{};
+    Ball *ball2{};
+    Bonus *bonus{};
 private: // todo create font here maybe? & clear it here as well? nope?
+    int selectedLevel = 0;
     std::shared_ptr<State> activeState;
     std::map<StateName, std::shared_ptr<State>> states;
+    Uint32 frameTicks{};
+    Uint32 frameDelta{};
 };
 
 

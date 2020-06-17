@@ -1,6 +1,7 @@
 #include "ScoreManager.hpp"
 
-ScoreManager::ScoreManager(SDL_Renderer *ren, int x) {
+ScoreManager::ScoreManager(SDL_Renderer *ren, int x, TTF_Font *font) {
+    this->font = font;
     renderer = ren;
     lives = x;
 }
@@ -46,7 +47,7 @@ void ScoreManager::LoseLife() {
 void ScoreManager::UpdateScore() {
     std::ostringstream oss;
     oss << "Score: " << std::setw(3) << std::setfill('0') << score << "  Lives: " << lives;
-//    scoreTexture = textPrinter.CreateTextTexture(oss, renderer, srcR);//todo
+    scoreTexture = textPrinter.CreateTextTexture(oss, renderer, srcR, font);
 }
 
 void ScoreManager::Render() {
