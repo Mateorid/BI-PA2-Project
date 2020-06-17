@@ -33,12 +33,15 @@ void StateManager::Run() {
 }
 
 void StateManager::Exit() {
-    for (auto &gameObject : gameObjects) {
-        delete gameObject;
-    }
-
-    gameObjects.clear();
+    ResetObjects();
     if (activeState != nullptr)
         activeState->Clean(*this);
     activeState = nullptr;
+}
+
+void StateManager::ResetObjects() {
+    for (auto &gameObject : gameObjects) {
+        delete gameObject;
+    }
+    gameObjects.clear();
 }

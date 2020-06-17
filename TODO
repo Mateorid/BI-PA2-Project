@@ -1,6 +1,10 @@
-TODO Fix platform shit movement :C
+TODO improve text printing class to take a string a return texture
 
-TODO Implement winning/defeat screen
+TODO Implement defeat screen
+
+TODO merge LoadState & MapLoader?
+
+TODO Make better total score? use the score manager class instead?
 
 TODO Clean everything up, look online how others did it (Matousek maybe?)  + valgrind
 
@@ -15,5 +19,3 @@ TODO make Makefile more readable (file with dependencies like Matousek)
 TODO Doxyfile setup
 
 TODO Add copy constructor = delete to classes? (ma to matousek?)
-
-TODO map loader cleanup?

@@ -25,10 +25,24 @@ doc:
 	@mkdir -p doc
 #	doxygen
 
-$(TARGET): $(DEST_DIR)/Ball.o $(DEST_DIR)/Block.o $(DEST_DIR)/Bonus.o $(DEST_DIR)/ExitState.o $(DEST_DIR)/GameObject.o \
-			$(DEST_DIR)/GameState.o $(DEST_DIR)/LoadState.o $(DEST_DIR)/main.o $(DEST_DIR)/MapLoader.o \
-			$(DEST_DIR)/MenuState.o $(DEST_DIR)/Platform.o $(DEST_DIR)/ScoreManager.o $(DEST_DIR)/StartupState.o\
-			 $(DEST_DIR)/State.o $(DEST_DIR)/StateManager.o $(DEST_DIR)/TextPrinter.o
+$(TARGET): $(DEST_DIR)/Ball.o\
+           $(DEST_DIR)/Block.o\
+           $(DEST_DIR)/Bonus.o\
+           $(DEST_DIR)/ExitState.o\
+           $(DEST_DIR)/GameObject.o\
+           $(DEST_DIR)/GameState.o\
+           $(DEST_DIR)/LoadState.o\
+           $(DEST_DIR)/main.o\
+           $(DEST_DIR)/MapLoader.o\
+           $(DEST_DIR)/MenuState.o\
+           $(DEST_DIR)/Platform.o\
+           $(DEST_DIR)/ScoreManager.o\
+           $(DEST_DIR)/StartupState.o\
+           $(DEST_DIR)/State.o\
+           $(DEST_DIR)/StateManager.o\
+           $(DEST_DIR)/TextPrinter.o\
+           $(DEST_DIR)/VictoryState.o
+
 	$(CXX) $(CXXFLAGS) $^ -g -o $@ $(LDLIBS)
 	@echo "Starting..."
 
@@ -69,7 +83,7 @@ $(DEST_DIR)/main.o: src/main.cpp src/StateManager.hpp src/State.hpp \
  src/TextPrinter.hpp src/GameObject.hpp src/Platform.hpp src/Ball.hpp \
  src/ScoreManager.hpp src/Bonus.hpp src/StartupState.hpp \
  src/MenuState.hpp src/LoadState.hpp src/MapLoader.hpp src/Block.hpp \
- src/GameState.hpp src/ExitState.hpp
+ src/GameState.hpp src/VictoryState.hpp src/ExitState.hpp
 $(DEST_DIR)/MapLoader.o: src/MapLoader.cpp src/MapLoader.hpp src/Block.hpp \
  src/GameObject.hpp src/State.hpp src/StateManager.hpp \
  src/TextPrinter.hpp src/Platform.hpp src/Ball.hpp src/ScoreManager.hpp \
@@ -93,4 +107,6 @@ $(DEST_DIR)/StateManager.o: src/StateManager.cpp src/StateManager.hpp src/State.
  src/TextPrinter.hpp src/GameObject.hpp src/Platform.hpp src/Ball.hpp \
  src/ScoreManager.hpp src/Bonus.hpp
 $(DEST_DIR)/TextPrinter.o: src/TextPrinter.cpp src/TextPrinter.hpp
-
+$(DEST_DIR)/VictoryState.o: src/VictoryState.cpp src/VictoryState.hpp src/State.hpp \
+ src/StateManager.hpp src/TextPrinter.hpp src/GameObject.hpp \
+ src/Platform.hpp src/Ball.hpp src/ScoreManager.hpp src/Bonus.hpp

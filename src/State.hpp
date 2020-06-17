@@ -22,7 +22,7 @@ static const int MAX_FPS = 100;
 /**Frame delay*/
 static const int FRAME_DELAY = 1000 / MAX_FPS;
 /**How many lives you start with*/
-static const int START_LIVES = 3;
+static const int START_LIVES = 1;
 
 
 class StateManager;

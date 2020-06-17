@@ -1,21 +1,21 @@
 #include "LoadState.hpp"
 
 void LoadState::Initialize(StateManager &manager) {
+    manager.ResetObjects();
     switch (manager.GetLevel()) {
         case 1:
-            mapLoader = new MapLoader(MAP1_SRC, manager.mainRenderer);
+            mapLoader = new MapLoader(MAP1_SRC, manager);
             break;
         case 2:
-            mapLoader = new MapLoader(MAP2_SRC, manager.mainRenderer);
+            mapLoader = new MapLoader(MAP2_SRC, manager);
             break;
         case 3:
-            mapLoader = new MapLoader(MAP3_SRC, manager.mainRenderer);
+            mapLoader = new MapLoader(MAP3_SRC, manager);
             break;
         default:
-            mapLoader = new MapLoader(MAP1_SRC, manager.mainRenderer);
+            mapLoader = new MapLoader(MAP1_SRC, manager);
             break;
     }
-    manager.gameObjects = std::move(mapLoader->getBlocks());
     manager.ChangeState(StateName::GAME);
 }
 

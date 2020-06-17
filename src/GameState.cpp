@@ -18,7 +18,7 @@ void GameState::Initialize(StateManager &manager) {
     manager.ball2 = new Ball(manager.mainRenderer, score);
     manager.gameObjects.push_back(manager.ball2);
 
-    manager.bonus = new Bonus(manager.mainRenderer, *manager.ball1, *manager.ball2, *manager.platform, *score);
+    manager.bonus = new Bonus(manager.mainRenderer, *manager.ball1, *manager.ball2, *manager.platform, *score); //todo valgrind ???
     manager.gameObjects.push_back(manager.bonus);
 
     score->Init(*manager.platform, *manager.ball1, *manager.ball2);
@@ -88,13 +88,15 @@ void GameState::Update(StateManager &manager) {
             manager.gameObjects.erase(manager.gameObjects.begin() + tmpIt);
         }
         if (toWin == 0) {
-            manager.ChangeState(StateName::EXIT);//todo change to result
+            manager.totalScore += score->GetScore();//todo
+            manager.ChangeState(StateName::VICTORY);
             return;
         }
         tmpIt++;
     }
     if (score->GetLives() == 0) {
-        manager.ChangeState(StateName::EXIT);//todo change to result
+        manager.totalScore += score->GetScore();//todo
+        manager.ChangeState(StateName::VICTORY);//todo defeat
         return;
     }
     Collisions(manager);

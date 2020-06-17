@@ -22,9 +22,7 @@ public:
      * @throws overflow_error when (block size + spacing) == 0 (dividing by zero would occur)
      */
 
-    MapLoader(const string &filename, SDL_Renderer *renderer);
-
-    vector<GameObject *> &getBlocks() { return blocks; };
+    MapLoader(const string &filename, StateManager &);
 
 private:
     /**
@@ -33,12 +31,10 @@ private:
      * @throws invalid_argument when the line of blocks isn't filled all the way or there are more rows than MAP_MAX_ROWS
      * @param filename destination of the map file
      */
-    void LoadBlocks(const string &filename);
+    void LoadBlocks(const string &filename, StateManager &);
 
-    void InsertBlock(int lvl);
+    void InsertBlock(int lvl, StateManager &);
 
-    vector<GameObject *> blocks;
-    SDL_Renderer *renderer{};
     int blocksInLine = 0;
     int rows = 0;
     int blockLvl = 0;

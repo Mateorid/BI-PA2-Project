@@ -6,13 +6,17 @@ void MenuState::Initialize(StateManager &manager) {
         throw std::invalid_argument("ERROR! Failed to load font!");
 
     std::ostringstream oss;
+
     oss << GAME_NAME;
     titleTexture = manager.textPrinter.CreateTextTexture(oss, manager.mainRenderer, titleR, font);
     std::ostringstream().swap(oss);
+
     LevelText(manager);
+
     oss << "EXIT";
     exitTexture = manager.textPrinter.CreateTextTexture(oss, manager.mainRenderer, exitR, font);
     SDL_SetRenderDrawColor(manager.mainRenderer, 0, 0, 0, 0);            //Setting black background
+    changedText = true;
 }
 
 void MenuState::HandleEvents(StateManager &manager) {
@@ -47,7 +51,6 @@ void MenuState::HandleEvents(StateManager &manager) {
             case SDLK_SPACE:
                 if (menuPos == 1) {
                     manager.SetLevel(selectedLvl);
-                    std::cout << "SELECTED GAME LVL: " << manager.GetLevel() << std::endl;
                     manager.ChangeState(StateName::LOAD_MAP);
                 } else
                     manager.ChangeState(StateName::EXIT);
@@ -75,7 +78,7 @@ void MenuState::Render(StateManager &manager) {
 
 void MenuState::LevelText(StateManager &manager) {
     std::ostringstream oss;
-    oss << "PLAY LVL " << selectedLvl;
+    oss << "<< PLAY LVL " << selectedLvl << " >>";
     lvlSelectTexture = manager.textPrinter.CreateTextTexture(oss, manager.mainRenderer, lvlSelectR, font);
     std::ostringstream().swap(oss);
 }

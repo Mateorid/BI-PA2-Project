@@ -26,7 +26,7 @@ enum class StateName {
     MAIN_MENU,
     LOAD_MAP,
     GAME,
-    RESULTS,
+    VICTORY,
     EXIT,
 };
 
@@ -44,6 +44,8 @@ public:
 
     void Exit();
 
+    void ResetObjects();
+
     int GetLevel() const { return selectedLevel; }
 
     void SetLevel(int x) { selectedLevel = x; }
@@ -56,6 +58,7 @@ public:
     Ball *ball1{};
     Ball *ball2{};
     Bonus *bonus{};
+    int totalScore = 0;//todo += in gamestate
 private: // todo create font here maybe? & clear it here as well? nope?
     int selectedLevel = 0;
     std::shared_ptr<State> activeState;
