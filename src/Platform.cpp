@@ -16,12 +16,8 @@ void Platform::Init() {
     destR.w = PLATFORM_W;
 }
 
-void Platform::MoveLeft() {
-    if (destR.x > 0)
-        destR.x -= speed;
-}
-
-void Platform::MoveRight() {
-    if ((destR.x + PLATFORM_W) <= APP_WIDTH)
-        destR.x += speed;
+void Platform::Update() {
+    if ((dir == 1 && (destR.x + PLATFORM_W) <= APP_WIDTH) ||    //Right wall collision check
+        (dir == -1 && destR.x > 0))                             //Left wall collision check
+        destR.x += dir * speed;
 }

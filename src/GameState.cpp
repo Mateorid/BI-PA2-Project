@@ -28,36 +28,55 @@ void GameState::Initialize(StateManager &manager) {
 }
 
 void GameState::HandleEvents(StateManager &manager) {
-    SDL_Event events;
-    SDL_PollEvent(&events);
-    if (events.type == SDL_QUIT)                                            //Clean signal
-        manager.ChangeState(StateName::EXIT);
-    if (events.type == SDL_KEYDOWN) {                                       //Keypress handling
-        switch (events.key.keysym.sym) {
-            case SDLK_SPACE:
-                manager.ball1->Init(manager.platform->GetX());
-                break;
-            case SDLK_LEFT:
-                if (!isPaused)
-                    manager.platform->MoveLeft();
-                break;
-            case SDLK_RIGHT:
-                if (!isPaused)
-                    manager.platform->MoveRight();
-                break;
-            case SDLK_p:
-                isPaused = !isPaused;
-                break;
-            case SDLK_ESCAPE:
+    SDL_Event events{};
+    while (SDL_PollEvent(&events)) {
+        switch (events.type) {
+            case SDL_QUIT:                                      //Clean signal
                 manager.ChangeState(StateName::EXIT);
+            case SDL_KEYDOWN: //Key down handling
+                switch (events.key.keysym.sym) {
+                    case SDLK_SPACE:
+                        if (!manager.ball2->IsActive())
+                            manager.ball1->Init(manager.platform->GetX());
+                        break;
+                    case SDLK_LEFT:
+                        if (!isPaused)
+                            manager.platform->MoveLeft();
+                        break;
+                    case SDLK_RIGHT:
+                        if (!isPaused)
+                            manager.platform->MoveRight();
+                        break;
+                    case SDLK_p:
+                        isPaused = !isPaused;
+                        break;
+                    case SDLK_ESCAPE:
+                        manager.ChangeState(StateName::EXIT);
+                        break;
+                    default:
+                        break;
+                }
                 break;
+            case SDL_KEYUP: //Key release handling
+                switch (events.key.keysym.sym) {
+                    case SDLK_LEFT:
+                    case SDLK_RIGHT:
+                        if (!isPaused) {
+                            manager.platform->Stop();
+                        }
+                    default:
+                        break;
+                }
             default:
                 break;
         }
     }
 }
 
+
 void GameState::Update(StateManager &manager) {
+    if (isPaused)
+        return;
     int tmpIt = 0;
     for (auto it:manager.gameObjects) {
         if (it->IsActive())
@@ -82,6 +101,8 @@ void GameState::Update(StateManager &manager) {
 }
 
 void GameState::Render(StateManager &manager) {
+    if (isPaused)
+        return;
     SDL_RenderClear(manager.mainRenderer);
     for (auto it:manager.gameObjects) {
         if (it->IsActive())

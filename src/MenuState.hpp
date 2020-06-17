@@ -18,6 +18,7 @@ public:
     void Render(StateManager &) override;
 
     void Clean(StateManager &) override;
+
 private:
     void RenderText(SDL_Renderer *, SDL_Texture *, SDL_Rect, int, bool);
 
@@ -25,6 +26,7 @@ private:
 
     void LevelText(StateManager &);
 
+    bool changedText = true;
     int selectedLvl = 1;
     int menuPos = 1;
     int positions[3] = {20, 400, 600};
