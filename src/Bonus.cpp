@@ -1,6 +1,7 @@
 #include "Bonus.hpp"
 
 Bonus::Bonus(SDL_Renderer *renderer, Ball &b1, Ball &b2, GameObject &plat, ScoreManager &score) {
+    std::cout << "make bonus" << std::endl;
     type = BONUS;
     objRenderer = renderer;
     ball1 = &b1;
@@ -119,4 +120,9 @@ void Bonus::SecondBall() {
         ball1->Init(platform->GetX());
     else if (!ball2->IsActive())
         ball2->Init(platform->GetX());
+}
+
+Bonus::~Bonus() {
+    std::cout << "Bonus del" << std::endl;
+    SDL_DestroyTexture(objTexture);
 }

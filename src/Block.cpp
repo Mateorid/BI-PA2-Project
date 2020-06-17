@@ -1,6 +1,7 @@
 #include "Block.hpp"
 
 Block::Block(SDL_Renderer *renderer, int lvl, int x, int y) {
+    std::cout << "make block" << std::endl;
     SetLevel(lvl);
     type = BLOCK;
     objRenderer = renderer;
@@ -48,4 +49,9 @@ bool Block::Used() {
         used = true;
         return false;
     }
+}
+
+Block::~Block() {
+    std::cout << "Block del" << std::endl;
+    SDL_DestroyTexture(objTexture);
 }

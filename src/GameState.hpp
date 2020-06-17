@@ -19,10 +19,6 @@ private:
     void Collisions(StateManager &);
 
     std::vector<std::shared_ptr<GameObject>> gameObjects;
-//    Platform *platform{};
-//    Ball *ball1{};
-//    Ball *ball2{};
-//    Bonus *bonus{};
     std::shared_ptr<Platform> platform;
     std::shared_ptr<Ball> ball1;
     std::shared_ptr<Ball> ball2;

@@ -1,6 +1,7 @@
 #include "Platform.hpp"
 
 Platform::Platform(SDL_Renderer *renderer) {
+    std::cout << "make plat" << std::endl;
     type = PLATFORM;
     objRenderer = renderer;
     speed = PLATFORM_SPEED;
@@ -20,4 +21,9 @@ void Platform::Update() {
     if ((dir == 1 && (destR.x + PLATFORM_W) <= APP_WIDTH) ||    //Right wall collision check
         (dir == -1 && destR.x > 0))                             //Left wall collision check
         destR.x += dir * speed;
+}
+
+Platform::~Platform() {
+    std::cout << "Plat del" << std::endl;
+    SDL_DestroyTexture(objTexture);
 }

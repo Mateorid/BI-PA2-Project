@@ -18,6 +18,8 @@ class Platform : public GameObject {
 public:
     explicit Platform(SDL_Renderer *renderer);
 
+    ~Platform() override;
+
     void Init() override;
 
     void Update() override;

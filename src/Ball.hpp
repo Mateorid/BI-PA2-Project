@@ -21,6 +21,8 @@ class Ball : public GameObject {
 public:
     Ball(SDL_Renderer *renderer, ScoreManager *score);
 
+    ~Ball() override;
+
     void Init(int platformX);
 
     void Update() override;

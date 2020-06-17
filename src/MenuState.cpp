@@ -16,7 +16,7 @@ void MenuState::Initialize(StateManager &manager) {
 }
 
 void MenuState::HandleEvents(StateManager &manager) {
-    SDL_Event events;
+    SDL_Event events{};
     SDL_PollEvent(&events);
     if (events.type == SDL_QUIT)                                            //Exit signal
         manager.ChangeState(StateName::EXIT);

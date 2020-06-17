@@ -1,6 +1,7 @@
 #include "Ball.hpp"
 
 Ball::Ball(SDL_Renderer *renderer, ScoreManager *score) {
+    std::cout << "make ball" << std::endl;
     this->score = score;
     type = BALL;
     objRenderer = renderer;
@@ -67,4 +68,9 @@ bool Ball::CollisionDetection(std::shared_ptr<GameObject> object) {
         collision = true;
     }
     return collision;
+}
+
+Ball::~Ball() {
+    std::cout << "BALL del" << std::endl;
+    SDL_DestroyTexture(objTexture);
 }

@@ -16,5 +16,10 @@ void GameObject::Render() {
 }
 
 GameObject::~GameObject() {
+    std::cout << "GO del" << std::endl;
     SDL_DestroyTexture(objTexture);
+}
+
+GameObject::GameObject() {
+    std::cout << "make GO" << std::endl;
 }

@@ -7,7 +7,6 @@
 
 #include "Block.hpp"
 #include "State.hpp"
-//#include "Application.hpp"
 
 
 static const int MAP_MAX_ROWS = 20;
@@ -38,13 +37,12 @@ private:
     void InsertBlock(int lvl);
 
     vector<std::shared_ptr<GameObject>> blocks;
+    shared_ptr<Block> tmpBlock;
     SDL_Renderer *renderer{};
     int blocksInLine = 0;
     int rows = 0;
     int blockLvl = 0;
     int maxBlocksLine = 0;
-//    int spacedWidth = BLOCK_SPACING + BLOCK_WIDTH;
-//    int spaceHeight = BLOCK_SPACING + BLOCK_HEIGHT;
 };
 
 

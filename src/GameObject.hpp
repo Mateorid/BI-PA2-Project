@@ -13,7 +13,7 @@ enum GOType {
 
 class GameObject {
 public:
-    GameObject() = default;
+    GameObject();
 
     virtual ~GameObject();
 

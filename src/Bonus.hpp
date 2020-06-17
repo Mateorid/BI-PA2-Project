@@ -30,6 +30,8 @@ class Bonus : public GameObject {
 public:
     Bonus(SDL_Renderer *renderer, Ball &b1, Ball &b2, GameObject &plat, ScoreManager &score);
 
+    ~Bonus() override;
+
     void Update() override;
 
     void SpawnBonus(int x, int y);

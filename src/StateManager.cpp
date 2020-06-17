@@ -38,6 +38,7 @@ void StateManager::Exit() {
 //        delete it;
 //    }
     bricks.clear();
+    std::cout << "bricks.clear()" << std::endl;
     if (activeState != nullptr)
         activeState->Clean(*this);
     activeState = nullptr;
