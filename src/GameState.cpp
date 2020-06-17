@@ -10,16 +10,20 @@ void GameState::Initialize(StateManager &manager) {
 
     score = new ScoreManager(manager.mainRenderer, START_LIVES, font);
 
-    platform = new Platform(manager.mainRenderer);
+//    platform = new Platform(manager.mainRenderer);
+    platform = std::make_shared<Platform>(manager.mainRenderer);
     gameObjects.push_back(platform);
 
-    ball1 = new Ball(manager.mainRenderer, score);
+//    ball1 = new Ball(manager.mainRenderer, score);
+    ball1 = std::make_shared<Ball>(manager.mainRenderer, score);
     gameObjects.push_back(ball1);
 
-    ball2 = new Ball(manager.mainRenderer, score);
+//    ball2 = new Ball(manager.mainRenderer, score);
+    ball2 = std::make_shared<Ball>(manager.mainRenderer, score);
     gameObjects.push_back(ball2);
 
-    bonus = new Bonus(manager.mainRenderer, *ball1, *ball2, *platform, *score);
+//    bonus = new Bonus(manager.mainRenderer, *ball1, *ball2, *platform, *score);
+    bonus = std::make_shared<Bonus>(manager.mainRenderer, *ball1, *ball2, *platform, *score);
     gameObjects.push_back(bonus);
 
     score->Init(*platform, *ball1, *ball2);
@@ -30,49 +34,48 @@ void GameState::Initialize(StateManager &manager) {
 
 void GameState::HandleEvents(StateManager &manager) {
     SDL_Event events;
-//    while (SDL_PollEvent(&events)) {
-    SDL_PollEvent(&events);
-    switch (events.type) {
-        case SDL_QUIT:                                      //Clean signal
-            manager.ChangeState(StateName::EXIT);
-        case SDL_KEYDOWN: //Key down handling
-            switch (events.key.keysym.sym) {
-                case SDLK_SPACE:
-                    ball1->Init(platform->GetX());
-                    break;
-                case SDLK_LEFT:
-                    if (!isPaused)
-                        platform->MoveLeft();
-                    break;
-                case SDLK_RIGHT:
-                    if (!isPaused)
-                        platform->MoveRight();
-                    break;
-                case SDLK_p:
-                    isPaused = !isPaused;
-                    break;
-                case SDLK_ESCAPE:
-                    manager.ChangeState(StateName::EXIT);
-                    break;
-                default:
-                    break;
-            }
-            break;
-        case SDL_KEYUP: //Key release handling
-            switch (events.key.keysym.sym) {
-                case SDLK_LEFT:
-                case SDLK_RIGHT:
-                    if (!isPaused) {
-                        platform->Stop();
-                    }
-                default:
-                    break;
-            }
-        default:
-            break;
+    while (SDL_PollEvent(&events)) {
+        switch (events.type) {
+            case SDL_QUIT:                                      //Clean signal
+                manager.ChangeState(StateName::EXIT);
+            case SDL_KEYDOWN:                                   //Key down handling
+                switch (events.key.keysym.sym) {
+                    case SDLK_SPACE:
+                        ball1->Init(platform->GetX());
+                        break;
+                    case SDLK_LEFT:
+                        if (!isPaused)
+                            platform->MoveLeft();
+                        break;
+                    case SDLK_RIGHT:
+                        if (!isPaused)
+                            platform->MoveRight();
+                        break;
+                    case SDLK_p:
+                        isPaused = !isPaused;
+                        break;
+                    case SDLK_ESCAPE:
+                        manager.ChangeState(StateName::EXIT);
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case SDL_KEYUP:                                     //Key release handling
+                switch (events.key.keysym.sym) {
+                    case SDLK_LEFT:
+                    case SDLK_RIGHT:
+                        if (!isPaused) {
+                            platform->Stop();
+                        }
+                    default:
+                        break;
+                }
+            default:
+                break;
+        }
     }
 }
-//}
 
 void GameState::Update(StateManager &manager) {
     if (isPaused)
@@ -83,10 +86,10 @@ void GameState::Update(StateManager &manager) {
         if (it->IsActive())
             it->Update();
         else if (it->GetType() == BLOCK) {
-            bonus->SpawnBonus(it->GetX(), it->GetY());
-            toWin--;
-            delete gameObjects[tmpIt];
-            gameObjects.erase(gameObjects.begin() + tmpIt);
+            if (!it->Used()) {
+                bonus->SpawnBonus(it->GetX(), it->GetY());
+                toWin--;
+            }
         }
         if (toWin == 0) {
             manager.ChangeState(StateName::EXIT);//todo change to result
@@ -135,9 +138,9 @@ void GameState::Collisions(StateManager &manager) {
 
 void GameState::Clean(StateManager &manager) {
     delete score;
-    for (auto it:gameObjects) {
-        delete it;
-    }
+//    for (auto it:gameObjects) {
+//        delete it;
+//    }
     gameObjects.clear();
     TTF_CloseFont(font);
 }

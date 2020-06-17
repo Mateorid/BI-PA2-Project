@@ -1,7 +1,7 @@
 #include "GameObject.hpp"
 
 
-bool GameObject::CollisionDetection(GameObject *object) {
+bool GameObject::CollisionDetection(std::shared_ptr<GameObject> object) {
     return SDL_HasIntersection(&destR, &object->destR);
 }
 

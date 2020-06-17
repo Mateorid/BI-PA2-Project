@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <SDL2/SDL_image.h>
+#include <memory>
 
 /**Game object types*/
 enum GOType {
@@ -26,7 +27,9 @@ public:
 
     virtual void ResetSpeed() {};
 
-    virtual bool CollisionDetection(GameObject *object);
+    virtual bool Used() {}
+
+    virtual bool CollisionDetection(std::shared_ptr<GameObject>);
 
     virtual void Collided(bool activate) {};
 

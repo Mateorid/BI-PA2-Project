@@ -40,3 +40,12 @@ void Block::SetLevel(int lvl) {
     else if (lvl >= 3) level = 3;
     else level = 2;
 }
+
+bool Block::Used() {
+    if (used) {
+        return used;
+    } else {
+        used = true;
+        return false;
+    }
+}

@@ -17,14 +17,17 @@ public:
 
     void Collided(bool activate) override;
 
-    void UpdateTexture(int lvl);
+    bool Used() override;
 
     void Render() override;
 
 private:
+    void UpdateTexture(int lvl);
+
     void SetLevel(int lvl);
 
     int level = 0;
+    bool used = false;
 };
 
 

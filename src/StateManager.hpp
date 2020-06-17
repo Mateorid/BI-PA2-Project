@@ -51,7 +51,7 @@ public:
     SDL_Renderer *mainRenderer{};
     SDL_Window *mainWindow{};
     TextPrinter textPrinter{};
-    std::vector<GameObject *> bricks;
+    std::vector<std::shared_ptr<GameObject>> bricks;
 private: // todo create font here maybe? & clear it here as well? nope?
     std::shared_ptr<State> activeState;
     std::map<StateName, std::shared_ptr<State>> states;

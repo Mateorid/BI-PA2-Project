@@ -43,7 +43,7 @@ void Ball::Update() {
     }
 }
 
-bool Ball::CollisionDetection(GameObject *object) {
+bool Ball::CollisionDetection(std::shared_ptr<GameObject> object) {
     //Inspired by this article: https://happycoding.io/tutorials/processing/collision-detection
     collision = false;
     int x = object->GetX();

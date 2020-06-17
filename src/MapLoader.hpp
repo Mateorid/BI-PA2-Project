@@ -24,7 +24,7 @@ public:
 
     MapLoader(const string &filename, SDL_Renderer *renderer);
 
-    vector<GameObject *> &getBlocks() { return blocks; };
+    vector<std::shared_ptr<GameObject>> &getBlocks() { return blocks; };
 
 private:
     /**
@@ -37,7 +37,7 @@ private:
 
     void InsertBlock(int lvl);
 
-    vector<GameObject *> blocks;
+    vector<std::shared_ptr<GameObject>> blocks;
     SDL_Renderer *renderer{};
     int blocksInLine = 0;
     int rows = 0;

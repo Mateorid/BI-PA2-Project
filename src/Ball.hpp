@@ -31,7 +31,7 @@ public:
 
     void ResetSpeed() override { speed = BALL_SPEED; }
 
-    bool CollisionDetection(GameObject *object) override;
+    bool CollisionDetection(std::shared_ptr<GameObject>) override;
 
 private:
     bool collision = false;
