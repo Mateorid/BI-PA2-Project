@@ -2,6 +2,10 @@
 
 
 StateManager::~StateManager() {
+//    for (auto it:bricks) {
+//        delete it;
+//    }
+//    bricks.clear();
     if (activeState != nullptr)
         activeState->Clean(*this);
 }
@@ -34,10 +38,9 @@ void StateManager::Run() {
 }
 
 void StateManager::Exit() {
-    for (auto &gameObject : bricks) {
-        delete gameObject;
+    for (auto it:bricks) {
+        delete it;
     }
-
     bricks.clear();
     if (activeState != nullptr)
         activeState->Clean(*this);

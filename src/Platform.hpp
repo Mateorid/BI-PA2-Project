@@ -2,7 +2,6 @@
 
 
 #include "GameObject.hpp"
-//#include "Application.hpp"
 #include "State.hpp"
 
 
@@ -12,6 +11,8 @@ static const char *const PLATFORM_SRC = "examples/textures/paddle.png";
 static const int PLATFORM_H = 20;
 static const int PLATFORM_W = 90;
 static const int PLATFORM_SPEED = 8;
+static const int PLATFORM_FAST = 11;
+static const int PLATFORM_SLOW = 5;
 
 class Platform : public GameObject {
 public:
@@ -19,16 +20,20 @@ public:
 
     void Init() override;
 
-    void MoveLeft();
+    void Update() override;
 
-    void MoveRight();
+    void MoveLeft() { dir = -1; }
 
-    void SlowDown() override { speed = 5; }//TODO const?
+    void MoveRight() { dir = 1; }
 
-    void SpeedUP() override { speed = 11; }
+    void Stop() { dir = 0; };
+
+    void SlowDown() override { speed = PLATFORM_SLOW; }
+
+    void SpeedUP() override { speed = PLATFORM_FAST; }
 
     void ResetSpeed() override { speed = PLATFORM_SPEED; }
 
-
 private:
+    int dir = 0;
 };

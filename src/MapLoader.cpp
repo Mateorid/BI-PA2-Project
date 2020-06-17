@@ -44,8 +44,10 @@ void MapLoader::InsertBlock(int lvl) {
         blocksInLine++;
         return;
     }
-    auto *tmpBlock = new Block(renderer, lvl, blocksInLine * BLOCK_WIDTH, rows * BLOCK_HEIGHT);
-    blocks.push_back(tmpBlock);
+//    auto *tmpBlock = new Block(renderer, lvl, blocksInLine * BLOCK_WIDTH, rows * BLOCK_HEIGHT);
+    blocks.push_back(new Block(renderer, lvl, blocksInLine * BLOCK_WIDTH, rows * BLOCK_HEIGHT));
+//    tmpBlock = nullptr;
+//    delete tmpBlock;
     blocksInLine++;
 
 }

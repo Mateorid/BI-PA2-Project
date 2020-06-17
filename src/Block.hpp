@@ -14,6 +14,7 @@ class Block : public GameObject {
 public:
     Block(SDL_Renderer *renderer, int lvl, int x, int y);
 
+
     void Collided(bool activate) override;
 
     void UpdateTexture(int lvl);

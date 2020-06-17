@@ -32,9 +32,10 @@ void GameState::HandleEvents(StateManager &manager) {
     SDL_Event events;
 //    while (SDL_PollEvent(&events)) {
     SDL_PollEvent(&events);
-        if (events.type == SDL_QUIT)                                            //Clean signal
+    switch (events.type) {
+        case SDL_QUIT:                                      //Clean signal
             manager.ChangeState(StateName::EXIT);
-        if (events.type == SDL_KEYDOWN) {                                       //Keypress handling
+        case SDL_KEYDOWN: //Key down handling
             switch (events.key.keysym.sym) {
                 case SDLK_SPACE:
                     ball1->Init(platform->GetX());
@@ -56,11 +57,27 @@ void GameState::HandleEvents(StateManager &manager) {
                 default:
                     break;
             }
-        }
+            break;
+        case SDL_KEYUP: //Key release handling
+            switch (events.key.keysym.sym) {
+                case SDLK_LEFT:
+                case SDLK_RIGHT:
+                    if (!isPaused) {
+                        platform->Stop();
+                    }
+                default:
+                    break;
+            }
+        default:
+            break;
     }
+}
 //}
 
 void GameState::Update(StateManager &manager) {
+    if (isPaused)
+        return;
+
     int tmpIt = 0;
     for (auto it:gameObjects) {
         if (it->IsActive())
@@ -85,6 +102,9 @@ void GameState::Update(StateManager &manager) {
 }
 
 void GameState::Render(StateManager &manager) {
+    if (isPaused)
+        return;
+
     SDL_RenderClear(manager.mainRenderer);
     for (auto it:gameObjects) {
         if (it->IsActive())
@@ -118,6 +138,6 @@ void GameState::Clean(StateManager &manager) {
     for (auto it:gameObjects) {
         delete it;
     }
-
+    gameObjects.clear();
     TTF_CloseFont(font);
 }

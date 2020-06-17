@@ -16,6 +16,5 @@ void GameObject::Render() {
 }
 
 GameObject::~GameObject() {
-    std::cout << "Game object destructor." << std::endl;
     SDL_DestroyTexture(objTexture);
 }

@@ -18,8 +18,6 @@ public:
 private:
     void Collisions(StateManager &);
 
-    void UserInput(StateManager &);
-
     std::vector<GameObject *> gameObjects;
     Platform *platform{};
     Ball *ball1{};
