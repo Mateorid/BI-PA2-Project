@@ -39,7 +39,6 @@ public:
 
     virtual void Clean(StateManager &) {};
 protected:
-    TTF_Font *font{};
 //    bool isRunning = false; //todo use this in the loop? + init it where its needed (menu & game)
 };
 

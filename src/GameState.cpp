@@ -1,13 +1,8 @@
 #include "GameState.hpp"
 
 void GameState::Initialize(StateManager &manager) {
-    font = TTF_OpenFont(FONT_SRC, 50);
-    if (font == nullptr)
-        throw std::invalid_argument("ERROR! Failed to load font!");
-
-
     toWin = manager.gameObjects.size();         //Assign number of blocks to win
-    score = new ScoreManager(manager.mainRenderer, START_LIVES, font);
+    score = new ScoreManager(manager.mainRenderer, START_LIVES);
 
     manager.platform = new Platform(manager.mainRenderer);
     manager.gameObjects.push_back(manager.platform);
@@ -18,10 +13,11 @@ void GameState::Initialize(StateManager &manager) {
     manager.ball2 = new Ball(manager.mainRenderer, score);
     manager.gameObjects.push_back(manager.ball2);
 
-    manager.bonus = new Bonus(manager.mainRenderer, *manager.ball1, *manager.ball2, *manager.platform, *score); //todo valgrind ???
+    manager.bonus = new Bonus(manager.mainRenderer, *manager.ball1, *manager.ball2, *manager.platform,
+                              *score); //todo valgrind ???
     manager.gameObjects.push_back(manager.bonus);
 
-    score->Init(*manager.platform, *manager.ball1, *manager.ball2);
+    score->Init(*manager.platform, *manager.ball1, *manager.ball2, manager.textPrinter); //todo move score into manager
 
     SDL_SetRenderDrawColor(manager.mainRenderer, 100, 100, 100, 0);//Setting a gray background
     manager.Run();
@@ -134,6 +130,5 @@ void GameState::Collisions(StateManager &manager) {
 }
 
 void GameState::Clean(StateManager &manager) {
-    delete score;
-    TTF_CloseFont(font);
+    delete score; //todo clean manager vector here tho
 }

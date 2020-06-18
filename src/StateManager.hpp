@@ -3,6 +3,7 @@
 #include <map>
 #include <memory>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include <vector>
 
 
@@ -52,6 +53,7 @@ public:
 
     SDL_Renderer *mainRenderer{};
     SDL_Window *mainWindow{};
+    TTF_Font *font{};
     TextPrinter textPrinter{};
     std::vector<GameObject *> gameObjects;
     Platform *platform{};
@@ -59,7 +61,7 @@ public:
     Ball *ball2{};
     Bonus *bonus{};
     int totalScore = 0;//todo += in gamestate
-private: // todo create font here maybe? & clear it here as well? nope?
+private:
     int selectedLevel = 0;
     std::shared_ptr<State> activeState;
     std::map<StateName, std::shared_ptr<State>> states;

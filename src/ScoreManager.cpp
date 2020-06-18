@@ -1,15 +1,15 @@
 #include "ScoreManager.hpp"
 
-ScoreManager::ScoreManager(SDL_Renderer *ren, int x, TTF_Font *font) {
-    this->font = font;
+ScoreManager::ScoreManager(SDL_Renderer *ren, int x) {
     renderer = ren;
     lives = x;
 }
 
-void ScoreManager::Init(GameObject &plat, GameObject &b1, GameObject &b2) {
+void ScoreManager::Init(GameObject &plat, GameObject &b1, GameObject &b2, TextPrinter &txt) {
     platform = &plat;
     ball1 = &b1;
     ball2 = &b2;
+    textPrinter = &txt;
     UpdateScore();
 }
 
@@ -47,7 +47,7 @@ void ScoreManager::LoseLife() {
 void ScoreManager::UpdateScore() {
     std::ostringstream oss;
     oss << "Score: " << std::setw(3) << std::setfill('0') << score << "  Lives: " << lives;
-    scoreTexture = textPrinter.CreateTextTexture(oss, renderer, srcR, font);
+    scoreTexture = textPrinter->CreateTextTexture(oss, srcR);
 }
 
 void ScoreManager::Render() {

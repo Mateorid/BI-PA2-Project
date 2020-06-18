@@ -18,11 +18,11 @@ static const int SCORE_DEDUCT = 500;
 
 class ScoreManager {
 public:
-    ScoreManager(SDL_Renderer *, int, TTF_Font *);
+    ScoreManager(SDL_Renderer *, int);
 
     ~ScoreManager() = default;
 
-    void Init(GameObject &, GameObject &, GameObject &);
+    void Init(GameObject &, GameObject &, GameObject &, TextPrinter&);
 
     void UpdateScore();
 
@@ -48,12 +48,11 @@ private:
     GameObject *platform{};
     GameObject *ball1{};
     GameObject *ball2{};
-    TextPrinter textPrinter{};
-    SDL_Renderer *renderer{};
+    TextPrinter *textPrinter{};
+    SDL_Renderer *renderer{};       //todo when moved to manager change if not necessary
     SDL_Texture *scoreTexture{};
     SDL_Rect srcR{};
     SDL_Rect destR{};
-    TTF_Font *font{};
 };
 
 

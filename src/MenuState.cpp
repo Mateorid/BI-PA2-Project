@@ -1,21 +1,12 @@
 #include "MenuState.hpp"
 
 void MenuState::Initialize(StateManager &manager) {
-    font = TTF_OpenFont(FONT_SRC, 50);
-    if (font == nullptr)
-        throw std::invalid_argument("ERROR! Failed to load font!");
+    renderer = manager.mainRenderer;
+    titleTexture = manager.textPrinter.CreateTextTexture(GAME_NAME, titleR);
+    lvlSelectTexture = manager.textPrinter.CreateLevelTexture(selectedLvl, lvlSelectR, menuPos == 1);
+    exitTexture = manager.textPrinter.CreateTextTexture("EXIT", exitR);
 
-    std::ostringstream oss;
-
-    oss << GAME_NAME;
-    titleTexture = manager.textPrinter.CreateTextTexture(oss, manager.mainRenderer, titleR, font);
-    std::ostringstream().swap(oss);
-
-    LevelText(manager);
-
-    oss << "EXIT";
-    exitTexture = manager.textPrinter.CreateTextTexture(oss, manager.mainRenderer, exitR, font);
-    SDL_SetRenderDrawColor(manager.mainRenderer, 0, 0, 0, 0);            //Setting black background
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);            //Setting black background
     changedText = true;
 }
 
@@ -27,14 +18,18 @@ void MenuState::HandleEvents(StateManager &manager) {
     if (events.type == SDL_KEYDOWN) {                                       //Keypress handling
         switch (events.key.keysym.sym) {
             case SDLK_LEFT:
-                selectedLvl--;
-                if (selectedLvl <= 0) selectedLvl = LVL_COUNT;
-                changedText = true;
+                if (menuPos == 1) {
+                    selectedLvl--;
+                    if (selectedLvl <= 0) selectedLvl = LVL_COUNT;
+                    changedText = true;
+                }
                 break;
             case SDLK_RIGHT:
-                selectedLvl++;
-                if (selectedLvl > LVL_COUNT) selectedLvl = 1;
-                changedText = true;
+                if (menuPos == 1) {
+                    selectedLvl++;
+                    if (selectedLvl > LVL_COUNT) selectedLvl = 1;
+                    changedText = true;
+                }
                 break;
             case SDLK_UP:
                 menuPos == 1 ? menuPos = 2 : menuPos = 1;
@@ -62,30 +57,24 @@ void MenuState::HandleEvents(StateManager &manager) {
 }
 
 void MenuState::Render(StateManager &manager) {
-    if (changedText) {
-        SDL_RenderClear(manager.mainRenderer);
+    if (changedText) { //when there's no update we don't need to re-render
+        SDL_RenderClear(renderer);
 
-        LevelText(manager);
-        RenderText(manager.mainRenderer, titleTexture, titleR, positions[0], true);
-        RenderText(manager.mainRenderer, lvlSelectTexture, lvlSelectR, positions[1], false);
-        RenderText(manager.mainRenderer, exitTexture, exitR, positions[2], false);
-        RenderSelected(manager.mainRenderer);
+        lvlSelectTexture = manager.textPrinter.CreateLevelTexture(selectedLvl, lvlSelectR, menuPos == 1);
 
-        SDL_RenderPresent(manager.mainRenderer);
+        RenderText(titleTexture, titleR, positions[0], true);
+        RenderText(lvlSelectTexture, lvlSelectR, positions[1], false);
+        RenderText(exitTexture, exitR, positions[2], false);
+        RenderSelected();
+
+        SDL_RenderPresent(renderer);
         changedText = false;
     }
 }
 
-void MenuState::LevelText(StateManager &manager) {
-    std::ostringstream oss;
-    oss << "<< PLAY LVL " << selectedLvl << " >>";
-    lvlSelectTexture = manager.textPrinter.CreateTextTexture(oss, manager.mainRenderer, lvlSelectR, font);
-    std::ostringstream().swap(oss);
-}
-
-void MenuState::RenderText(SDL_Renderer *renderer, SDL_Texture *texture, SDL_Rect rect, int y, bool title) {
+void MenuState::RenderText(SDL_Texture *texture, SDL_Rect rect, int y, bool bigger) {
     renderR = rect;
-    if (title) {
+    if (bigger) {
         renderR.h *= 2;
         renderR.w *= 2;
     }
@@ -94,7 +83,7 @@ void MenuState::RenderText(SDL_Renderer *renderer, SDL_Texture *texture, SDL_Rec
     SDL_RenderCopy(renderer, texture, &rect, &renderR);
 }
 
-void MenuState::RenderSelected(SDL_Renderer *renderer) {
+void MenuState::RenderSelected() {
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);            //Setting white colour for underline
     SDL_Rect tmpR = {0, 0, 200, 5};//todo set these
     tmpR.x = (APP_WIDTH - tmpR.w) / 2;
@@ -107,5 +96,4 @@ void MenuState::Clean(StateManager &) {
     SDL_DestroyTexture(titleTexture);
     SDL_DestroyTexture(lvlSelectTexture);
     SDL_DestroyTexture(exitTexture);
-    TTF_CloseFont(font);
 }

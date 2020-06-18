@@ -13,13 +13,14 @@ public:
     void Clean(StateManager &) override;
 
 private:
-    void RenderText(SDL_Renderer *, SDL_Texture *, SDL_Rect, int, bool); //todo move thes to State class?
+    void RenderText(SDL_Texture *, SDL_Rect, int, bool); //todo move these to State class?
 
-    void RenderSelected(SDL_Renderer *renderer);
+    void RenderSelected();
 
     bool changedText = true;
     int menuPos = 1;
     int positions[4] = {20, 200, 400, 600,};
+    SDL_Renderer *renderer{};
     SDL_Texture *resultTexture{};
     SDL_Texture *scoreTexture{};
     SDL_Texture *nextTexture{};

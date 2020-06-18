@@ -20,16 +20,15 @@ public:
     void Clean(StateManager &) override;
 
 private:
-    void RenderText(SDL_Renderer *, SDL_Texture *, SDL_Rect, int, bool);
+    void RenderText(SDL_Texture *, SDL_Rect, int, bool);
 
-    void RenderSelected(SDL_Renderer *renderer);
-
-    void LevelText(StateManager &);
+    void RenderSelected();
 
     bool changedText = true;
     int selectedLvl = 1;
     int menuPos = 1;
     int positions[3] = {20, 400, 600};
+    SDL_Renderer *renderer{};
     SDL_Texture *titleTexture{};
     SDL_Texture *lvlSelectTexture{};
     SDL_Texture *exitTexture{};

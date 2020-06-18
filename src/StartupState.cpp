@@ -19,6 +19,12 @@ void StartupState::Initialize(StateManager &manager) {
     manager.mainRenderer = SDL_CreateRenderer(manager.mainWindow, -1, SDL_RENDERER_ACCELERATED);
     if (manager.mainRenderer == nullptr)
         throw std::runtime_error("ERROR! SDL_CreateRenderer failed!");
+
+    manager.font = TTF_OpenFont(FONT_SRC, 50);
+    if (manager.font == nullptr)
+        throw std::invalid_argument("ERROR! Failed to load font!");
+
+    manager.textPrinter.Init(manager.mainRenderer, manager.font);
 }
 
 void StartupState::Update(StateManager &stateManager) {

@@ -1,29 +1,17 @@
 #include "VictoryState.hpp"
 
 void VictoryState::Initialize(StateManager &manager) {
-    font = TTF_OpenFont(FONT_SRC, 50);
-    if (font == nullptr)
-        throw std::invalid_argument("ERROR! Failed to load font!");
+    renderer = manager.mainRenderer;
 
-    std::ostringstream oss; //todo use the better text class
+    resultTexture = manager.textPrinter.CreateTextTexture("VICTORY", resultR);
 
-    oss << "VICTORY!";
-    resultTexture = manager.textPrinter.CreateTextTexture(oss, manager.mainRenderer, resultR, font);
-    std::ostringstream().swap(oss);
+    scoreTexture = manager.textPrinter.CreateTotalScoreTexture(manager.totalScore, scoreR); //todo this int
 
-    oss << "TOTAL SCORE: " << manager.totalScore;
-    scoreTexture = manager.textPrinter.CreateTextTexture(oss, manager.mainRenderer, scoreR, font);
-    std::ostringstream().swap(oss);
+    nextTexture = manager.textPrinter.CreateTextTexture("PLAY NEXT", nextR);
 
-    oss << "PLAY NEXT";
-    nextTexture = manager.textPrinter.CreateTextTexture(oss, manager.mainRenderer, nextR, font);
-    std::ostringstream().swap(oss);
+    menuTexture = manager.textPrinter.CreateTextTexture("MENU", menuR);
 
-    oss << "MENU";
-    menuTexture = manager.textPrinter.CreateTextTexture(oss, manager.mainRenderer, menuR, font);
-    std::ostringstream().swap(oss);
-
-    SDL_SetRenderDrawColor(manager.mainRenderer, 0, 0, 0, 0);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0); //black background
     changedText = true;
 }
 
@@ -63,22 +51,22 @@ void VictoryState::HandleEvents(StateManager &manager) {
 
 void VictoryState::Render(StateManager &manager) {
     if (changedText) {
-        SDL_RenderClear(manager.mainRenderer);
+        SDL_RenderClear(renderer);
 
-        RenderText(manager.mainRenderer, resultTexture, resultR, positions[0], true);
-        RenderText(manager.mainRenderer, scoreTexture, scoreR, positions[1], false);
-        RenderText(manager.mainRenderer, nextTexture, nextR, positions[2], false);
-        RenderText(manager.mainRenderer, menuTexture, menuR, positions[3], false);
-        RenderSelected(manager.mainRenderer);
+        RenderText(resultTexture, resultR, positions[0], true);
+        RenderText(scoreTexture, scoreR, positions[1], false);
+        RenderText(nextTexture, nextR, positions[2], false);
+        RenderText(menuTexture, menuR, positions[3], false);
+        RenderSelected();
 
-        SDL_RenderPresent(manager.mainRenderer);
+        SDL_RenderPresent(renderer);
         changedText = false;
     }
 }
 
-void VictoryState::RenderText(SDL_Renderer *renderer, SDL_Texture *texture, SDL_Rect rect, int y, bool title) {
+void VictoryState::RenderText(SDL_Texture *texture, SDL_Rect rect, int y, bool bigger) {
     renderR = rect;
-    if (title) {
+    if (bigger) {
         renderR.h *= 2;
         renderR.w *= 2;
     }
@@ -87,7 +75,7 @@ void VictoryState::RenderText(SDL_Renderer *renderer, SDL_Texture *texture, SDL_
     SDL_RenderCopy(renderer, texture, &rect, &renderR);
 }
 
-void VictoryState::RenderSelected(SDL_Renderer *renderer) {
+void VictoryState::RenderSelected() {
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);            //Setting white colour for underline
     SDL_Rect tmpR = {0, 0, 200, 5};//todo set these
     tmpR.x = (APP_WIDTH - tmpR.w) / 2;
@@ -101,5 +89,4 @@ void VictoryState::Clean(StateManager &) {
     SDL_DestroyTexture(scoreTexture);
     SDL_DestroyTexture(nextTexture);
     SDL_DestroyTexture(menuTexture);
-    TTF_CloseFont(font);
 }
