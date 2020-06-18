@@ -14,11 +14,11 @@ void GameState::Initialize(StateManager &manager) {
     manager.gameObjects.push_back(manager.ball2);
 
     manager.bonus = new Bonus(manager.mainRenderer, *manager.ball1, *manager.ball2, *manager.platform,
-                              *manager.score); //todo valgrind ???
+                              *manager.score);
     manager.gameObjects.push_back(manager.bonus);
 
     manager.score->Init(*manager.platform, *manager.ball1, *manager.ball2,
-                        manager.textPrinter); //todo move score into manager
+                        manager.textPrinter);
 
     SDL_SetRenderDrawColor(manager.mainRenderer, 100, 100, 100, 0);//Setting a gray background
     manager.Run();
@@ -48,7 +48,7 @@ void GameState::HandleEvents(StateManager &manager) {
                         isPaused = !isPaused;
                         break;
                     case SDLK_ESCAPE:
-                        manager.ChangeState(StateName::EXIT);
+                        manager.ChangeState(StateName::MAIN_MENU);
                         break;
                     default:
                         break;
@@ -85,15 +85,17 @@ void GameState::Update(StateManager &manager) {
             manager.gameObjects.erase(manager.gameObjects.begin() + tmpIt);
         }
         if (toWin == 0) {
+            manager.won = true;
             manager.score->AddScores();
-            manager.ChangeState(StateName::VICTORY);
+            manager.ChangeState(StateName::RESULT);
             return;
         }
         tmpIt++;
     }
     if (manager.score->GetLives() == 0) {
+        manager.won = false;
         manager.score->AddScores();
-        manager.ChangeState(StateName::VICTORY);//todo defeat
+        manager.ChangeState(StateName::RESULT);
         return;
     }
     Collisions(manager);

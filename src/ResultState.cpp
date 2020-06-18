@@ -1,21 +1,22 @@
-#include "VictoryState.hpp"
+#include "ResultState.hpp"
 
-void VictoryState::Initialize(StateManager &manager) {
+void ResultState::Initialize(StateManager &manager) {
     renderer = manager.mainRenderer;
-
-    resultTexture = manager.textPrinter.CreateTextTexture("VICTORY", resultR);
-
+    if (manager.won) {
+        resultTexture = manager.textPrinter.CreateTextTexture("VICTORY", resultR);
+        nextTexture = manager.textPrinter.CreateTextTexture("PLAY NEXT", nextR);
+    } else {
+        resultTexture = manager.textPrinter.CreateTextTexture("DEFEAT", resultR);
+        nextTexture = manager.textPrinter.CreateTextTexture("RETRY LEVEL", nextR);
+    }
     scoreTexture = manager.textPrinter.CreateTotalScoreTexture(manager.score->GetScore(), scoreR);
-
-    nextTexture = manager.textPrinter.CreateTextTexture("PLAY NEXT", nextR);
-
     menuTexture = manager.textPrinter.CreateTextTexture("MENU", menuR);
 
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0); //black background
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0); //black background //todo set this to red/green based on won
     changedText = true;
 }
 
-void VictoryState::HandleEvents(StateManager &manager) {
+void ResultState::HandleEvents(StateManager &manager) {
     SDL_Event events{};
     SDL_PollEvent(&events);
     if (events.type == SDL_QUIT)                                            //Exit signal
@@ -36,7 +37,8 @@ void VictoryState::HandleEvents(StateManager &manager) {
             case SDLK_RETURN:
             case SDLK_SPACE:
                 if (menuPos == 1) {
-                    manager.SetLevel(manager.GetLevel() + 1); //todo must check if not last lvl
+                    if (manager.won)
+                        manager.SetLevel(manager.GetLevel() + 1); //todo must check if not last lvl
                     manager.ChangeState(StateName::LOAD_MAP);
                 } else {
                     manager.score->ResetScore();
@@ -49,7 +51,7 @@ void VictoryState::HandleEvents(StateManager &manager) {
     }
 }
 
-void VictoryState::Render(StateManager &manager) {
+void ResultState::Render(StateManager &manager) {
     if (changedText) {
         SDL_RenderClear(renderer);
 
@@ -64,7 +66,7 @@ void VictoryState::Render(StateManager &manager) {
     }
 }
 
-void VictoryState::RenderText(SDL_Texture *texture, SDL_Rect rect, int y, bool bigger) {
+void ResultState::RenderText(SDL_Texture *texture, SDL_Rect rect, int y, bool bigger) {
     renderR = rect;
     if (bigger) {
         renderR.h *= 2;
@@ -75,7 +77,7 @@ void VictoryState::RenderText(SDL_Texture *texture, SDL_Rect rect, int y, bool b
     SDL_RenderCopy(renderer, texture, &rect, &renderR);
 }
 
-void VictoryState::RenderSelected() {
+void ResultState::RenderSelected() {
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);            //Setting white colour for underline
     SDL_Rect tmpR = {0, 0, 200, 5};//todo set these
     tmpR.x = (APP_WIDTH - tmpR.w) / 2;
@@ -84,7 +86,7 @@ void VictoryState::RenderSelected() {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);   //Back to black
 }
 
-void VictoryState::Clean(StateManager &) {
+void ResultState::Clean(StateManager &) {
     SDL_DestroyTexture(resultTexture);
     SDL_DestroyTexture(scoreTexture);
     SDL_DestroyTexture(nextTexture);

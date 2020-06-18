@@ -2,7 +2,7 @@
 
 #include "State.hpp"
 
-class VictoryState : public State {
+class ResultState : public State {
 public:
     void Initialize(StateManager &) override;
 

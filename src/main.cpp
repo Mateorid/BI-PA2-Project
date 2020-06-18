@@ -3,7 +3,7 @@
 #include "MenuState.hpp"
 #include "LoadState.hpp"
 #include "GameState.hpp"
-#include "VictoryState.hpp"
+#include "ResultState.hpp"
 #include "ExitState.hpp"
 
 
@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
         stateManager.AddState(StateName::MAIN_MENU, new MenuState());
         stateManager.AddState(StateName::LOAD_MAP, new LoadState());
         stateManager.AddState(StateName::GAME, new GameState());
-        stateManager.AddState(StateName::VICTORY, new VictoryState());
+        stateManager.AddState(StateName::RESULT, new ResultState());
         stateManager.AddState(StateName::EXIT, new ExitState());
         stateManager.Run();
         return 0;

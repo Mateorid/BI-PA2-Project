@@ -28,7 +28,7 @@ enum class StateName {
     MAIN_MENU,
     LOAD_MAP,
     GAME,
-    VICTORY,
+    RESULT,
     EXIT,
 };
 
@@ -52,16 +52,17 @@ public:
 
     void SetLevel(int x) { selectedLevel = x; }
 
-    SDL_Renderer *mainRenderer{};
-    SDL_Window *mainWindow{};
-    TTF_Font *font{};
     TextPrinter textPrinter{};
     ScoreManager *score{};
-    std::vector<GameObject *> gameObjects;
     Platform *platform{};
     Ball *ball1{};
     Ball *ball2{};
     Bonus *bonus{};
+    std::vector<GameObject *> gameObjects;
+    SDL_Renderer *mainRenderer{};
+    SDL_Window *mainWindow{};
+    TTF_Font *font{};
+    bool won = false;
 private:
     int selectedLevel = 0;
     std::shared_ptr<State> activeState;

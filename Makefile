@@ -83,7 +83,7 @@ $(DEST_DIR)/main.o: src/main.cpp src/StateManager.hpp src/State.hpp \
  src/TextPrinter.hpp src/GameObject.hpp src/Platform.hpp src/Ball.hpp \
  src/ScoreManager.hpp src/Bonus.hpp src/StartupState.hpp \
  src/MenuState.hpp src/LoadState.hpp src/MapLoader.hpp src/Block.hpp \
- src/GameState.hpp src/VictoryState.hpp src/ExitState.hpp
+ src/GameState.hpp src/ResultState.hpp src/ExitState.hpp
 $(DEST_DIR)/MapLoader.o: src/MapLoader.cpp src/MapLoader.hpp src/Block.hpp \
  src/GameObject.hpp src/State.hpp src/StateManager.hpp \
  src/TextPrinter.hpp src/Platform.hpp src/Ball.hpp src/ScoreManager.hpp \
@@ -107,6 +107,6 @@ $(DEST_DIR)/StateManager.o: src/StateManager.cpp src/StateManager.hpp src/State.
  src/TextPrinter.hpp src/GameObject.hpp src/Platform.hpp src/Ball.hpp \
  src/ScoreManager.hpp src/Bonus.hpp
 $(DEST_DIR)/TextPrinter.o: src/TextPrinter.cpp src/TextPrinter.hpp
-$(DEST_DIR)/VictoryState.o: src/VictoryState.cpp src/VictoryState.hpp src/State.hpp \
+$(DEST_DIR)/VictoryState.o: src/ResultState.cpp src/ResultState.hpp src/State.hpp \
  src/StateManager.hpp src/TextPrinter.hpp src/GameObject.hpp \
  src/Platform.hpp src/Ball.hpp src/ScoreManager.hpp src/Bonus.hpp
