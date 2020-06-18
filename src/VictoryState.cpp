@@ -5,7 +5,7 @@ void VictoryState::Initialize(StateManager &manager) {
 
     resultTexture = manager.textPrinter.CreateTextTexture("VICTORY", resultR);
 
-    scoreTexture = manager.textPrinter.CreateTotalScoreTexture(manager.totalScore, scoreR); //todo this int
+    scoreTexture = manager.textPrinter.CreateTotalScoreTexture(manager.score->GetScore(), scoreR);
 
     nextTexture = manager.textPrinter.CreateTextTexture("PLAY NEXT", nextR);
 
@@ -39,7 +39,7 @@ void VictoryState::HandleEvents(StateManager &manager) {
                     manager.SetLevel(manager.GetLevel() + 1); //todo must check if not last lvl
                     manager.ChangeState(StateName::LOAD_MAP);
                 } else {
-                    manager.totalScore = 0; //todo
+                    manager.score->ResetScore();
                     manager.ChangeState(StateName::MAIN_MENU);
                 }
                 break;

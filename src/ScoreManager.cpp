@@ -1,11 +1,12 @@
 #include "ScoreManager.hpp"
 
-ScoreManager::ScoreManager(SDL_Renderer *ren, int x) {
+ScoreManager::ScoreManager(SDL_Renderer *ren) {
     renderer = ren;
-    lives = x;
 }
 
 void ScoreManager::Init(GameObject &plat, GameObject &b1, GameObject &b2, TextPrinter &txt) {
+    lives = START_LIVES;
+    score = 0;
     platform = &plat;
     ball1 = &b1;
     ball2 = &b2;

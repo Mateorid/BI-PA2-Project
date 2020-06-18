@@ -1,8 +1,10 @@
-TODO Implement defeat screen
+TODO Implement defeat screen <--
 
-TODO merge LoadState & MapLoader?
+TODO Implement changing based on resolution
 
-TODO Make better total score? use the score manager class instead?
+TODO Wrap case for stuff in Statemanger
+
+TODO merge LoadState & MapLoader? <-
 
 TODO Clean everything up, look online how others did it (Matousek maybe?)  + valgrind
 

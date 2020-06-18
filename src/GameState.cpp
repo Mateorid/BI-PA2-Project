@@ -2,22 +2,23 @@
 
 void GameState::Initialize(StateManager &manager) {
     toWin = manager.gameObjects.size();         //Assign number of blocks to win
-    score = new ScoreManager(manager.mainRenderer, START_LIVES);
+//    score = new ScoreManager(manager.mainRenderer, START_LIVES);
 
     manager.platform = new Platform(manager.mainRenderer);
     manager.gameObjects.push_back(manager.platform);
 
-    manager.ball1 = new Ball(manager.mainRenderer, score);
+    manager.ball1 = new Ball(manager.mainRenderer, manager.score);
     manager.gameObjects.push_back(manager.ball1);
 
-    manager.ball2 = new Ball(manager.mainRenderer, score);
+    manager.ball2 = new Ball(manager.mainRenderer, manager.score);
     manager.gameObjects.push_back(manager.ball2);
 
     manager.bonus = new Bonus(manager.mainRenderer, *manager.ball1, *manager.ball2, *manager.platform,
-                              *score); //todo valgrind ???
+                              *manager.score); //todo valgrind ???
     manager.gameObjects.push_back(manager.bonus);
 
-    score->Init(*manager.platform, *manager.ball1, *manager.ball2, manager.textPrinter); //todo move score into manager
+    manager.score->Init(*manager.platform, *manager.ball1, *manager.ball2,
+                        manager.textPrinter); //todo move score into manager
 
     SDL_SetRenderDrawColor(manager.mainRenderer, 100, 100, 100, 0);//Setting a gray background
     manager.Run();
@@ -84,14 +85,14 @@ void GameState::Update(StateManager &manager) {
             manager.gameObjects.erase(manager.gameObjects.begin() + tmpIt);
         }
         if (toWin == 0) {
-            manager.totalScore += score->GetScore();//todo
+            manager.score->AddScores();
             manager.ChangeState(StateName::VICTORY);
             return;
         }
         tmpIt++;
     }
-    if (score->GetLives() == 0) {
-        manager.totalScore += score->GetScore();//todo
+    if (manager.score->GetLives() == 0) {
+        manager.score->AddScores();
         manager.ChangeState(StateName::VICTORY);//todo defeat
         return;
     }
@@ -106,7 +107,7 @@ void GameState::Render(StateManager &manager) {
         if (it->IsActive())
             it->Render();
     }
-    score->Render();
+    manager.score->Render();
     SDL_RenderPresent(manager.mainRenderer);
 }
 
@@ -118,7 +119,7 @@ void GameState::Collisions(StateManager &manager) {
         if (it->GetType() == BLOCK) {//Ball-Block collision
             if (manager.ball1->CollisionDetection(it) || manager.ball2->CollisionDetection(it)) {
                 it->Collided(true);
-                score->PlusScore();
+                manager.score->PlusScore();
             }
         } else if (it->GetType() == PLATFORM) {//Ball-Platform collision
             manager.ball1->CollisionDetection(it);
@@ -130,5 +131,5 @@ void GameState::Collisions(StateManager &manager) {
 }
 
 void GameState::Clean(StateManager &manager) {
-    delete score; //todo clean manager vector here tho
+//    delete manager.score; //todo clean manager vector here tho
 }

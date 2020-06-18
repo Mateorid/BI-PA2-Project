@@ -18,11 +18,13 @@ static const int SCORE_DEDUCT = 500;
 
 class ScoreManager {
 public:
-    ScoreManager(SDL_Renderer *, int);
+    ScoreManager() = default;
+
+    explicit ScoreManager(SDL_Renderer *);
 
     ~ScoreManager() = default;
 
-    void Init(GameObject &, GameObject &, GameObject &, TextPrinter&);
+    void Init(GameObject &, GameObject &, GameObject &, TextPrinter &);
 
     void UpdateScore();
 
@@ -38,13 +40,18 @@ public:
 
     void LoseLife();
 
-    int GetScore() const { return score; }
+    void AddScores() { totalScore += score; };
+
+    void ResetScore() { totalScore = 0; };
+
+    int GetScore() const { return totalScore; }
 
     int GetLives() const { return lives; }
 
 private:
     int lives = 0;
     int score = 0;
+    int totalScore = 0;
     GameObject *platform{};
     GameObject *ball1{};
     GameObject *ball2{};

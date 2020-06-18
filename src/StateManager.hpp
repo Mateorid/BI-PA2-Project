@@ -9,6 +9,7 @@
 
 #include "State.hpp"
 #include "TextPrinter.hpp"
+#include "ScoreManager.hpp"
 #include "GameObject.hpp"
 #include "Platform.hpp"
 #include "Ball.hpp"
@@ -55,12 +56,12 @@ public:
     SDL_Window *mainWindow{};
     TTF_Font *font{};
     TextPrinter textPrinter{};
+    ScoreManager *score{};
     std::vector<GameObject *> gameObjects;
     Platform *platform{};
     Ball *ball1{};
     Ball *ball2{};
     Bonus *bonus{};
-    int totalScore = 0;//todo += in gamestate
 private:
     int selectedLevel = 0;
     std::shared_ptr<State> activeState;

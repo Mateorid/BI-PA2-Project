@@ -18,7 +18,7 @@ public:
 private:
     void Collisions(StateManager &);
 
-    ScoreManager *score{};
+//    ScoreManager *score{};
     int toWin = 0;
     bool isPaused = false;
 };

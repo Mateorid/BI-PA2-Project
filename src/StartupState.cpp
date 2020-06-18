@@ -25,6 +25,8 @@ void StartupState::Initialize(StateManager &manager) {
         throw std::invalid_argument("ERROR! Failed to load font!");
 
     manager.textPrinter.Init(manager.mainRenderer, manager.font);
+//    manager.score->Init(manager.mainRenderer, *manager.platform, *manager.ball1, *manager.ball2,manager.textPrinter);
+    manager.score = new ScoreManager(manager.mainRenderer);
 }
 
 void StartupState::Update(StateManager &stateManager) {
