@@ -1,6 +1,6 @@
 #include "StateManager.hpp"
 #include "StartupState.hpp"
-#include "MenuState.hpp"
+#include "MainMenu.hpp"
 #include "LoadState.hpp"
 #include "GameState.hpp"
 #include "ResultState.hpp"
@@ -11,7 +11,7 @@ int main(int argc, char *argv[]) {
     try {
         StateManager stateManager;
         stateManager.AddState(StateName::START, new StartupState());
-        stateManager.AddState(StateName::MAIN_MENU, new MenuState());
+        stateManager.AddState(StateName::MAIN_MENU, new MainMenu());
         stateManager.AddState(StateName::LOAD_MAP, new LoadState());
         stateManager.AddState(StateName::GAME, new GameState());
         stateManager.AddState(StateName::RESULT, new ResultState());

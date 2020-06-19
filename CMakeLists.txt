@@ -33,8 +33,9 @@ add_executable(Arkanoid
         src/StateManager.cpp        src/StateManager.hpp
         src/StartupState.cpp        src/StartupState.hpp
         src/MenuState.cpp           src/MenuState.hpp
+        src/MainMenu.cpp           src/MainMenu.hpp
         src/ExitState.cpp           src/ExitState.hpp
         src/GameState.cpp           src/GameState.hpp
         src/LoadState.cpp           src/LoadState.hpp
-        src/ResultState.cpp src/ResultState.hpp)
+        src/ResultState.cpp src/ResultState.hpp src/MenuText.cpp src/MenuText.hpp)
 target_link_libraries(Arkanoid ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} ${SDL2_TTF_LIBRARIES})

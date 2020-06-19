@@ -1,5 +1,7 @@
 TODO Implement changing based on resolution
 
+TODO Double inheritance for menu/result state? or just some class?
+
 TODO Wrap case for stuff in Statemanger
 
 TODO merge LoadState & MapLoader? <-
