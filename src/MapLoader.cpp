@@ -1,12 +1,12 @@
 #include "MapLoader.hpp"
 
 MapLoader::MapLoader(const string &filename, Application &app) {
-    if (BLOCK_HEIGHT == 0 || BLOCK_WIDTH == 0)
+    if (BLOCK_HEIGHT == 0 || BLOCK_WIDTH == 0) //todo delete?
         throw invalid_argument("ERROR! Block cannot have 0 size.");
     LoadBlocks(filename, app);
 }
 
-void MapLoader::LoadBlocks(const string &filename, Application &app) { //todo toto nechytam??
+void MapLoader::LoadBlocks(const string &filename, Application &app) {
     ifstream inputFile(filename, ios::in);
     while (inputFile.is_open()) {
         inputFile >> blockLvl;

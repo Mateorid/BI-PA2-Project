@@ -18,6 +18,8 @@ public:
 private:
     void Collisions(Application &);
 
+    void CreateObjects(Application &);
+
     int toWin = 0;
     bool isPaused = false;
 };

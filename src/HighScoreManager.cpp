@@ -1,18 +1,18 @@
 #include <iostream>
-#include "HighscoreManager.hpp"
+#include "HighScoreManager.hpp"
 
-void HighscoreManager::GetScores(int score) {
+void HighScoreManager::GetScores(int score) {
     LoadScores();
     InsertScore(score);
     Clean();
 }
 
-void HighscoreManager::LoadScores() {
+void HighScoreManager::LoadScores() {
     int i = 0;
     int tmp = 0;
-    std::ifstream file(HIGHSCORES_SRC, std::ios::in);
+    std::ifstream file(HIGH_SCORES_SRC, std::ios::in);
     while (file >> tmp) {
-        highscores.push_back(tmp);
+        highScores.push_back(tmp);
         i++;
         if (i == 10)
             break;
@@ -26,19 +26,19 @@ void HighscoreManager::LoadScores() {
     file.close();
 }
 
-void HighscoreManager::InsertScore(int score) {
-    auto it = std::lower_bound(highscores.rbegin(), highscores.rend(), score);
-    if (highscores.size() >= 10 && it == highscores.rbegin())
+void HighScoreManager::InsertScore(int score) {
+    auto it = std::lower_bound(highScores.rbegin(), highScores.rend(), score);
+    if (highScores.size() >= 10 && it == highScores.rbegin())
         return;
-    highscores.insert(it.base(), score);
-    if (highscores.size() > 10)
-        highscores.pop_back();
+    highScores.insert(it.base(), score);
+    if (highScores.size() > 10)
+        highScores.pop_back();
     PrintScore();
 }
 
-void HighscoreManager::PrintScore() {
-    std::ofstream file(HIGHSCORES_SRC, std::ios::out);
-    for (auto &it : highscores) {
+void HighScoreManager::PrintScore() {
+    std::ofstream file(HIGH_SCORES_SRC, std::ios::out);
+    for (auto &it : highScores) {
         if (!file.is_open() || !file.good()) {
             file.close();
             throw std::runtime_error("ERROR! Highscores file writing error.");
@@ -48,7 +48,7 @@ void HighscoreManager::PrintScore() {
     file.close();
 }
 
-void HighscoreManager::Clean() {
-    highscores.clear();
-    std::vector<int>().swap(highscores);
+void HighScoreManager::Clean() {
+    highScores.clear();
+    std::vector<int>().swap(highScores);
 }

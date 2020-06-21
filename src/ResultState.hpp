@@ -1,7 +1,7 @@
 #pragma once
 
 #include "MenuState.hpp"
-#include "HighscoreManager.hpp"
+#include "HighScoreManager.hpp"
 
 class ResultState : public MenuState {
 public:
@@ -13,5 +13,5 @@ private:
 
     void HighScore(Application &);
 
-    HighscoreManager highScore{};
+    HighScoreManager highScore{};
 };

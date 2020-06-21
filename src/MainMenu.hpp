@@ -3,7 +3,6 @@
 
 #include "MenuState.hpp"
 
-static const int LVL_COUNT = 3;
 
 class MainMenu : public MenuState {
 public:
@@ -13,6 +12,8 @@ public:
     void HandleEvents(Application &) override;
 
 private:
+    /**Number of available levels*/
+    static const int LVL_COUNT = 5;
 };
 
 

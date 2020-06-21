@@ -15,6 +15,9 @@ public:
 
     void Update(Application &) override;
 
+private:
+    /**Font destination*/
+    const char *FONT_SRC = "examples/Gamer.ttf";
 };
 
 

@@ -1,3 +1,5 @@
+#include <SDL2/SDL.h>
+
 #include "Application.hpp"
 #include "StartupState.hpp"
 #include "MainMenu.hpp"
@@ -7,10 +9,10 @@
 #include "ExitState.hpp"
 
 
-int main(int argc, char *argv[]) {
+int main() {
     try {
         Application app;
-        app.AddState(StateName::START, new StartupState());
+        app.AddState(StateName::START, new StartupState());//todo move to const/init?
         app.AddState(StateName::MAIN_MENU, new MainMenu());
         app.AddState(StateName::LOAD_MAP, new LoadState());
         app.AddState(StateName::GAME, new GameState());
@@ -19,8 +21,8 @@ int main(int argc, char *argv[]) {
         app.Run();
         return 0;
     }
-    catch (std::runtime_error &err) {
-        std::cout << err.what() << std::endl;
+    catch (std::exception &err) {//this shouldn't trigger
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "ERROR", err.what(), nullptr);
         return 69;
     }
 }

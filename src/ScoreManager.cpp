@@ -49,11 +49,14 @@ void ScoreManager::UpdateScore() {
     std::ostringstream oss;
     oss << "Score: " << std::setw(3) << std::setfill('0') << score << "  Lives: " << lives;
     scoreTexture = textPrinter->CreateTextTexture(oss, srcR);
+    if (scoreTexture == nullptr)
+        throw std::runtime_error("Score texture creation failed.");
 }
 
 void ScoreManager::Render() {
     destR = srcR;
     destR.x = (APP_WIDTH - destR.w) / 2;
     destR.y = APP_HEIGHT - destR.h;
-    SDL_RenderCopy(renderer, scoreTexture, &srcR, &destR);
+    if (SDL_RenderCopy(renderer, scoreTexture, &srcR, &destR) < 0)
+        throw std::runtime_error(SDL_GetError());
 }

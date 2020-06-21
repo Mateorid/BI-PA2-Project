@@ -10,10 +10,12 @@
 #include "State.hpp"
 #include "TextPrinter.hpp"
 
+/**How many lives you start with*/
+static const int START_LIVES = 1;
 /**Score added after hitting a block*/
 static const int SCORE_ADD = 100;
 /**Score deducted after losing a life*/
-static const int SCORE_DEDUCT = 500;
+static const int SCORE_DEDUCT = 300;
 
 
 class ScoreManager {

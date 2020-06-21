@@ -5,13 +5,13 @@ Platform::Platform(SDL_Renderer *renderer) {
     objRenderer = renderer;
     speed = PLATFORM_SPEED;
     LoadTexture(PLATFORM_SRC);
-    Init();
+    Platform::Init();
     active = true;
 }
 
 void Platform::Init() {
     destR.x = (APP_WIDTH / 2) - (PLATFORM_W / 2);
-    destR.y = APP_HEIGHT - 50;
+    destR.y = APP_HEIGHT - 50;//todo?
     destR.h = PLATFORM_H;
     destR.w = PLATFORM_W;
 }

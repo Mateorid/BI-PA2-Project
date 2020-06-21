@@ -1,3 +1,4 @@
+#include <random>
 #include "Bonus.hpp"
 
 Bonus::Bonus(SDL_Renderer *renderer, Ball &b1, Ball &b2, GameObject &plat, ScoreManager &score) {
@@ -12,24 +13,24 @@ Bonus::Bonus(SDL_Renderer *renderer, Ball &b1, Ball &b2, GameObject &plat, Score
 }
 
 void Bonus::SpawnBonus(int x, int y) {
-    bool tmp1 = (rand() & 1);   //25% chance of spawning a bonus
-    bool tmp2 = (rand() & 1);
-    if (tmp1 & tmp2)
+    if (active)
+        return;
+    bool jack = (rand() & 1);   //~25% chance of spawning a bonus
+    bool pot = (rand() & 1);
+    if (jack & pot)
         Init(x, y);
 }
 
 void Bonus::Init(int x, int y) {
-    if (!active) {
-        srand(time(nullptr));//Set's a random bonus
-        int tmp = std::rand() % BONUS_TYPES;
-        SetBonusType(tmp);
-        destR.x = x;
-        destR.y = y;
-        destR.h = destR.w = BONUS_SIZE;
-        srcR.w = srcR.h = 100;
-        srcR.y = 0;
-        active = true;
-    }
+    srand(time(nullptr));   //Set's a ~random bonus
+    int tmp = std::rand() % BONUS_TYPES;
+    SetBonusType(tmp);
+    destR.x = x;
+    destR.y = y;
+    destR.h = destR.w = BONUS_SIZE;
+    srcR.w = srcR.h = 100;
+    srcR.y = 0;
+    active = true;
 }
 
 void Bonus::SetBonusType(int x) {
@@ -111,7 +112,8 @@ void Bonus::ApplyBonus() {
 }
 
 void Bonus::Render() {
-    SDL_RenderCopy(objRenderer, objTexture, &srcR, &destR);
+    if (SDL_RenderCopy(objRenderer, objTexture, &srcR, &destR) < 0)
+        throw std::runtime_error(SDL_GetError());
 }
 
 void Bonus::SecondBall() {

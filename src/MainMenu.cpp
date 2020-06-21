@@ -4,10 +4,17 @@ void MainMenu::Initialize(Application &app) {
     positions.push_back(20);//title pos     //todo set these by resolution
     positions.push_back(400);//lvl select pos
     positions.push_back(600);//exit pos
-    texts.push_back(std::make_unique<MenuText>(app, positions[0], GAME_NAME, 1)); //game title
-    texts.push_back(std::make_unique<MenuText>(app, positions[1], selectedLvl, 1)); //lvl select
-    texts.push_back(std::make_unique<MenuText>(app, positions[2], "EXIT", 0)); //exit text
-    SDL_SetRenderDrawColor(app.mainRenderer, 0, 0, 0, 0);            //Setting black background
+    try {
+        texts.push_back(std::make_unique<MenuText>(app, positions[0], GAME_NAME, 1)); //game title
+        texts.push_back(std::make_unique<MenuText>(app, positions[1], selectedLvl, 1)); //lvl select
+        texts.push_back(std::make_unique<MenuText>(app, positions[2], "EXIT", 0)); //exit text
+        if (SDL_SetRenderDrawColor(app.mainRenderer, 0, 0, 0, 0) < 0)            //Setting black background
+            throw std::runtime_error(SDL_GetError());
+    }
+    catch (std::runtime_error &err) {
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "ERROR", err.what(), app.mainWindow);
+        app.ChangeState(StateName::EXIT);
+    }
     menuSelections = 2;
     changedText = true;
 }

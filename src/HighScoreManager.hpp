@@ -4,10 +4,8 @@
 #include <fstream>
 #include <vector>
 
-static const char *HIGHSCORES_SRC = "examples/highscores.txt";
 
-
-class HighscoreManager {
+class HighScoreManager {
 public:
     void GetScores(int);
 
@@ -21,7 +19,10 @@ private:
 
     void Clean();
 
-    std::vector<int> highscores;
+    std::vector<int> highScores;
+
+    /**HighScores file destination*/
+    const char *HIGH_SCORES_SRC = "examples/highscores.txt";
 };
 
 

@@ -1,9 +1,6 @@
 #pragma once
 
 
-#include <iostream>
-#include <ctime>
-
 #include "GameObject.hpp"
 #include "ScoreManager.hpp"
 #include "Platform.hpp"
@@ -11,9 +8,13 @@
 
 /**Destination of ball source image*/
 static const char *const BALL_SRC = "examples/textures/ball.png";
-/**Ball settings*/
+/**Ball speeds*/
 static const int BALL_SPEED = 5;
-static const int BALL_SIZE = 20;
+static const int BALL_SLOW = 3;
+static const int BALL_FAST = 7;
+/**Game object sizes*/
+static const int BALL_SIZE = 20;//30 micku vedle sebe
+
 
 class ScoreManager;
 
@@ -25,9 +26,9 @@ public:
 
     void Update() override;
 
-    void SlowDown() override { speed = 3; }
+    void SlowDown() override { speed = BALL_SLOW; }
 
-    void SpeedUP() override { speed = 7; }
+    void SpeedUP() override { speed = BALL_FAST; }
 
     void ResetSpeed() override { speed = BALL_SPEED; }
 

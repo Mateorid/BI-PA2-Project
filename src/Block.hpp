@@ -6,7 +6,7 @@
 /**Destination of block source image*/
 static const char *const BLOCK_SRC = "examples/textures/block.png";
 /**Block settings*/
-static const int BLOCK_HEIGHT = 22;
+static const int BLOCK_HEIGHT = 22;//move to private and set on runtime? + add getter for maploader needs
 static const int BLOCK_WIDTH = 50;
 
 

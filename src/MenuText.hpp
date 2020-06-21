@@ -3,6 +3,7 @@
 #include <SDL2/SDL.h>
 #include "Application.hpp"
 
+
 enum TextType {
     TEXT,
     SCORE,
@@ -33,6 +34,8 @@ private:
     bool isTitle = false;
     SDL_Rect rect{};
     SDL_Texture *texture;
+
+    const char *TEXT_ERROR = "Failed to create text texture.";
 };
 
 

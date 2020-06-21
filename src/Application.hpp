@@ -15,6 +15,12 @@
 #include "Ball.hpp"
 #include "Bonus.hpp"
 
+/**Game title*/
+static const char *const GAME_NAME = "Arkanoid 2020";
+/**Game window height*/
+static const int APP_HEIGHT = 800;  //currently fixed on 800
+/**Game window width*/
+static const int APP_WIDTH = (3 * APP_HEIGHT) / 4; //todo try multiples of 12?
 /**FPS limit*/
 static const int MAX_FPS = 100;
 /**Frame delay*/
@@ -37,10 +43,13 @@ enum class StateName {
     EXIT,
 };
 
-//Inspired by J. Matousek(https://www.youtube.com/watch?v=EFCHth2vR24&list=PLuOBL1HCzT4fxwtSEvk30_k3kwVfuqTNh&index=3&t=5114s)
+/**
+ * Class inspired Jan Matoušek's snake game series, refactored & edited for my application
+ * @author Jan Matoušek <jan.matousek@fit.cvut.cz> (https://www.youtube.com/playlist?list=PLuOBL1HCzT4fxwtSEvk30_k3kwVfuqTNh)
+ */
 class Application {
 public:
-
+//todo delete copy
     ~Application();
 
     void AddState(StateName, State *);
@@ -50,8 +59,6 @@ public:
     void Run();
 
     void Exit();
-
-    void ResetObjects();
 
     int GetLevel() const { return selectedLevel; }
 

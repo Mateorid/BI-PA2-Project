@@ -2,6 +2,7 @@
 
 #include <SDL2/SDL_ttf.h>
 #include <sstream>
+#include <iostream>
 
 
 class TextPrinter {

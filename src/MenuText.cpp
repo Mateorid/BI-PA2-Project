@@ -2,18 +2,24 @@
 
 MenuText::MenuText(Application &app, int y, const char *txt, bool title) : yPos(y), isTitle(title) {
     texture = app.textPrinter.CreateTextTexture(txt, rect);
+    if (texture == nullptr)
+        throw std::runtime_error(TEXT_ERROR);
     type = TEXT;
     this->app = &app;
 }
 
 MenuText::MenuText(Application &app, int y, int lvl, bool active) : yPos(y) {
     texture = app.textPrinter.CreateLevelTexture(lvl, rect, active);
+    if (texture == nullptr)
+        throw std::runtime_error(TEXT_ERROR);
     type = LVL_SELECT;
     this->app = &app;
 }
 
 MenuText::MenuText(Application &app, int y, int score) : yPos(y) {
     texture = app.textPrinter.CreateTotalScoreTexture(score, rect);
+    if (texture == nullptr)
+        throw std::runtime_error(TEXT_ERROR);
     type = SCORE;
     this->app = &app;
 }
@@ -30,7 +36,8 @@ void MenuText::Render() {
     }
     tmp.x = (APP_WIDTH - tmp.w) / 2; //center position
     tmp.y = yPos;
-    SDL_RenderCopy(app->mainRenderer, texture, &rect, &tmp);
+    if (SDL_RenderCopy(app->mainRenderer, texture, &rect, &tmp) < 0)
+        throw std::runtime_error(SDL_GetError());
 }
 
 void MenuText::Update(int lvl, bool active) {
@@ -40,8 +47,11 @@ void MenuText::Update(int lvl, bool active) {
 }
 
 void MenuText::Selected() {
-    SDL_SetRenderDrawColor(app->mainRenderer, 255, 255, 255, 255);//Setting white colour for underline
+    if (SDL_SetRenderDrawColor(app->mainRenderer, 255, 255, 255, 255) < 0)//Setting white colour for underline
+        throw std::runtime_error(SDL_GetError());
     SDL_Rect tmpR = {(APP_WIDTH - rect.w) / 2, yPos + 45, rect.w, 5};  //todo set height & gap on res?
-    SDL_RenderFillRect(app->mainRenderer, &tmpR);
-    SDL_SetRenderDrawColor(app->mainRenderer, 0, 0, 0, 0);   //Back to black
+    if (SDL_RenderFillRect(app->mainRenderer, &tmpR) < 0)
+        throw std::runtime_error(SDL_GetError());
+    if (SDL_SetRenderDrawColor(app->mainRenderer, 0, 0, 0, 0) < 0)  //Back to black
+        throw std::runtime_error(SDL_GetError());
 }

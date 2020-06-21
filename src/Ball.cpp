@@ -17,9 +17,7 @@ void Ball::Init(int platformX) {
         destR.y = APP_HEIGHT - PLATFORM_H - 50 - 1;
         destR.h = destR.w = BALL_SIZE;
         /**Random direction*/
-        srand(time(nullptr));
-        dirX = (std::rand() % 2) ? -1 : 1;
-
+        dirX = (rand() & 1) ? -1 : 1;
         dirY = -1;
         active = true;
     }

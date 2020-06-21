@@ -2,7 +2,8 @@
 
 void MenuState::Render(Application &app) {
     if (changedText) { //when there's no update we don't need to re-render
-        SDL_RenderClear(app.mainRenderer);
+        if (SDL_RenderClear(app.mainRenderer) < 0)
+            throw std::runtime_error(SDL_GetError());
 
         for (auto &it :texts)
             it->Update(selectedLvl, menuPos == 1);
