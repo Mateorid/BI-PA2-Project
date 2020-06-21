@@ -13,7 +13,7 @@ void MainMenu::Initialize(Application &app) {
     }
     catch (std::runtime_error &err) {
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "ERROR", err.what(), app.res.mainWindow);
-        app.ChangeState(StateName::EXIT);
+        app.ChangeState(StateType::EXIT);
     }
     menuSelections = 2;
     changedText = true;
@@ -23,7 +23,7 @@ void MainMenu::HandleEvents(Application &app) {
     SDL_Event events{};
     SDL_PollEvent(&events);
     if (events.type == SDL_QUIT)                                            //Exit signal
-        app.ChangeState(StateName::EXIT);
+        app.ChangeState(StateType::EXIT);
     if (events.type == SDL_KEYDOWN) {                                       //Keypress handling
         switch (events.key.keysym.sym) {
             case SDLK_LEFT:
@@ -49,15 +49,15 @@ void MainMenu::HandleEvents(Application &app) {
                 changedText = true;
                 break;
             case SDLK_ESCAPE:
-                app.ChangeState(StateName::EXIT);
+                app.ChangeState(StateType::EXIT);
                 break;
             case SDLK_RETURN:
             case SDLK_SPACE:
                 if (menuPos == 1) {
-                    app.SetLevel(selectedLvl);
-                    app.ChangeState(StateName::LOAD_MAP);
+                    app.res.currentLevel = selectedLvl;
+                    app.ChangeState(StateType::LOAD_MAP);
                 } else
-                    app.ChangeState(StateName::EXIT);
+                    app.ChangeState(StateType::EXIT);
                 break;
             default:
                 break;

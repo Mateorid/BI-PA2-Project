@@ -2,6 +2,10 @@ TODO opravit README
 
 TODO comments
 
+TODO correct order?
+
+TODO texture sizes > 0 check
+
 TODO Add copy constructor = delete to classes? (ma to matousek?)
 
 TODO make Makefile more readable (file with dependencies like Matousek)

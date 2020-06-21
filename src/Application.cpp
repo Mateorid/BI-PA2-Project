@@ -8,27 +8,27 @@
 
 
 Application::Application(Resources &resources) : res(resources) {
-    AddState(StateName::START, new StartupState());
-    AddState(StateName::MAIN_MENU, new MainMenu());
-    AddState(StateName::LOAD_MAP, new LoadState());
-    AddState(StateName::GAME, new GameState());
-    AddState(StateName::RESULT, new ResultState());
-    AddState(StateName::EXIT, new ExitState());
+    AddState(StateType::START, new StartupState());
+    AddState(StateType::MAIN_MENU, new MainMenu());
+    AddState(StateType::LOAD_MAP, new LoadState());
+    AddState(StateType::GAME, new GameState());
+    AddState(StateType::RESULT, new ResultState());
+    AddState(StateType::EXIT, new ExitState());
 }
 
 Application::~Application() {
     Exit();
 }
 
-void Application::AddState(StateName stateName, State *state) {
-    states[stateName] = std::shared_ptr<State>(state);
+void Application::AddState(StateType stateType, State *state) {
+    states[stateType] = std::shared_ptr<State>(state);
 }
 
-void Application::ChangeState(StateName stateName) {
+void Application::ChangeState(StateType stateType) {
     try {
         if (activeState != nullptr)
             activeState->Clean(*this);
-        activeState = states[stateName];
+        activeState = states[stateType];
         activeState->Initialize(*this);
     } catch (std::exception &err) {
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "ERROR", err.what(), res.mainWindow);
@@ -39,7 +39,7 @@ void Application::ChangeState(StateName stateName) {
 void Application::Run() {
     try {
         if (activeState == nullptr)
-            ChangeState(StateName::START);
+            ChangeState(StateType::START);
         while (activeState) {
             frameTicks = SDL_GetTicks();
 

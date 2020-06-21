@@ -11,7 +11,7 @@ void GameState::Initialize(Application &app) {
             throw std::runtime_error(SDL_GetError());
     } catch (std::exception &err) {
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "ERROR", err.what(), app.res.mainWindow);
-        app.ChangeState(StateName::EXIT);
+        app.ChangeState(StateType::EXIT);
     }
     app.Run();
 }
@@ -37,7 +37,7 @@ void GameState::HandleEvents(Application &app) {
     while (SDL_PollEvent(&events)) {
         switch (events.type) {
             case SDL_QUIT:                                      //Clean signal
-                app.ChangeState(StateName::EXIT);
+                app.ChangeState(StateType::EXIT);
             case SDL_KEYDOWN: //Key down handling
                 switch (events.key.keysym.sym) {
                     case SDLK_SPACE:
@@ -57,7 +57,7 @@ void GameState::HandleEvents(Application &app) {
                         break;
                     case SDLK_ESCAPE:
                         app.res.score->AddScores();
-                        app.ChangeState(StateName::RESULT);
+                        app.ChangeState(StateType::RESULT);
                         break;
                     default:
                         break;
@@ -96,7 +96,7 @@ void GameState::Update(Application &app) {
             if (toWin == 0) {
                 app.res.won = true;
                 app.res.score->AddScores();
-                app.ChangeState(StateName::RESULT);
+                app.ChangeState(StateType::RESULT);
                 return;
             }
             tmpIt++;
@@ -104,13 +104,13 @@ void GameState::Update(Application &app) {
         if (app.res.score->GetLives() == 0) {
             app.res.won = false;
             app.res.score->AddScores();
-            app.ChangeState(StateName::RESULT);
+            app.ChangeState(StateType::RESULT);
             return;
         }
         Collisions(app);
     } catch (std::exception &err) { //this shouldn't trigger
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "UNEXPECTED ERROR", err.what(), app.res.mainWindow);
-        app.ChangeState(StateName::EXIT);
+        app.ChangeState(StateType::EXIT);
     }
 }
 
@@ -129,7 +129,7 @@ void GameState::Render(Application &app) {
         SDL_RenderPresent(app.res.mainRenderer);
     } catch (std::exception &err) {
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "UNEXPECTED ERROR", err.what(), app.res.mainWindow);
-        app.ChangeState(StateName::EXIT);
+        app.ChangeState(StateType::EXIT);
     }
 }
 

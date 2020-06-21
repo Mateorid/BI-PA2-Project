@@ -27,7 +27,7 @@ void ResultState::HandleEvents(Application &app) {
     SDL_Event events{};
     SDL_PollEvent(&events);
     if (events.type == SDL_QUIT)                                            //Exit signal
-        app.ChangeState(StateName::EXIT);
+        app.ChangeState(StateType::EXIT);
     if (events.type == SDL_KEYDOWN) {                                       //Keypress handling
         switch (events.key.keysym.sym) {
             case SDLK_UP:
@@ -39,19 +39,19 @@ void ResultState::HandleEvents(Application &app) {
                 changedText = true;
                 break;
             case SDLK_ESCAPE:
-                app.ChangeState(StateName::EXIT);
+                app.ChangeState(StateType::EXIT);
                 break;
             case SDLK_RETURN:
             case SDLK_SPACE:
                 if (menuPos == 1) {
                     if (app.res.won)
-                        app.SetLevel(app.GetLevel() + 1);
+                        app.res.currentLevel++;
                     else
                         app.res.score->ResetScore();
-                    app.ChangeState(StateName::LOAD_MAP);
+                    app.ChangeState(StateType::LOAD_MAP);
                 } else {
                     app.res.score->ResetScore();
-                    app.ChangeState(StateName::MAIN_MENU);
+                    app.ChangeState(StateType::MAIN_MENU);
                 }
                 break;
             default:

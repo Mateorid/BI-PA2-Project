@@ -7,8 +7,13 @@
 
 class Application;
 
+/**
+ * Virtual class
+ */
 class State {
 public:
+//    explicit State(Application &app) : app(app) {};
+
     virtual void Initialize(Application &) {};
 
     virtual void HandleEvents(Application &) {};
@@ -19,6 +24,7 @@ public:
 
     virtual void Clean(Application &) {};
 protected:
+//    Application &app;
 };
 
 

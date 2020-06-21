@@ -2,7 +2,7 @@
 
 void LoadState::Initialize(Application &app) {
     try {
-        switch (app.GetLevel()) {
+        switch (app.res.currentLevel) {
             case 1:
                 MapLoader(MAP1_SRC, app);
                 break;
@@ -19,12 +19,13 @@ void LoadState::Initialize(Application &app) {
                 MapLoader(MAP5_SRC, app);
                 break;
             default:
+                app.res.currentLevel = 1;               //We go again
                 MapLoader(MAP1_SRC, app);
                 break;
         }
     } catch (std::exception &err) {
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "ERROR", err.what(), app.res.mainWindow);
-        app.ChangeState(StateName::EXIT);
+        app.ChangeState(StateType::EXIT);
     }
-    app.ChangeState(StateName::GAME);
+    app.ChangeState(StateType::GAME);
 }

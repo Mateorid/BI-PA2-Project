@@ -33,5 +33,5 @@ void StartupState::Initialize(Application &app) {
 }
 
 void StartupState::Update(Application &stateManager) {
-    stateManager.ChangeState(StateName::MAIN_MENU);
+    stateManager.ChangeState(StateType::MAIN_MENU);
 }

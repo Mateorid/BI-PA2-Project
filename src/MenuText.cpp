@@ -1,18 +1,23 @@
 #include "MenuText.hpp"
 
-MenuText::MenuText(Application &app, int y, const char *txt, bool title) : yPos(y), isTitle(title), type(TEXT),
-                                                                           app(&app) {
+MenuText::MenuText(Application &app, int y, const char *txt, bool title) : yPos(y), isTitle(title) {
     texture = app.res.textPrinter.CreateTextTexture(txt, rect);
+    this->app = &app;
+    type = TEXT;
     Test();
 }
 
-MenuText::MenuText(Application &app, int y, int lvl, bool active) : yPos(y), type(LVL_SELECT), app(&app) {
+MenuText::MenuText(Application &app, int y, int lvl, bool active) : yPos(y) {
     texture = app.res.textPrinter.CreateLevelTexture(lvl, rect, active);
+    this->app = &app;
+    type = LVL_SELECT;
     Test();
 }
 
-MenuText::MenuText(Application &app, int y, int score) : yPos(y), type(SCORE), app(&app) {
+MenuText::MenuText(Application &app, int y, int score) : yPos(y) {
     texture = app.res.textPrinter.CreateTotalScoreTexture(score, rect);
+    this->app = &app;
+    type = SCORE;
     Test();
 }
 

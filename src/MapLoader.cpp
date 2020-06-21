@@ -1,7 +1,7 @@
 #include "MapLoader.hpp"
 
 MapLoader::MapLoader(const string &filename, Application &app) {
-    if (BLOCK_HEIGHT == 0 || BLOCK_WIDTH == 0) //todo delete?
+    if (BLOCK_HEIGHT == 0 || BLOCK_WIDTH == 0)
         throw invalid_argument("ERROR! Block cannot have 0 size.");
     LoadBlocks(filename, app);
 }
@@ -38,7 +38,8 @@ void MapLoader::InsertBlock(int lvl, Application &app) {
         blocksInLine++;
         return;
     }
-    app.res.gameObjects.push_back(new Block(app.res.mainRenderer, lvl, blocksInLine * BLOCK_WIDTH, rows * BLOCK_HEIGHT));
+    app.res.gameObjects.push_back(
+            new Block(app.res.mainRenderer, lvl, blocksInLine * BLOCK_WIDTH, rows * BLOCK_HEIGHT));
     blocksInLine++;
 
 }

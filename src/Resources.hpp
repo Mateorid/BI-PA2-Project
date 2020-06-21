@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SDL2/SDL.h>
-#include <SDL_ttf.h>
+#include <SDL2/SDL_ttf.h>
 #include <vector>
 
 #include "ScoreManager.hpp"
@@ -30,6 +30,7 @@ public:
     SDL_Renderer *mainRenderer{};
     SDL_Window *mainWindow{};
     TTF_Font *font{};
+    int currentLevel = 0;
     bool won = false;
 
 };

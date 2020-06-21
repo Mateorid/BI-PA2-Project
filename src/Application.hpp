@@ -25,8 +25,8 @@ class State;
 
 class Resources;
 
-/**State IDs*/
-enum class StateName {
+/**State types*/
+enum class StateType {
     START,
     MAIN_MENU,
     LOAD_MAP,
@@ -36,38 +36,70 @@ enum class StateName {
 };
 
 /**
- * 
+ * Handles transitions between game state states
  * Class is inspired by Jan Matoušek snake game series, refactored & edited for my application
  * @author Jan Matoušek <jan.matousek@fit.cvut.cz> (https://www.youtube.com/playlist?list=PLuOBL1HCzT4fxwtSEvk30_k3kwVfuqTNh)
  */
 class Application {
 public:
-    explicit Application(Resources &);
+    /**
+     * Constructor
+     * @param resources Reference to resource class
+     */
+    explicit Application(Resources &resources);
 
+    /** Destructor*/
     ~Application();
 
-    /** Copy-cons is deleted, because copy of application is not applicable. */
+    /** Copy-cons is deleted, because we only want 1 instance of Application. */
     Application(const Application &) = delete;
 
+    /** = operator is deleted, because we only want 1 instance of Application. */
     Application &operator=(const Application &) = delete;
 
-    void AddState(StateName, State *);
 
-    void ChangeState(StateName);
+    /**
+     * Changes the activeState pointer to selected one
+     * @param stateType desired state type
+     */
+    void ChangeState(StateType stateType);
 
+    /**
+     *"Runs" currently active state by looping through its
+     * HandleEvents-Update-Render methods
+     */
     void Run();
 
+    /**
+     * Clears currently active state
+     */
     void Exit();
 
-    int GetLevel() const { return selectedLevel; }
-
-    void SetLevel(int x) { selectedLevel = x; }
-
+    /**
+     * Reference to a "wrapping" Resource class that holds all the important stuff
+     */
     Resources &res;
 private:
-    int selectedLevel = 0;
+    /**
+     * Adds new state to our states map
+    * @param stateType enum class of the state type
+    * @param state new State class
+    */
+    void AddState(StateType stateType, State *state);
+
+    /**
+     * Shared_ptr that points to currently active state
+     */
     std::shared_ptr<State> activeState;
-    std::map<StateName, std::shared_ptr<State>> states;
+    /**
+     * std::Map of all states in Application
+     * ->First is the state type
+     * ->Second is the shared_ptr to it
+     */
+    std::map<StateType, std::shared_ptr<State>> states;
+    /**
+     * Used for limiting Application render speed
+     */
     Uint32 frameTicks{};
     Uint32 frameDelta{};
 };
