@@ -16,6 +16,7 @@ public:
 
     MenuText(Application &, int y, int lvl, bool active);
 
+
     MenuText(Application &, int y, int score);
 
     ~MenuText();
@@ -25,6 +26,8 @@ public:
     void Selected();
 
 private:
+
+    void Test();
 
     void Render();
 
@@ -37,7 +40,4 @@ private:
 
     const char *TEXT_ERROR = "Failed to create text texture.";
 };
-
-
-
 
