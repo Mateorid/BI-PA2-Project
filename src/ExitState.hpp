@@ -4,7 +4,10 @@
 #include "State.hpp"
 
 class ExitState : public State {
-    void Initialize(Application &) override;
+public:
+    explicit ExitState(Application &app) : State(app) {}
+
+    void Initialize() override;
 };
 
 

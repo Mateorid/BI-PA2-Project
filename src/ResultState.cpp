@@ -1,6 +1,6 @@
 #include "ResultState.hpp"
 
-void ResultState::Initialize(Application &app) {
+void ResultState::Initialize() {
     /**1st must be a non selectable one, followed by all selectable ones*/
     positions.push_back(20);//result pos     //todo set these by resolution
     positions.push_back(400);//retry/next pos
@@ -12,7 +12,7 @@ void ResultState::Initialize(Application &app) {
     } else {
         texts.push_back(std::make_unique<MenuText>(app, positions[0], "DEFEAT", 1)); //result text
         texts.push_back(std::make_unique<MenuText>(app, positions[1], "RETRY", 0)); //retry text
-        HighScore(app);
+        HighScore();
     }
     texts.push_back(std::make_unique<MenuText>(app, positions[2], "MENU", 0)); //menu text
     texts.push_back(std::make_unique<MenuText>(app, positions[3], app.res.score->GetScore())); //score text
@@ -23,7 +23,7 @@ void ResultState::Initialize(Application &app) {
     changedText = true;
 }
 
-void ResultState::HandleEvents(Application &app) {
+void ResultState::HandleEvents() {
     SDL_Event events{};
     SDL_PollEvent(&events);
     if (events.type == SDL_QUIT)                                            //Exit signal
@@ -60,6 +60,6 @@ void ResultState::HandleEvents(Application &app) {
     }
 }
 
-void ResultState::HighScore(Application &app) {
+void ResultState::HighScore() {
     highScore.GetScores(app.res.score->GetScore());
 }

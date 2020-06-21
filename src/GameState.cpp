@@ -1,11 +1,11 @@
 #include "GameState.hpp"
 
-void GameState::Initialize(Application &app) {
+void GameState::Initialize() {
     toWin = app.res.gameObjects.size();         //Assign number of blocks to win
     app.res.won = false;
 
     try {
-        CreateObjects(app);
+        CreateObjects();
         app.res.score->Init(*app.res.platform, *app.res.ball1, *app.res.ball2, app.res.textPrinter);
         if (SDL_SetRenderDrawColor(app.res.mainRenderer, 100, 100, 100, 0) < 0)//Setting a gray background
             throw std::runtime_error(SDL_GetError());
@@ -16,7 +16,7 @@ void GameState::Initialize(Application &app) {
     app.Run();
 }
 
-void GameState::CreateObjects(Application &app) {//todo static?
+void GameState::CreateObjects() {//todo static?
     app.res.platform = new Platform(app.res.mainRenderer);
     app.res.gameObjects.push_back(app.res.platform);
 
@@ -27,12 +27,12 @@ void GameState::CreateObjects(Application &app) {//todo static?
     app.res.gameObjects.push_back(app.res.ball2);
 
     app.res.bonus = new Bonus(app.res.mainRenderer, *app.res.ball1, *app.res.ball2, *app.res.platform,
-                          *app.res.score);
+                              *app.res.score);
     app.res.gameObjects.push_back(app.res.bonus);
 }
 
 
-void GameState::HandleEvents(Application &app) {
+void GameState::HandleEvents() {
     SDL_Event events{};
     while (SDL_PollEvent(&events)) {
         switch (events.type) {
@@ -79,7 +79,7 @@ void GameState::HandleEvents(Application &app) {
     }
 }
 
-void GameState::Update(Application &app) {
+void GameState::Update() {
     if (isPaused)
         return;
     int tmpIt = 0;
@@ -107,14 +107,14 @@ void GameState::Update(Application &app) {
             app.ChangeState(StateType::RESULT);
             return;
         }
-        Collisions(app);
+        Collisions();
     } catch (std::exception &err) { //this shouldn't trigger
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "UNEXPECTED ERROR", err.what(), app.res.mainWindow);
         app.ChangeState(StateType::EXIT);
     }
 }
 
-void GameState::Render(Application &app) {
+void GameState::Render() {
     try {
         if (isPaused) {
             return;
@@ -133,7 +133,7 @@ void GameState::Render(Application &app) {
     }
 }
 
-void GameState::Collisions(Application &app) {//todo make this more polymorphic commit before tho xdd
+void GameState::Collisions() {//todo make this more polymorphic commit before tho xdd
     for (auto it:app.res.gameObjects) {
         if (!it->IsActive())//Skips all non-active Game objects
             continue;
@@ -152,7 +152,7 @@ void GameState::Collisions(Application &app) {//todo make this more polymorphic 
     }
 }
 
-void GameState::Clean(Application &app) {
+void GameState::Clean() {
     for (auto &gameObject : app.res.gameObjects) {
         delete gameObject;
     }

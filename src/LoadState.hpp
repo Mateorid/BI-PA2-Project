@@ -7,7 +7,10 @@
 
 class LoadState : public State {
 public:
-    void Initialize(Application &) override;
+    explicit LoadState(Application &app) : State(app) {}
+
+
+    void Initialize() override;
 
 private:
     /**Maps destination*/

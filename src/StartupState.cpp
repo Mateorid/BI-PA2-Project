@@ -1,6 +1,7 @@
 #include "StartupState.hpp"
 
-void StartupState::Initialize(Application &app) {
+
+void StartupState::Initialize() {
     if (APP_HEIGHT < 720 || APP_WIDTH < 540) {//todo delete?
         throw std::invalid_argument("Game size must be at least 720x540");
     }
@@ -16,7 +17,7 @@ void StartupState::Initialize(Application &app) {
         throw std::runtime_error(SDL_GetError());
 
     app.res.mainWindow = SDL_CreateWindow(GAME_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-                                      APP_WIDTH, APP_HEIGHT, false);
+                                          APP_WIDTH, APP_HEIGHT, false);
     if (app.res.mainWindow == nullptr)
         throw std::runtime_error(SDL_GetError());
 
@@ -32,6 +33,6 @@ void StartupState::Initialize(Application &app) {
     app.res.score = new ScoreManager(app.res.mainRenderer);
 }
 
-void StartupState::Update(Application &stateManager) {
-    stateManager.ChangeState(StateType::MAIN_MENU);
+void StartupState::Update() {
+    app.ChangeState(StateType::MAIN_MENU);
 }

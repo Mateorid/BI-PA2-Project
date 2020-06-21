@@ -1,6 +1,6 @@
 #include "MenuState.hpp"
 
-void MenuState::Render(Application &app) {
+void MenuState::Render() {
     if (changedText) { //when there's no update we don't need to re-render
         if (SDL_RenderClear(app.res.mainRenderer) < 0)
             throw std::runtime_error(SDL_GetError());
@@ -14,7 +14,7 @@ void MenuState::Render(Application &app) {
     }
 }
 
-void MenuState::Clean(Application &) {
+void MenuState::Clean() {
     positions.clear();
     std::vector<int>().swap(positions);
     texts.clear();

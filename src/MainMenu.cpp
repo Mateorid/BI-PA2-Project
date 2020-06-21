@@ -1,6 +1,6 @@
 #include "MainMenu.hpp"
 
-void MainMenu::Initialize(Application &app) {
+void MainMenu::Initialize() {
     positions.push_back(20);//title pos     //todo set these by resolution
     positions.push_back(400);//lvl select pos
     positions.push_back(600);//exit pos
@@ -19,7 +19,7 @@ void MainMenu::Initialize(Application &app) {
     changedText = true;
 }
 
-void MainMenu::HandleEvents(Application &app) {
+void MainMenu::HandleEvents() {
     SDL_Event events{};
     SDL_PollEvent(&events);
     if (events.type == SDL_QUIT)                                            //Exit signal

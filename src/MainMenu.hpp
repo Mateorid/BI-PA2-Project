@@ -6,10 +6,11 @@
 
 class MainMenu : public MenuState {
 public:
+    explicit MainMenu(Application &app) : MenuState(app) {}
 
-    void Initialize(Application &) override;
+    void Initialize() override;
 
-    void HandleEvents(Application &) override;
+    void HandleEvents() override;
 
 private:
     /**Number of available levels*/

@@ -12,19 +12,19 @@ class Application;
  */
 class State {
 public:
-//    explicit State(Application &app) : app(app) {};
+    explicit State(Application &app) : app(app) {};
 
-    virtual void Initialize(Application &) {};
+    virtual void Initialize() {};
 
-    virtual void HandleEvents(Application &) {};
+    virtual void HandleEvents() {};
 
-    virtual void Update(Application &) {};
+    virtual void Update() {};
 
-    virtual void Render(Application &) {};
+    virtual void Render() {};
 
-    virtual void Clean(Application &) {};
+    virtual void Clean() {};
 protected:
-//    Application &app;
+    Application &app;
 };
 
 

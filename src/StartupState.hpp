@@ -9,11 +9,12 @@
 
 class StartupState : public State {
 public:
-    StartupState() = default;
 
-    void Initialize(Application &) override;
+    explicit StartupState(Application &app) : State(app) {}
 
-    void Update(Application &) override;
+    void Initialize() override;
+
+    void Update() override;
 
 private:
     /**Font destination*/

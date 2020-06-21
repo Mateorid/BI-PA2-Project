@@ -1,6 +1,6 @@
 #include "LoadState.hpp"
 
-void LoadState::Initialize(Application &app) {
+void LoadState::Initialize() {
     try {
         switch (app.res.currentLevel) {
             case 1:

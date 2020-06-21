@@ -8,12 +8,12 @@
 
 
 Application::Application(Resources &resources) : res(resources) {
-    AddState(StateType::START, new StartupState());
-    AddState(StateType::MAIN_MENU, new MainMenu());
-    AddState(StateType::LOAD_MAP, new LoadState());
-    AddState(StateType::GAME, new GameState());
-    AddState(StateType::RESULT, new ResultState());
-    AddState(StateType::EXIT, new ExitState());
+    AddState(StateType::START, new StartupState(*this));
+    AddState(StateType::MAIN_MENU, new MainMenu(*this));
+    AddState(StateType::LOAD_MAP, new LoadState(*this));
+    AddState(StateType::GAME, new GameState(*this));
+    AddState(StateType::RESULT, new ResultState(*this));
+    AddState(StateType::EXIT, new ExitState(*this));
 }
 
 Application::~Application() {
@@ -27,9 +27,9 @@ void Application::AddState(StateType stateType, State *state) {
 void Application::ChangeState(StateType stateType) {
     try {
         if (activeState != nullptr)
-            activeState->Clean(*this);
+            activeState->Clean();
         activeState = states[stateType];
-        activeState->Initialize(*this);
+        activeState->Initialize();
     } catch (std::exception &err) {
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "ERROR", err.what(), res.mainWindow);
         Exit();
@@ -43,11 +43,11 @@ void Application::Run() {
         while (activeState) {
             frameTicks = SDL_GetTicks();
 
-            activeState->HandleEvents(*this);
+            activeState->HandleEvents();
             if (activeState)
-                activeState->Update(*this);
+                activeState->Update();
             if (activeState)
-                activeState->Render(*this);
+                activeState->Render();
 
             frameDelta = SDL_GetTicks() - frameTicks;                           //FPS handling
             if (FRAME_DELAY > frameDelta) {
@@ -63,7 +63,7 @@ void Application::Run() {
 void Application::Exit() {
     try {
         if (activeState != nullptr)
-            activeState->Clean(*this);
+            activeState->Clean();
         activeState = nullptr;
     } catch (std::exception &err) {
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "ERROR", err.what(), res.mainWindow);

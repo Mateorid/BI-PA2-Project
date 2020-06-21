@@ -5,20 +5,22 @@
 
 class GameState : public State {
 public:
-    void Initialize(Application &) override;
+    explicit GameState(Application &app) : State(app) {}
 
-    void HandleEvents(Application &) override;
+    void Initialize() override;
 
-    void Update(Application &) override;
+    void HandleEvents() override;
 
-    void Render(Application &) override;
+    void Update() override;
 
-    void Clean(Application &) override;
+    void Render() override;
+
+    void Clean() override;
 
 private:
-    void Collisions(Application &);
+    void Collisions();
 
-    void CreateObjects(Application &);
+    void CreateObjects();
 
     int toWin = 0;
     bool isPaused = false;

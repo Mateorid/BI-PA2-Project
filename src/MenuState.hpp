@@ -8,15 +8,15 @@
 
 class MenuState : public State {
 public:
-    MenuState() = default;
+    explicit MenuState(Application &app) : State(app) {}
 
-    void Initialize(Application &) override {};
+    void Initialize() override {};
 
-    void HandleEvents(Application &) override {};
+    void HandleEvents() override {};
 
-    void Render(Application &) override;
+    void Render() override;
 
-    void Clean(Application &) override;
+    void Clean() override;
 
 protected:
     bool changedText = true;

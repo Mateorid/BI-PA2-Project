@@ -5,13 +5,15 @@
 
 class ResultState : public MenuState {
 public:
-    void Initialize(Application &) override;
+    explicit ResultState(Application &app) : MenuState(app) {}
 
-    void HandleEvents(Application &) override;
+    void Initialize() override;
+
+    void HandleEvents() override;
 
 private:
 
-    void HighScore(Application &);
+    void HighScore();
 
     HighScoreManager highScore{};
 };
