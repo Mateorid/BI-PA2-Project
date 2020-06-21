@@ -1,14 +1,8 @@
 TODO opravit README
 
-TODO u textur == null? // vsechno SDL
-
 TODO Wrap case for stuff in Statemanger idfk how I guess
 
-TODO zmenit pocet lvl funguje?
-
 TODO Implement changing based on resolution + check for texture sizes being >0
-
-TODO Clean everything up, look online how others did it (Matousek maybe?)  + valgrind
 
 TODO Add copy constructor = delete to classes? (ma to matousek?)
 

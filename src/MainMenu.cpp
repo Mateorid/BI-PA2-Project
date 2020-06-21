@@ -8,11 +8,11 @@ void MainMenu::Initialize(Application &app) {
         texts.push_back(std::make_unique<MenuText>(app, positions[0], GAME_NAME, 1)); //game title
         texts.push_back(std::make_unique<MenuText>(app, positions[1], selectedLvl, 1)); //lvl select
         texts.push_back(std::make_unique<MenuText>(app, positions[2], "EXIT", 0)); //exit text
-        if (SDL_SetRenderDrawColor(app.mainRenderer, 0, 0, 0, 0) < 0)            //Setting black background
+        if (SDL_SetRenderDrawColor(app.res.mainRenderer, 0, 0, 0, 0) < 0)            //Setting black background
             throw std::runtime_error(SDL_GetError());
     }
     catch (std::runtime_error &err) {
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "ERROR", err.what(), app.mainWindow);
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "ERROR", err.what(), app.res.mainWindow);
         app.ChangeState(StateName::EXIT);
     }
     menuSelections = 2;

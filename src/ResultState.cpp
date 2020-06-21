@@ -6,7 +6,7 @@ void ResultState::Initialize(Application &app) {
     positions.push_back(400);//retry/next pos
     positions.push_back(600);//menu pos
     positions.push_back(200);//score pos
-    if (app.won) {
+    if (app.res.won) {
         texts.push_back(std::make_unique<MenuText>(app, positions[0], "VICTORY", 1)); //result text
         texts.push_back(std::make_unique<MenuText>(app, positions[1], "PLAY NEXT", 0)); //next text
     } else {
@@ -15,9 +15,9 @@ void ResultState::Initialize(Application &app) {
         HighScore(app);
     }
     texts.push_back(std::make_unique<MenuText>(app, positions[2], "MENU", 0)); //menu text
-    texts.push_back(std::make_unique<MenuText>(app, positions[3], app.score->GetScore())); //score text
+    texts.push_back(std::make_unique<MenuText>(app, positions[3], app.res.score->GetScore())); //score text
 
-    SDL_SetRenderDrawColor(app.mainRenderer, 0, 0, 0, 0); //black background
+    SDL_SetRenderDrawColor(app.res.mainRenderer, 0, 0, 0, 0); //black background
     menuSelections = 2;
     menuPos = 1;
     changedText = true;
@@ -44,13 +44,13 @@ void ResultState::HandleEvents(Application &app) {
             case SDLK_RETURN:
             case SDLK_SPACE:
                 if (menuPos == 1) {
-                    if (app.won)
+                    if (app.res.won)
                         app.SetLevel(app.GetLevel() + 1);
                     else
-                        app.score->ResetScore();
+                        app.res.score->ResetScore();
                     app.ChangeState(StateName::LOAD_MAP);
                 } else {
-                    app.score->ResetScore();
+                    app.res.score->ResetScore();
                     app.ChangeState(StateName::MAIN_MENU);
                 }
                 break;
@@ -61,5 +61,5 @@ void ResultState::HandleEvents(Application &app) {
 }
 
 void ResultState::HighScore(Application &app) {
-    highScore.GetScores(app.score->GetScore());
+    highScore.GetScores(app.res.score->GetScore());
 }

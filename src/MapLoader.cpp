@@ -38,7 +38,7 @@ void MapLoader::InsertBlock(int lvl, Application &app) {
         blocksInLine++;
         return;
     }
-    app.gameObjects.push_back(new Block(app.mainRenderer, lvl, blocksInLine * BLOCK_WIDTH, rows * BLOCK_HEIGHT));
+    app.res.gameObjects.push_back(new Block(app.res.mainRenderer, lvl, blocksInLine * BLOCK_WIDTH, rows * BLOCK_HEIGHT));
     blocksInLine++;
 
 }

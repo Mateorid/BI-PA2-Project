@@ -8,7 +8,7 @@ CXX			= g++
 CXXFLAGS	= -std=c++14 -Wall -pedantic -g -O3
 LDLIBS		= -lSDL2 -lSDL2_image -lSDL2_ttf
 DEST_DIR	= obj
-PROGRAM		= arkanoid
+PROGRAM		= gorgomat
 
 .PHONY: all
 all: $(PROGRAM) doc
@@ -52,7 +52,7 @@ $(PROGRAM): $(DEST_DIR)/Application.o\
 
 	$(CXX) $(CXXFLAGS) $^ -g -o $@ $(LDLIBS)
 
-$(DEST_DIR)/%.o: src/%.cpp | $(DEST_DIR)
+$(DEST_DIR)/%.o: src/%.cpp $(DEST_DIR)
 	@echo "Compiling..."
 	$(CXX) $(CXXFLAGS) -c -g $< -o $@ $(LDLIBS)
 
@@ -61,7 +61,7 @@ $(DEST_DIR):
 
 .PHONY: clean
 clean:
-	@rm -rf $(PROGRAM)
+	@rm -rf $(PROGRAM) doc 2>/dev/null
 	@rm -rf $(DEST_DIR)/ 2>/dev/null
 	@rm -rf doc 2>/dev/null
 	@echo "Files deleted"

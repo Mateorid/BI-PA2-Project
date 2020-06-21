@@ -1,34 +1,34 @@
 #include "GameState.hpp"
 
 void GameState::Initialize(Application &app) {
-    toWin = app.gameObjects.size();         //Assign number of blocks to win
-    app.won = false;
+    toWin = app.res.gameObjects.size();         //Assign number of blocks to win
+    app.res.won = false;
 
     try {
         CreateObjects(app);
-        app.score->Init(*app.platform, *app.ball1, *app.ball2, app.textPrinter);
-        if (SDL_SetRenderDrawColor(app.mainRenderer, 100, 100, 100, 0) < 0)//Setting a gray background
+        app.res.score->Init(*app.res.platform, *app.res.ball1, *app.res.ball2, app.res.textPrinter);
+        if (SDL_SetRenderDrawColor(app.res.mainRenderer, 100, 100, 100, 0) < 0)//Setting a gray background
             throw std::runtime_error(SDL_GetError());
     } catch (std::exception &err) {
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "ERROR", err.what(), app.mainWindow);
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "ERROR", err.what(), app.res.mainWindow);
         app.ChangeState(StateName::EXIT);
     }
     app.Run();
 }
 
-void GameState::CreateObjects(Application &app) {
-    app.platform = new Platform(app.mainRenderer);
-    app.gameObjects.push_back(app.platform);
+void GameState::CreateObjects(Application &app) {//todo static?
+    app.res.platform = new Platform(app.res.mainRenderer);
+    app.res.gameObjects.push_back(app.res.platform);
 
-    app.ball1 = new Ball(app.mainRenderer, app.score);
-    app.gameObjects.push_back(app.ball1);
+    app.res.ball1 = new Ball(app.res.mainRenderer, app.res.score);
+    app.res.gameObjects.push_back(app.res.ball1);
 
-    app.ball2 = new Ball(app.mainRenderer, app.score);
-    app.gameObjects.push_back(app.ball2);
+    app.res.ball2 = new Ball(app.res.mainRenderer, app.res.score);
+    app.res.gameObjects.push_back(app.res.ball2);
 
-    app.bonus = new Bonus(app.mainRenderer, *app.ball1, *app.ball2, *app.platform,
-                          *app.score);
-    app.gameObjects.push_back(app.bonus);
+    app.res.bonus = new Bonus(app.res.mainRenderer, *app.res.ball1, *app.res.ball2, *app.res.platform,
+                          *app.res.score);
+    app.res.gameObjects.push_back(app.res.bonus);
 }
 
 
@@ -41,22 +41,22 @@ void GameState::HandleEvents(Application &app) {
             case SDL_KEYDOWN: //Key down handling
                 switch (events.key.keysym.sym) {
                     case SDLK_SPACE:
-                        if (!app.ball2->IsActive())
-                            app.ball1->Init(app.platform->GetX());
+                        if (!app.res.ball2->IsActive())
+                            app.res.ball1->Init(app.res.platform->GetX());
                         break;
                     case SDLK_LEFT:
                         if (!isPaused)
-                            app.platform->MoveLeft();
+                            app.res.platform->MoveLeft();
                         break;
                     case SDLK_RIGHT:
                         if (!isPaused)
-                            app.platform->MoveRight();
+                            app.res.platform->MoveRight();
                         break;
                     case SDLK_p:
                         isPaused = !isPaused;
                         break;
                     case SDLK_ESCAPE:
-                        app.score->AddScores();
+                        app.res.score->AddScores();
                         app.ChangeState(StateName::RESULT);
                         break;
                     default:
@@ -68,7 +68,7 @@ void GameState::HandleEvents(Application &app) {
                     case SDLK_LEFT:
                     case SDLK_RIGHT:
                         if (!isPaused)
-                            app.platform->Stop();
+                            app.res.platform->Stop();
                         break;
                     default:
                         break;
@@ -84,32 +84,32 @@ void GameState::Update(Application &app) {
         return;
     int tmpIt = 0;
     try {
-        for (auto it:app.gameObjects) {
+        for (auto it:app.res.gameObjects) {
             if (it->IsActive())
                 it->Update();
             else if (it->GetType() == BLOCK) {
-                app.bonus->SpawnBonus(it->GetX(), it->GetY());
+                app.res.bonus->SpawnBonus(it->GetX(), it->GetY());
                 toWin--;
-                delete app.gameObjects[tmpIt];
-                app.gameObjects.erase(app.gameObjects.begin() + tmpIt);
+                delete app.res.gameObjects[tmpIt];
+                app.res.gameObjects.erase(app.res.gameObjects.begin() + tmpIt);
             }
             if (toWin == 0) {
-                app.won = true;
-                app.score->AddScores();
+                app.res.won = true;
+                app.res.score->AddScores();
                 app.ChangeState(StateName::RESULT);
                 return;
             }
             tmpIt++;
         }
-        if (app.score->GetLives() == 0) {
-            app.won = false;
-            app.score->AddScores();
+        if (app.res.score->GetLives() == 0) {
+            app.res.won = false;
+            app.res.score->AddScores();
             app.ChangeState(StateName::RESULT);
             return;
         }
         Collisions(app);
     } catch (std::exception &err) { //this shouldn't trigger
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "UNEXPECTED ERROR", err.what(), app.mainWindow);
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "UNEXPECTED ERROR", err.what(), app.res.mainWindow);
         app.ChangeState(StateName::EXIT);
     }
 }
@@ -119,42 +119,42 @@ void GameState::Render(Application &app) {
         if (isPaused) {
             return;
         }
-        if (SDL_RenderClear(app.mainRenderer) < 0)
+        if (SDL_RenderClear(app.res.mainRenderer) < 0)
             throw std::runtime_error(SDL_GetError());
-        for (auto it:app.gameObjects) {
+        for (auto it:app.res.gameObjects) {
             if (it->IsActive())
                 it->Render();
         }
-        app.score->Render();
-        SDL_RenderPresent(app.mainRenderer);
+        app.res.score->Render();
+        SDL_RenderPresent(app.res.mainRenderer);
     } catch (std::exception &err) {
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "UNEXPECTED ERROR", err.what(), app.mainWindow);
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "UNEXPECTED ERROR", err.what(), app.res.mainWindow);
         app.ChangeState(StateName::EXIT);
     }
 }
 
 void GameState::Collisions(Application &app) {//todo make this more polymorphic commit before tho xdd
-    for (auto it:app.gameObjects) {
+    for (auto it:app.res.gameObjects) {
         if (!it->IsActive())//Skips all non-active Game objects
             continue;
 
         if (it->GetType() == BLOCK) {//Ball-Block collision
-            if (app.ball1->CollisionDetection(it) || app.ball2->CollisionDetection(it)) {
+            if (app.res.ball1->CollisionDetection(it) || app.res.ball2->CollisionDetection(it)) {
                 it->Collided(true);
-                app.score->PlusScore();
+                app.res.score->PlusScore();
             }
         } else if (it->GetType() == PLATFORM) {//Ball-Platform collision
-            app.ball1->CollisionDetection(it);
-            app.ball2->CollisionDetection(it);
+            app.res.ball1->CollisionDetection(it);
+            app.res.ball2->CollisionDetection(it);
         } else if (it->GetType() == BONUS) {//Bonus-Platform collision
-            it->Collided(it->CollisionDetection(app.platform));
+            it->Collided(it->CollisionDetection(app.res.platform));
         }
     }
 }
 
 void GameState::Clean(Application &app) {
-    for (auto &gameObject : app.gameObjects) {
+    for (auto &gameObject : app.res.gameObjects) {
         delete gameObject;
     }
-    app.gameObjects.clear();
+    app.res.gameObjects.clear();
 }

@@ -2,14 +2,14 @@
 
 void MenuState::Render(Application &app) {
     if (changedText) { //when there's no update we don't need to re-render
-        if (SDL_RenderClear(app.mainRenderer) < 0)
+        if (SDL_RenderClear(app.res.mainRenderer) < 0)
             throw std::runtime_error(SDL_GetError());
 
         for (auto &it :texts)
             it->Update(selectedLvl, menuPos == 1);
         texts[menuPos]->Selected();//render underline
 
-        SDL_RenderPresent(app.mainRenderer);
+        SDL_RenderPresent(app.res.mainRenderer);
         changedText = false;
     }
 }

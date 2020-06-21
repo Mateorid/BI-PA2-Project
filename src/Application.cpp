@@ -1,5 +1,20 @@
 #include "Application.hpp"
+#include "StartupState.hpp"
+#include "MainMenu.hpp"
+#include "LoadState.hpp"
+#include "GameState.hpp"
+#include "ResultState.hpp"
+#include "ExitState.hpp"
 
+
+Application::Application(Resources &resources) : res(resources) {
+    AddState(StateName::START, new StartupState());
+    AddState(StateName::MAIN_MENU, new MainMenu());
+    AddState(StateName::LOAD_MAP, new LoadState());
+    AddState(StateName::GAME, new GameState());
+    AddState(StateName::RESULT, new ResultState());
+    AddState(StateName::EXIT, new ExitState());
+}
 
 Application::~Application() {
     Exit();
@@ -16,12 +31,11 @@ void Application::ChangeState(StateName stateName) {
         activeState = states[stateName];
         activeState->Initialize(*this);
     } catch (std::exception &err) {
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "ERROR", err.what(), mainWindow);
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "ERROR", err.what(), res.mainWindow);
         Exit();
     }
 }
 
-//todo catch stuff here?
 void Application::Run() {
     try {
         if (activeState == nullptr)
@@ -41,7 +55,7 @@ void Application::Run() {
             }
         }
     } catch (std::exception &err) {//shouldn't happen
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "ERROR", err.what(), mainWindow);
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "ERROR", err.what(), res.mainWindow);
         Exit();
     }
 }
@@ -52,7 +66,7 @@ void Application::Exit() {
             activeState->Clean(*this);
         activeState = nullptr;
     } catch (std::exception &err) {
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "ERROR", err.what(), mainWindow);
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "ERROR", err.what(), res.mainWindow);
         return;
     }
 }

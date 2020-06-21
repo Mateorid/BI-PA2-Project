@@ -8,12 +8,7 @@
 
 
 #include "State.hpp"
-#include "TextPrinter.hpp"
-#include "ScoreManager.hpp"
-#include "GameObject.hpp"
-#include "Platform.hpp"
-#include "Ball.hpp"
-#include "Bonus.hpp"
+#include "Resources.hpp"
 
 /**Game title*/
 static const char *const GAME_NAME = "Arkanoid 2020";
@@ -28,11 +23,7 @@ static const int FRAME_DELAY = 1000 / MAX_FPS;
 
 class State;
 
-class Block;
-
-class Platform;
-
-class Bonus;
+class Resources;
 
 enum class StateName {
     START,
@@ -44,13 +35,19 @@ enum class StateName {
 };
 
 /**
- * Class inspired Jan Matoušek's snake game series, refactored & edited for my application
+ * Class inspired by Jan Matoušek snake game series, refactored & edited for my application
  * @author Jan Matoušek <jan.matousek@fit.cvut.cz> (https://www.youtube.com/playlist?list=PLuOBL1HCzT4fxwtSEvk30_k3kwVfuqTNh)
  */
 class Application {
 public:
-//todo delete copy
+    explicit Application(Resources &);
+
     ~Application();
+
+    /** Copy-cons is deleted, because copy of application is not applicable. */
+    Application(const Application &) = delete;
+
+    Application &operator=(const Application &) = delete;
 
     void AddState(StateName, State *);
 
@@ -64,17 +61,7 @@ public:
 
     void SetLevel(int x) { selectedLevel = x; }
 
-    TextPrinter textPrinter{};
-    ScoreManager *score{};
-    Platform *platform{};
-    Ball *ball1{};
-    Ball *ball2{};
-    Bonus *bonus{};
-    std::vector<GameObject *> gameObjects;
-    SDL_Renderer *mainRenderer{};
-    SDL_Window *mainWindow{};
-    TTF_Font *font{};
-    bool won = false;
+    Resources &res;
 private:
     int selectedLevel = 0;
     std::shared_ptr<State> activeState;
@@ -82,7 +69,3 @@ private:
     Uint32 frameTicks{};
     Uint32 frameDelta{};
 };
-
-
-
-

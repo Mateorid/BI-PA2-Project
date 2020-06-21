@@ -1,14 +1,14 @@
 #include "ExitState.hpp"
 
 void ExitState::Initialize(Application &app) {
-    if (app.score != nullptr)
-        delete app.score;
-    if (app.mainWindow != nullptr)
-        SDL_DestroyRenderer(app.mainRenderer);
-    if (app.mainWindow != nullptr)
-        SDL_DestroyWindow(app.mainWindow);
-    if (app.font != nullptr)
-        TTF_CloseFont(app.font);
+    if (app.res.score != nullptr)
+        delete app.res.score;
+    if (app.res.mainWindow != nullptr)
+        SDL_DestroyRenderer(app.res.mainRenderer);
+    if (app.res.mainWindow != nullptr)
+        SDL_DestroyWindow(app.res.mainWindow);
+    if (app.res.font != nullptr)
+        TTF_CloseFont(app.res.font);
     IMG_Quit();
     TTF_Quit();
     SDL_Quit();

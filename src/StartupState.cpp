@@ -15,21 +15,21 @@ void StartupState::Initialize(Application &app) {
     if (TTF_Init() == -1)
         throw std::runtime_error(SDL_GetError());
 
-    app.mainWindow = SDL_CreateWindow(GAME_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+    app.res.mainWindow = SDL_CreateWindow(GAME_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                                       APP_WIDTH, APP_HEIGHT, false);
-    if (app.mainWindow == nullptr)
+    if (app.res.mainWindow == nullptr)
         throw std::runtime_error(SDL_GetError());
 
-    app.mainRenderer = SDL_CreateRenderer(app.mainWindow, -1, SDL_RENDERER_ACCELERATED);
-    if (app.mainRenderer == nullptr)
+    app.res.mainRenderer = SDL_CreateRenderer(app.res.mainWindow, -1, SDL_RENDERER_ACCELERATED);
+    if (app.res.mainRenderer == nullptr)
         throw std::runtime_error(SDL_GetError());
 
-    app.font = TTF_OpenFont(FONT_SRC, 50);
-    if (app.font == nullptr)
+    app.res.font = TTF_OpenFont(FONT_SRC, 50);
+    if (app.res.font == nullptr)
         throw std::invalid_argument(SDL_GetError());
 
-    app.textPrinter.Init(app.mainRenderer, app.font);
-    app.score = new ScoreManager(app.mainRenderer);
+    app.res.textPrinter.Init(app.res.mainRenderer, app.res.font);
+    app.res.score = new ScoreManager(app.res.mainRenderer);
 }
 
 void StartupState::Update(Application &stateManager) {

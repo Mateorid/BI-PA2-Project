@@ -23,7 +23,7 @@ void LoadState::Initialize(Application &app) {
                 break;
         }
     } catch (std::exception &err) {
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "ERROR", err.what(), app.mainWindow);
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "ERROR", err.what(), app.res.mainWindow);
         app.ChangeState(StateName::EXIT);
     }
     app.ChangeState(StateName::GAME);

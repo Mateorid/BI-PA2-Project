@@ -11,7 +11,7 @@
 #include "TextPrinter.hpp"
 
 /**How many lives you start with*/
-static const int START_LIVES = 1;
+static const int START_LIVES = 3;
 /**Score added after hitting a block*/
 static const int SCORE_ADD = 100;
 /**Score deducted after losing a life*/
@@ -20,11 +20,14 @@ static const int SCORE_DEDUCT = 300;
 
 class ScoreManager {
 public:
-    ScoreManager() = default;
 
     explicit ScoreManager(SDL_Renderer *);
 
     ~ScoreManager() = default;
+
+    ScoreManager(const ScoreManager &) = delete;
+
+    ScoreManager &operator=(const ScoreManager &) = delete;
 
     void Init(GameObject &, GameObject &, GameObject &, TextPrinter &);
 
