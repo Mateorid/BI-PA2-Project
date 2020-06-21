@@ -1,12 +1,12 @@
 #include "ExitState.hpp"
 
-void ExitState::Initialize(StateManager &manager) {
-    delete manager.score;
-    SDL_DestroyRenderer(manager.mainRenderer);
-    SDL_DestroyWindow(manager.mainWindow);
-    TTF_CloseFont(manager.font);
+void ExitState::Initialize(Application &app) {
+    delete app.score;
+    SDL_DestroyRenderer(app.mainRenderer);
+    SDL_DestroyWindow(app.mainWindow);
+    TTF_CloseFont(app.font);
     SDL_Quit();
     IMG_Quit();
     TTF_Quit();
-    manager.Exit();
+    app.Exit();
 }

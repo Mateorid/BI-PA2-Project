@@ -7,21 +7,14 @@
 #include "State.hpp"
 
 
-
-
 class StartupState : public State {
 public:
     StartupState() = default;
 
-    void Initialize(StateManager &) override;
+    void Initialize(Application &) override;
 
-    void HandleEvents(StateManager &) override {};
+    void Update(Application &) override;
 
-    void Update(StateManager &) override;
-
-    void Render(StateManager &) override {};
-
-    void Clean(StateManager &) override {}; //todo delete those with {}
 };
 
 

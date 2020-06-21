@@ -1,4 +1,4 @@
-#include "StateManager.hpp"
+#include "Application.hpp"
 #include "StartupState.hpp"
 #include "MainMenu.hpp"
 #include "LoadState.hpp"
@@ -9,14 +9,14 @@
 
 int main(int argc, char *argv[]) {
     try {
-        StateManager stateManager;
-        stateManager.AddState(StateName::START, new StartupState());
-        stateManager.AddState(StateName::MAIN_MENU, new MainMenu());
-        stateManager.AddState(StateName::LOAD_MAP, new LoadState());
-        stateManager.AddState(StateName::GAME, new GameState());
-        stateManager.AddState(StateName::RESULT, new ResultState());
-        stateManager.AddState(StateName::EXIT, new ExitState());
-        stateManager.Run();
+        Application app;
+        app.AddState(StateName::START, new StartupState());
+        app.AddState(StateName::MAIN_MENU, new MainMenu());
+        app.AddState(StateName::LOAD_MAP, new LoadState());
+        app.AddState(StateName::GAME, new GameState());
+        app.AddState(StateName::RESULT, new ResultState());
+        app.AddState(StateName::EXIT, new ExitState());
+        app.Run();
         return 0;
     }
     catch (std::runtime_error &err) {

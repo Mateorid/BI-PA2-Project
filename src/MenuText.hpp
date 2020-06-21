@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SDL2/SDL.h>
-#include "StateManager.hpp"
+#include "Application.hpp"
 
 enum TextType {
     TEXT,
@@ -11,11 +11,11 @@ enum TextType {
 
 class MenuText {
 public:
-    MenuText(StateManager &manager, int y, const char *txt, bool title);
+    MenuText(Application &, int y, const char *txt, bool title);
 
-    MenuText(StateManager &manager, int y, int lvl, bool active);
+    MenuText(Application &, int y, int lvl, bool active);
 
-    MenuText(StateManager &manager, int y, int score);
+    MenuText(Application &, int y, int score);
 
     ~MenuText();
 
@@ -27,7 +27,7 @@ private:
 
     void Render();
 
-    StateManager *manager;
+    Application *app;
     TextType type;
     int yPos;
     bool isTitle = false;

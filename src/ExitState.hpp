@@ -4,7 +4,7 @@
 #include "State.hpp"
 
 class ExitState : public State {
-    void Initialize(StateManager &) override;
+    void Initialize(Application &) override;
 };
 
 

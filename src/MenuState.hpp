@@ -10,13 +10,13 @@ class MenuState : public State {
 public:
     MenuState() = default;
 
-    void Initialize(StateManager &) override {};
+    void Initialize(Application &) override {};
 
-    void HandleEvents(StateManager &) override {};
+    void HandleEvents(Application &) override {};
 
-    void Render(StateManager &) override;
+    void Render(Application &) override;
 
-    void Clean(StateManager &) override;
+    void Clean(Application &) override;
 
 protected:
     bool changedText = true;

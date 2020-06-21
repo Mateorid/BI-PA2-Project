@@ -1,22 +1,22 @@
 #include "MainMenu.hpp"
 
-void MainMenu::Initialize(StateManager &manager) {
+void MainMenu::Initialize(Application &app) {
     positions.push_back(20);//title pos     //todo set these by resolution
     positions.push_back(400);//lvl select pos
     positions.push_back(600);//exit pos
-    texts.push_back(std::make_unique<MenuText>(manager, positions[0], GAME_NAME, 1)); //game title
-    texts.push_back(std::make_unique<MenuText>(manager, positions[1], selectedLvl, 1)); //lvl select
-    texts.push_back(std::make_unique<MenuText>(manager, positions[2], "EXIT", 0)); //exit text
-    SDL_SetRenderDrawColor(manager.mainRenderer, 0, 0, 0, 0);            //Setting black background
+    texts.push_back(std::make_unique<MenuText>(app, positions[0], GAME_NAME, 1)); //game title
+    texts.push_back(std::make_unique<MenuText>(app, positions[1], selectedLvl, 1)); //lvl select
+    texts.push_back(std::make_unique<MenuText>(app, positions[2], "EXIT", 0)); //exit text
+    SDL_SetRenderDrawColor(app.mainRenderer, 0, 0, 0, 0);            //Setting black background
     menuSelections = 2;
     changedText = true;
 }
 
-void MainMenu::HandleEvents(StateManager &manager) {
+void MainMenu::HandleEvents(Application &app) {
     SDL_Event events{};
     SDL_PollEvent(&events);
     if (events.type == SDL_QUIT)                                            //Exit signal
-        manager.ChangeState(StateName::EXIT);
+        app.ChangeState(StateName::EXIT);
     if (events.type == SDL_KEYDOWN) {                                       //Keypress handling
         switch (events.key.keysym.sym) {
             case SDLK_LEFT:
@@ -42,15 +42,15 @@ void MainMenu::HandleEvents(StateManager &manager) {
                 changedText = true;
                 break;
             case SDLK_ESCAPE:
-                manager.ChangeState(StateName::EXIT);
+                app.ChangeState(StateName::EXIT);
                 break;
             case SDLK_RETURN:
             case SDLK_SPACE:
                 if (menuPos == 1) {
-                    manager.SetLevel(selectedLvl);
-                    manager.ChangeState(StateName::LOAD_MAP);
+                    app.SetLevel(selectedLvl);
+                    app.ChangeState(StateName::LOAD_MAP);
                 } else
-                    manager.ChangeState(StateName::EXIT);
+                    app.ChangeState(StateName::EXIT);
                 break;
             default:
                 break;

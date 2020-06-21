@@ -5,20 +5,19 @@
 
 class GameState : public State {
 public:
-    void Initialize(StateManager &) override;
+    void Initialize(Application &) override;
 
-    void HandleEvents(StateManager &) override;
+    void HandleEvents(Application &) override;
 
-    void Update(StateManager &) override;
+    void Update(Application &) override;
 
-    void Render(StateManager &) override;
+    void Render(Application &) override;
 
-    void Clean(StateManager &) override;
+    void Clean(Application &) override;
 
 private:
-    void Collisions(StateManager &);
+    void Collisions(Application &);
 
-//    ScoreManager *score{};
     int toWin = 0;
     bool isPaused = false;
 };

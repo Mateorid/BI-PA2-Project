@@ -1,6 +1,6 @@
 #include "StartupState.hpp"
 
-void StartupState::Initialize(StateManager &manager) {
+void StartupState::Initialize(Application &app) {
 
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
         throw std::runtime_error("ERROR! SDL_INIT_EVERYTHING failed to initialize!");
@@ -11,23 +11,23 @@ void StartupState::Initialize(StateManager &manager) {
     if (TTF_Init() == -1)
         throw std::runtime_error("ERROR! TTF_Init failed to initialize!");
 
-    manager.mainWindow = SDL_CreateWindow(GAME_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+    app.mainWindow = SDL_CreateWindow(GAME_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                                           APP_WIDTH, APP_HEIGHT, false);
-    if (manager.mainWindow == nullptr)
+    if (app.mainWindow == nullptr)
         throw std::runtime_error("ERROR! SDL_CreateWindow failed!");
 
-    manager.mainRenderer = SDL_CreateRenderer(manager.mainWindow, -1, SDL_RENDERER_ACCELERATED);
-    if (manager.mainRenderer == nullptr)
+    app.mainRenderer = SDL_CreateRenderer(app.mainWindow, -1, SDL_RENDERER_ACCELERATED);
+    if (app.mainRenderer == nullptr)
         throw std::runtime_error("ERROR! SDL_CreateRenderer failed!");
 
-    manager.font = TTF_OpenFont(FONT_SRC, 50);
-    if (manager.font == nullptr)
+    app.font = TTF_OpenFont(FONT_SRC, 50);
+    if (app.font == nullptr)
         throw std::invalid_argument("ERROR! Failed to load font!");
 
-    manager.textPrinter.Init(manager.mainRenderer, manager.font);
-    manager.score = new ScoreManager(manager.mainRenderer);
+    app.textPrinter.Init(app.mainRenderer, app.font);
+    app.score = new ScoreManager(app.mainRenderer);
 }
 
-void StartupState::Update(StateManager &stateManager) {
+void StartupState::Update(Application &stateManager) {
     stateManager.ChangeState(StateName::MAIN_MENU);
 }

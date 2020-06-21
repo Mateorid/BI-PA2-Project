@@ -1,23 +1,23 @@
-#include "StateManager.hpp"
+#include "Application.hpp"
 
 
-StateManager::~StateManager() {
+Application::~Application() {
     if (activeState != nullptr)
         activeState->Clean(*this);
 }
 
-void StateManager::AddState(StateName stateName, State *state) {
+void Application::AddState(StateName stateName, State *state) {
     states[stateName] = std::shared_ptr<State>(state);
 }
 
-void StateManager::ChangeState(StateName stateName) {
+void Application::ChangeState(StateName stateName) {
     if (activeState != nullptr)
         activeState->Clean(*this);
     activeState = states[stateName];
     activeState->Initialize(*this);
 }
 
-void StateManager::Run() {
+void Application::Run() {
     if (activeState == nullptr)
         ChangeState(StateName::START);
     while (activeState) {
@@ -32,14 +32,13 @@ void StateManager::Run() {
     }
 }
 
-void StateManager::Exit() {
-//    ResetObjects();
+void Application::Exit() {
     if (activeState != nullptr)
         activeState->Clean(*this);
     activeState = nullptr;
 }
 
-void StateManager::ResetObjects() {
+void Application::ResetObjects() {
     for (auto &gameObject : gameObjects) {
         delete gameObject;
     }

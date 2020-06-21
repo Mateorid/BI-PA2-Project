@@ -7,9 +7,9 @@
 
 class LoadState : public State {
 public:
-    void Initialize(StateManager &) override;
+    void Initialize(Application &) override;
 
-    void Clean(StateManager &) override;
+    void Clean(Application &) override;
 
 private:
     MapLoader *mapLoader{};

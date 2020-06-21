@@ -1,19 +1,19 @@
 #include "MenuState.hpp"
 
-void MenuState::Render(StateManager &manager) {
+void MenuState::Render(Application &app) {
     if (changedText) { //when there's no update we don't need to re-render
-        SDL_RenderClear(manager.mainRenderer);
+        SDL_RenderClear(app.mainRenderer);
 
         for (auto &it :texts)
             it->Update(selectedLvl, menuPos == 1);
         texts[menuPos]->Selected();//render underline
 
-        SDL_RenderPresent(manager.mainRenderer);
+        SDL_RenderPresent(app.mainRenderer);
         changedText = false;
     }
 }
 
-void MenuState::Clean(StateManager &) {
+void MenuState::Clean(Application &) {
     positions.clear();
     std::vector<int>().swap(positions);
     texts.clear();

@@ -33,10 +33,10 @@ enum class StateName {
 };
 
 //Inspired by J. Matousek(https://www.youtube.com/watch?v=EFCHth2vR24&list=PLuOBL1HCzT4fxwtSEvk30_k3kwVfuqTNh&index=3&t=5114s)
-class StateManager {
+class Application {
 public:
 
-    ~StateManager();
+    ~Application();
 
     void AddState(StateName, State *);
 

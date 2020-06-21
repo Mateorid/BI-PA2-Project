@@ -1,5 +1,7 @@
 TODO Wrap case for stuff in Statemanger idfk how I guess
 
+//todo zmenit pocet lvl funguje?
+
 TODO Implement changing based on resolution + check for texture sizes being >0
 
 TODO rename Statemanager to gameLogic?

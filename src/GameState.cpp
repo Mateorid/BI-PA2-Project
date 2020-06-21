@@ -1,53 +1,53 @@
 #include "GameState.hpp"
 
-void GameState::Initialize(StateManager &manager) {
-    toWin = manager.gameObjects.size();         //Assign number of blocks to win
+void GameState::Initialize(Application &app) {
+    toWin = app.gameObjects.size();         //Assign number of blocks to win
 
-    manager.platform = new Platform(manager.mainRenderer);
-    manager.gameObjects.push_back(manager.platform);
+    app.platform = new Platform(app.mainRenderer);
+    app.gameObjects.push_back(app.platform);
 
-    manager.ball1 = new Ball(manager.mainRenderer, manager.score);
-    manager.gameObjects.push_back(manager.ball1);
+    app.ball1 = new Ball(app.mainRenderer, app.score);
+    app.gameObjects.push_back(app.ball1);
 
-    manager.ball2 = new Ball(manager.mainRenderer, manager.score);
-    manager.gameObjects.push_back(manager.ball2);
+    app.ball2 = new Ball(app.mainRenderer, app.score);
+    app.gameObjects.push_back(app.ball2);
 
-    manager.bonus = new Bonus(manager.mainRenderer, *manager.ball1, *manager.ball2, *manager.platform,
-                              *manager.score);
-    manager.gameObjects.push_back(manager.bonus);
+    app.bonus = new Bonus(app.mainRenderer, *app.ball1, *app.ball2, *app.platform,
+                          *app.score);
+    app.gameObjects.push_back(app.bonus);
 
-    manager.score->Init(*manager.platform, *manager.ball1, *manager.ball2,
-                        manager.textPrinter);
+    app.score->Init(*app.platform, *app.ball1, *app.ball2,
+                    app.textPrinter);
 
-    SDL_SetRenderDrawColor(manager.mainRenderer, 100, 100, 100, 0);//Setting a gray background
-    manager.Run();
+    SDL_SetRenderDrawColor(app.mainRenderer, 100, 100, 100, 0);//Setting a gray background
+    app.Run();
 }
 
-void GameState::HandleEvents(StateManager &manager) {
+void GameState::HandleEvents(Application &app) {
     SDL_Event events{};
     while (SDL_PollEvent(&events)) {
         switch (events.type) {
             case SDL_QUIT:                                      //Clean signal
-                manager.ChangeState(StateName::EXIT);
+                app.ChangeState(StateName::EXIT);
             case SDL_KEYDOWN: //Key down handling
                 switch (events.key.keysym.sym) {
                     case SDLK_SPACE:
-                        if (!manager.ball2->IsActive())
-                            manager.ball1->Init(manager.platform->GetX());
+                        if (!app.ball2->IsActive())
+                            app.ball1->Init(app.platform->GetX());
                         break;
                     case SDLK_LEFT:
                         if (!isPaused)
-                            manager.platform->MoveLeft();
+                            app.platform->MoveLeft();
                         break;
                     case SDLK_RIGHT:
                         if (!isPaused)
-                            manager.platform->MoveRight();
+                            app.platform->MoveRight();
                         break;
                     case SDLK_p:
                         isPaused = !isPaused;
                         break;
                     case SDLK_ESCAPE:
-                        manager.ChangeState(StateName::MAIN_MENU);
+                        app.ChangeState(StateName::MAIN_MENU);
                         break;
                     default:
                         break;
@@ -58,7 +58,7 @@ void GameState::HandleEvents(StateManager &manager) {
                     case SDLK_LEFT:
                     case SDLK_RIGHT:
                         if (!isPaused) {
-                            manager.platform->Stop();
+                            app.platform->Stop();
                         }
                     default:
                         break;
@@ -70,68 +70,67 @@ void GameState::HandleEvents(StateManager &manager) {
 }
 
 
-void GameState::Update(StateManager &manager) {
+void GameState::Update(Application &app) {
     if (isPaused)
         return;
     int tmpIt = 0;
-    for (auto it:manager.gameObjects) {
+    for (auto it:app.gameObjects) {
         if (it->IsActive())
             it->Update();
         else if (it->GetType() == BLOCK) {
-            manager.bonus->SpawnBonus(it->GetX(), it->GetY());
+            app.bonus->SpawnBonus(it->GetX(), it->GetY());
             toWin--;
-            delete manager.gameObjects[tmpIt];
-            manager.gameObjects.erase(manager.gameObjects.begin() + tmpIt);
+            delete app.gameObjects[tmpIt];
+            app.gameObjects.erase(app.gameObjects.begin() + tmpIt);
         }
         if (toWin == 0) {
-            manager.won = true;
-            manager.score->AddScores();
-            manager.ChangeState(StateName::RESULT);
+            app.won = true;
+            app.score->AddScores();
+            app.ChangeState(StateName::RESULT);
             return;
         }
         tmpIt++;
     }
-    if (manager.score->GetLives() == 0) {
-        manager.won = false;
-        manager.score->AddScores();
-        manager.ChangeState(StateName::RESULT);
+    if (app.score->GetLives() == 0) {
+        app.won = false;
+        app.score->AddScores();
+        app.ChangeState(StateName::RESULT);
         return;
     }
-    Collisions(manager);
+    Collisions(app);
 }
 
-void GameState::Render(StateManager &manager) {
+void GameState::Render(Application &app) {
     if (isPaused)
         return;
-    SDL_RenderClear(manager.mainRenderer);
-    for (auto it:manager.gameObjects) {
+    SDL_RenderClear(app.mainRenderer);
+    for (auto it:app.gameObjects) {
         if (it->IsActive())
             it->Render();
     }
-    manager.score->Render();
-    SDL_RenderPresent(manager.mainRenderer);
+    app.score->Render();
+    SDL_RenderPresent(app.mainRenderer);
 }
 
-void GameState::Collisions(StateManager &manager) {
-    for (auto it:manager.gameObjects) {
+void GameState::Collisions(Application &app) {
+    for (auto it:app.gameObjects) {
         if (!it->IsActive())//Skips all non-active Game objects
             continue;
 
         if (it->GetType() == BLOCK) {//Ball-Block collision
-            if (manager.ball1->CollisionDetection(it) || manager.ball2->CollisionDetection(it)) {
+            if (app.ball1->CollisionDetection(it) || app.ball2->CollisionDetection(it)) {
                 it->Collided(true);
-                manager.score->PlusScore();
+                app.score->PlusScore();
             }
         } else if (it->GetType() == PLATFORM) {//Ball-Platform collision
-            manager.ball1->CollisionDetection(it);
-            manager.ball2->CollisionDetection(it);
+            app.ball1->CollisionDetection(it);
+            app.ball2->CollisionDetection(it);
         } else if (it->GetType() == BONUS) {//Bonus-Platform collision
-            it->Collided(it->CollisionDetection(manager.platform));
+            it->Collided(it->CollisionDetection(app.platform));
         }
     }
 }
 
-void GameState::Clean(StateManager &manager) {
-    manager.ResetObjects();
-//    delete manager.score; //todo clean manager vector here tho
+void GameState::Clean(Application &app) {
+    app.ResetObjects();
 }

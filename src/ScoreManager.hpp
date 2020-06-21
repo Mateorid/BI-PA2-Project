@@ -56,7 +56,7 @@ private:
     GameObject *ball1{};
     GameObject *ball2{};
     TextPrinter *textPrinter{};
-    SDL_Renderer *renderer{};       //todo when moved to manager change if not necessary
+    SDL_Renderer *renderer{};
     SDL_Texture *scoreTexture{};
     SDL_Rect srcR{};
     SDL_Rect destR{};

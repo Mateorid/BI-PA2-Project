@@ -2,7 +2,7 @@
 
 #include <SDL2/SDL.h>
 
-#include "StateManager.hpp"
+#include "Application.hpp"
 
 /**Title of the game*/
 static const char *const GAME_NAME = "Arkanoid 2020";
@@ -23,21 +23,20 @@ static const int FRAME_DELAY = 1000 / MAX_FPS;
 static const int START_LIVES = 1;
 
 
-class StateManager;
+class Application;
 
 class State {
 public:
-    virtual void Initialize(StateManager &) {};
+    virtual void Initialize(Application &) {};
 
-    virtual void HandleEvents(StateManager &) {};
+    virtual void HandleEvents(Application &) {};
 
-    virtual void Update(StateManager &) {};
+    virtual void Update(Application &) {};
 
-    virtual void Render(StateManager &) {};
+    virtual void Render(Application &) {};
 
-    virtual void Clean(StateManager &) {};
+    virtual void Clean(Application &) {};
 protected:
-//    bool isRunning = false; //todo use this in the loop? + init it where its needed (menu & game)
 };
 
 

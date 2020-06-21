@@ -29,8 +29,8 @@ add_executable(Arkanoid
         src/Platform.cpp            src/Platform.hpp
         src/ScoreManager.cpp        src/ScoreManager.hpp
         src/TextPrinter.cpp         src/TextPrinter.hpp
-        src/State.cpp               src/State.hpp
-        src/StateManager.cpp        src/StateManager.hpp
+        src/State.hpp
+        src/Application.cpp src/Application.hpp
         src/StartupState.cpp        src/StartupState.hpp
         src/MenuState.cpp           src/MenuState.hpp
         src/MainMenu.cpp           src/MainMenu.hpp

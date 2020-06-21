@@ -1,24 +1,23 @@
 #include "LoadState.hpp"
 
-void LoadState::Initialize(StateManager &manager) {
-//    manager.ResetObjects();
-    switch (manager.GetLevel()) {
+void LoadState::Initialize(Application &app) {
+    switch (app.GetLevel()) {//todo change to not new?
         case 1:
-            mapLoader = new MapLoader(MAP1_SRC, manager);
+            mapLoader = new MapLoader(MAP1_SRC, app);
             break;
         case 2:
-            mapLoader = new MapLoader(MAP2_SRC, manager);
+            mapLoader = new MapLoader(MAP2_SRC, app);
             break;
         case 3:
-            mapLoader = new MapLoader(MAP3_SRC, manager);
+            mapLoader = new MapLoader(MAP3_SRC, app);
             break;
         default:
-            mapLoader = new MapLoader(MAP1_SRC, manager);
+            mapLoader = new MapLoader(MAP1_SRC, app);
             break;
     }
-    manager.ChangeState(StateName::GAME);
+    app.ChangeState(StateName::GAME);
 }
 
-void LoadState::Clean(StateManager &) {
+void LoadState::Clean(Application &) {
     delete mapLoader;
 }

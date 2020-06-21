@@ -21,7 +21,7 @@ public:
      * @throws overflow_error when (block size + spacing) == 0 (dividing by zero would occur)
      */
 
-    MapLoader(const string &filename, StateManager &);
+    MapLoader(const string &filename, Application &);
 
 private:
     /**
@@ -30,9 +30,9 @@ private:
      * @throws invalid_argument when the line of blocks isn't filled all the way or there are more rows than MAP_MAX_ROWS
      * @param filename destination of the map file
      */
-    void LoadBlocks(const string &filename, StateManager &);
+    void LoadBlocks(const string &filename, Application &);
 
-    void InsertBlock(int lvl, StateManager &);
+    void InsertBlock(int lvl, Application &);
 
     int blocksInLine = 0;
     int rows = 0;
