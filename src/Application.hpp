@@ -15,6 +15,11 @@
 #include "Ball.hpp"
 #include "Bonus.hpp"
 
+/**FPS limit*/
+static const int MAX_FPS = 100;
+/**Frame delay*/
+static const int FRAME_DELAY = 1000 / MAX_FPS;
+
 class State;
 
 class Block;

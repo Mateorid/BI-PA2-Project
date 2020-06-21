@@ -1,7 +1,7 @@
 #include "LoadState.hpp"
 
 void LoadState::Initialize(Application &app) {
-    switch (app.GetLevel()) {//todo change to not new?
+    switch (app.GetLevel()) {
         case 1:
             mapLoader = new MapLoader(MAP1_SRC, app);
             break;

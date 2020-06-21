@@ -1,12 +1,12 @@
+TODO opravit README
+
+TODO u textur == null? // vsechno SDL
+
 TODO Wrap case for stuff in Statemanger idfk how I guess
 
-//todo zmenit pocet lvl funguje?
+TODO zmenit pocet lvl funguje?
 
 TODO Implement changing based on resolution + check for texture sizes being >0
-
-TODO rename Statemanager to gameLogic?
-
-TODO merge LoadState & MapLoader? <-
 
 TODO Clean everything up, look online how others did it (Matousek maybe?)  + valgrind
 
@@ -15,5 +15,3 @@ TODO Add copy constructor = delete to classes? (ma to matousek?)
 TODO throw & catch exceptions everywhere + box exceptions + catch in statemanager to clean the state up
 
 TODO make Makefile more readable (file with dependencies like Matousek)
-
-TODO Doxyfile setup

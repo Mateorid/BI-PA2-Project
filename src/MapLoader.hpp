@@ -8,8 +8,9 @@
 #include "Block.hpp"
 #include "State.hpp"
 
-
-static const int MAP_MAX_ROWS = 20;
+/**Map settings*/
+static const int MAP_ROWS = 20;
+static const int MAP_COLUMNS = 12;
 
 using namespace std;
 
@@ -27,7 +28,7 @@ private:
     /**
      * @throws runtime_error when there's been a problem with loading the map file
      * @throws invalid_argument when there are non-numeric characters in the map file (excluding whitespaces & newlines)
-     * @throws invalid_argument when the line of blocks isn't filled all the way or there are more rows than MAP_MAX_ROWS
+     * @throws invalid_argument when the line of blocks isn't filled all the way or there are more rows than MAP_ROWS
      * @param filename destination of the map file
      */
     void LoadBlocks(const string &filename, Application &);
@@ -37,7 +38,6 @@ private:
     int blocksInLine = 0;
     int rows = 0;
     int blockLvl = 0;
-    int maxBlocksLine = 0;
 };
 
 
