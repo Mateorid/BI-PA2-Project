@@ -37,5 +37,5 @@ add_executable(Arkanoid
         src/ExitState.cpp           src/ExitState.hpp
         src/GameState.cpp           src/GameState.hpp
         src/LoadState.cpp           src/LoadState.hpp
-        src/ResultState.cpp src/ResultState.hpp src/MenuText.cpp src/MenuText.hpp src/HighScoreManager.cpp src/HighScoreManager.hpp src/Resources.cpp src/Resources.hpp)
+        src/ResultState.cpp src/ResultState.hpp src/MenuText.cpp src/MenuText.hpp src/HighScoreManager.cpp src/HighScoreManager.hpp src/Resources.hpp)
 target_link_libraries(Arkanoid ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} ${SDL2_TTF_LIBRARIES})

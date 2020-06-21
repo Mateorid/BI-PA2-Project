@@ -1,11 +1,7 @@
 TODO opravit README
 
-TODO Wrap case for stuff in Statemanger idfk how I guess
-
-TODO Implement changing based on resolution + check for texture sizes being >0
+TODO comments
 
 TODO Add copy constructor = delete to classes? (ma to matousek?)
-
-TODO throw & catch exceptions everywhere + box exceptions + catch in statemanager to clean the state up
 
 TODO make Makefile more readable (file with dependencies like Matousek)
