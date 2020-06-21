@@ -2,7 +2,6 @@
 
 void GameState::Initialize(StateManager &manager) {
     toWin = manager.gameObjects.size();         //Assign number of blocks to win
-//    score = new ScoreManager(manager.mainRenderer, START_LIVES);
 
     manager.platform = new Platform(manager.mainRenderer);
     manager.gameObjects.push_back(manager.platform);
@@ -133,5 +132,6 @@ void GameState::Collisions(StateManager &manager) {
 }
 
 void GameState::Clean(StateManager &manager) {
+    manager.ResetObjects();
 //    delete manager.score; //todo clean manager vector here tho
 }

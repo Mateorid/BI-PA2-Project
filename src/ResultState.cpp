@@ -12,12 +12,14 @@ void ResultState::Initialize(StateManager &manager) {
     } else {
         texts.push_back(std::make_unique<MenuText>(manager, positions[0], "DEFEAT", 1)); //result text
         texts.push_back(std::make_unique<MenuText>(manager, positions[1], "RETRY", 0)); //retry text
+        Highscore(manager);
     }
     texts.push_back(std::make_unique<MenuText>(manager, positions[2], "MENU", 0)); //menu text
     texts.push_back(std::make_unique<MenuText>(manager, positions[3], manager.score->GetScore())); //score text
 
     SDL_SetRenderDrawColor(manager.mainRenderer, 0, 0, 0, 0); //black background
     menuSelections = 2;
+    menuPos = 1;
     changedText = true;
 }
 
@@ -56,4 +58,8 @@ void ResultState::HandleEvents(StateManager &manager) {
                 break;
         }
     }
+}
+
+void ResultState::Highscore(StateManager &manager) {
+    highscore.GetScores(manager.score->GetScore());
 }

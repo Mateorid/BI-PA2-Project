@@ -8,22 +8,18 @@ MapLoader::MapLoader(const string &filename, StateManager &manager) {
     LoadBlocks(filename, manager);
 }
 
-void MapLoader::LoadBlocks(const string &filename, StateManager &manager) {
+void MapLoader::LoadBlocks(const string &filename, StateManager &manager) { //todo toto nechytam??
     ifstream inputFile(filename, ios::in);
-
-    while (!inputFile.eof()) {
-        if (!inputFile.is_open()) {                         //Error while loading file
-            inputFile.close();
-            throw runtime_error("ERROR! Map file loading error.");
-        }
-
+    while (inputFile.is_open()) {
         inputFile >> blockLvl;
         if (inputFile.eof()) {                              //EOF check
             if (blocksInLine != maxBlocksLine || rows >= MAP_MAX_ROWS) {       //Line not fully filled or too many rows
                 inputFile.close();
-                throw invalid_argument("ERROR! Invalid map content.");
+                throw invalid_argument("ERROR! Wrong map size.");
+            } else {
+                inputFile.close(); //good map content
+                return;
             }
-            break;
         }
         if (!inputFile.good()) {                            //Invalid levels in map
             inputFile.close();
@@ -36,6 +32,7 @@ void MapLoader::LoadBlocks(const string &filename, StateManager &manager) {
         InsertBlock(blockLvl, manager);
     }
     inputFile.close();
+    throw runtime_error("ERROR! Map file loading error.");
 }
 
 void MapLoader::InsertBlock(int lvl, StateManager &man) {

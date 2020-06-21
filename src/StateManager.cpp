@@ -33,7 +33,7 @@ void StateManager::Run() {
 }
 
 void StateManager::Exit() {
-    ResetObjects();
+//    ResetObjects();
     if (activeState != nullptr)
         activeState->Clean(*this);
     activeState = nullptr;

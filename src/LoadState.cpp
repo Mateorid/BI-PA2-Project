@@ -1,7 +1,7 @@
 #include "LoadState.hpp"
 
 void LoadState::Initialize(StateManager &manager) {
-    manager.ResetObjects();
+//    manager.ResetObjects();
     switch (manager.GetLevel()) {
         case 1:
             mapLoader = new MapLoader(MAP1_SRC, manager);
