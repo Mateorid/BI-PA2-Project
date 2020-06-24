@@ -1,14 +1,14 @@
 #include "MainMenu.hpp"
 
 void MainMenu::Initialize() {
-    positions.push_back(20);//title pos     //todo set these by resolution
-    positions.push_back(400);//lvl select pos
-    positions.push_back(600);//exit pos
+    positions.push_back(20);    //title pos     //todo set these by resolution
+    positions.push_back(400);   //lvl select pos
+    positions.push_back(600);   //exit pos
     try {
-        texts.push_back(std::make_unique<MenuText>(app, positions[0], GAME_NAME, 1)); //game title
-        texts.push_back(std::make_unique<MenuText>(app, positions[1], selectedLvl, 1)); //lvl select
-        texts.push_back(std::make_unique<MenuText>(app, positions[2], "EXIT", 0)); //exit text
-        if (SDL_SetRenderDrawColor(app.res.mainRenderer, 0, 0, 0, 0) < 0)            //Setting black background
+        texts.push_back(std::make_unique<MenuText>(app, positions[0], GAME_NAME, 1));       //game title
+        texts.push_back(std::make_unique<MenuText>(app, positions[1], selectedLvl, 1));    //lvl select
+        texts.push_back(std::make_unique<MenuText>(app, positions[2], "EXIT", 0));      //exit text
+        if (SDL_SetRenderDrawColor(app.res.mainRenderer, 0, 0, 0, 0) < 0)                   //Setting black background
             throw std::runtime_error(SDL_GetError());
     }
     catch (std::runtime_error &err) {

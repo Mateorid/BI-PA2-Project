@@ -10,6 +10,7 @@ enum TextType {
     LVL_SELECT
 };
 
+/**menu text subclass*/
 class MenuText {
 public:
     MenuText(Application &, int y, const char *txt, bool title);

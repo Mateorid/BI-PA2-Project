@@ -4,9 +4,10 @@
 #include <fstream>
 #include <vector>
 
-
+/**HighScore managing class*/
 class HighScoreManager {
 public:
+    /**uses other methods to check if new top 10 score*/
     void GetScores(int);
 
 private:

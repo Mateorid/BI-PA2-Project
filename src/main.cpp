@@ -1,6 +1,5 @@
 #include <SDL2/SDL.h>
 
-//#include "Resources.hpp"
 #include "Application.hpp"
 
 

@@ -25,11 +25,20 @@ class Ball;
 
 class ScoreManager;
 
-
+/**Bonus class*/
 class Bonus : public GameObject {
 public:
+    /**
+     * Contructor
+     * @param renderer
+     * @param b1 1st ball
+     * @param b2 2nd ball
+     * @param plat platform
+     * @param score scoreManager
+     */
     Bonus(SDL_Renderer *renderer, Ball &b1, Ball &b2, GameObject &plat, ScoreManager &score);
 
+    /**Gravity effect*/
     void Update() override;
 
     void SpawnBonus(int x, int y);
@@ -40,12 +49,19 @@ public:
 
 private:
 
+    /**
+     * Spawns bonus at X:Y pos
+     * @param x x pos
+     * @param y y pos
+     */
     void Init(int x, int y);
 
     void SetBonusType(int x);
 
+    /**Applies the bonus effect when pick-uped*/
     void ApplyBonus();
 
+    /**Second ball bonus activation*/
     void SecondBall();
 
     BonusType bonusType{};

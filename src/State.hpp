@@ -7,11 +7,13 @@
 
 class Application;
 
-/**
- * Virtual class
- */
+/** Virtual State class*/
 class State {
 public:
+    /**
+     * Constructor
+     * @param app reference to Application gets stored for later use
+     */
     explicit State(Application &app) : app(app) {};
 
     virtual void Initialize() {};
@@ -24,6 +26,7 @@ public:
 
     virtual void Clean() {};
 protected:
+    /**Referemce to Application*/
     Application &app;
 };
 

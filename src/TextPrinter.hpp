@@ -4,10 +4,10 @@
 #include <sstream>
 #include <iostream>
 
-
+/**Text prinitng class*/
 class TextPrinter {
 public:
-
+    /**Initialize*/
     void Init(SDL_Renderer *, TTF_Font *);
 
     SDL_Texture *CreateLevelTexture(int, SDL_Rect &, bool);

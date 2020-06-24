@@ -14,12 +14,19 @@ static const int PLATFORM_SPEED = 8;
 static const int PLATFORM_FAST = 11;
 static const int PLATFORM_SLOW = 5;
 
+/**Platform class*/
 class Platform : public GameObject {
 public:
+    /**
+     * Constructor
+     * @param renderer renderer pointer
+     */
     explicit Platform(SDL_Renderer *renderer);
 
+    /**Sets platform in place*/
     void Init() override;
 
+    /**Checks for wall collision*/
     void Update() override;
 
     void MoveLeft() { dir = -1; }

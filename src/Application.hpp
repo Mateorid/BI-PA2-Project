@@ -43,7 +43,7 @@ enum class StateType {
 class Application {
 public:
     /**
-     * Constructor
+     * Constructor - Adds 6 states to states map
      * @param resources Reference to resource class
      */
     explicit Application(Resources &resources);
@@ -70,14 +70,10 @@ public:
      */
     void Run();
 
-    /**
-     * Clears currently active state
-     */
+    /**Clears currently active state*/
     void Exit();
 
-    /**
-     * Reference to a "wrapping" Resource class that holds all the important stuff
-     */
+    /** Reference to a "wrapping" Resource class that holds all the important stuff*/
     Resources &res;
 private:
     /**
@@ -87,9 +83,7 @@ private:
     */
     void AddState(StateType stateType, State *state);
 
-    /**
-     * Shared_ptr that points to currently active state
-     */
+    /** Shared_ptr that points to currently active state*/
     std::shared_ptr<State> activeState;
     /**
      * std::Map of all states in Application

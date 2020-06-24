@@ -2,10 +2,9 @@
 
 
 void StartupState::Initialize() {
-    if (APP_HEIGHT < 720 || APP_WIDTH < 540) {//todo delete?
+    if (APP_HEIGHT < 720 || APP_WIDTH < 540) {
         throw std::invalid_argument("Game size must be at least 720x540");
     }
-    //todo other GO sizes?
 
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
         throw std::runtime_error(SDL_GetError());
@@ -31,8 +30,6 @@ void StartupState::Initialize() {
 
     app.res.textPrinter.Init(app.res.mainRenderer, app.res.font);
     app.res.score = new ScoreManager(app.res.mainRenderer);
-}
 
-void StartupState::Update() {
     app.ChangeState(StateType::MAIN_MENU);
 }

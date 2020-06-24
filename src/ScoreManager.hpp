@@ -17,7 +17,7 @@ static const int SCORE_ADD = 100;
 /**Score deducted after losing a life*/
 static const int SCORE_DEDUCT = 300;
 
-
+/**In-game score managin class*/
 class ScoreManager {
 public:
 

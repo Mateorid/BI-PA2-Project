@@ -17,7 +17,7 @@ class Ball;
 
 class Bonus;
 
-
+/**Wrapping class with bunch of stuff used in Application*/
 class Resources {
 public:
     TextPrinter textPrinter{};
