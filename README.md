@@ -1,5 +1,5 @@
 # Arkanoid remastered (Akční hra)
-Autor: Matěj Gorgol
+Autor: Mateorid
 
 ## Téma z Progtestu
 Implementujte jednoduchou střílecí hru alespoň jednoho hráče proti počítači.
